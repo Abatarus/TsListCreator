@@ -1,12 +1,12 @@
 using Avalonia.Controls;
 
-namespace TSListCreator
+namespace TSListCreator;
+
+public partial class MainWindow : Window
 {
-    public partial class MainWindow : Window
+    public MainWindow()
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }
+

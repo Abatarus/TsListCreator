@@ -8,23 +8,27 @@
         <Canvas Grid.Column="0" Background="Gray">
             <Image />
         </Canvas>
-        <TabControl Grid.Column="1">
-            <TabItem Header="Поле ввода"> 
-                <ScrollViewer> 
-                    <ItemsRepeater />
-                </ScrollViewer>
-            </TabItem>
-            <TabItem Header="Счетчики">
-				<ScrollViewer>
-					<ItemsRepeater />
-				</ScrollViewer>
-			</TabItem>
-            <TabItem Header="Галочки"> 
-                <ScrollViewer>
-					<ItemsRepeater />
-				</ScrollViewer>
-			</TabItem>
-        </TabControl>
+        <Grid RowDefinitions="*,Auto,Auto" Grid.Column="1">
+            <TabControl Grid.Row="0">
+                <TabItem Header="Поля ввода"> 
+                    <ScrollViewer> 
+                        <ItemsRepeater />
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem Header="Счетчики">
+				    <ScrollViewer>
+					    <ItemsRepeater />
+				    </ScrollViewer>
+			    </TabItem>
+                <TabItem Header="Галочки"> 
+                    <ScrollViewer>
+					    <ItemsRepeater />
+				    </ScrollViewer>
+			    </TabItem>
+            </TabControl>
+            <Button Content="Сохранить" Grid.Row="1" HorizontalAlignment="Stretch" />
+            <Button Content="Копировать в буфер обмена" Grid.Row="2" HorizontalAlignment="Stretch" />
+        </Grid>
     </Grid>
  </UserControl>
 
