@@ -1,8 +1,9 @@
-﻿using System;
+﻿namespace TSListCreator.Controls;
 
-namespace TSListCreator;
-
-public class Checkbox
+public class Checkbox : Control
 {
-
+    public override string GetJsonString()
+    {
+        throw new System.NotImplementedException();
+    }
 }
