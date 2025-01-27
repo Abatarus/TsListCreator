@@ -1,6 +1,3 @@
-using System.ComponentModel;
-using TSListCreator.Interfaces;
-
 namespace TSListCreator.Controls;
 enum AlignmentId
 {
