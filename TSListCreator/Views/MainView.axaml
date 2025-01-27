@@ -8,7 +8,7 @@
     x:Class="TSListCreator.Views.MainView">
     <Grid ColumnDefinitions="*, Auto">
         <Canvas Grid.Column="0" Background="Gray">
-            <Image />
+            <Image Source="{Binding Image}"/>
         </Canvas>
         <Grid RowDefinitions="*,Auto,Auto,Auto,Auto" Grid.Column="1">
             <TabControl Grid.Row="0">
@@ -31,7 +31,7 @@
 				    </ScrollViewer>
 			    </TabItem>
             </TabControl>
-            <Button Content="Выбрать изображение" Grid.Row="1" HorizontalAlignment="Stretch" />
+            <Button Content="Выбрать изображение" Grid.Row="1" HorizontalAlignment="Stretch" Command="{Binding LoadImage}" />
             <Button Content="Загрузить" Grid.Row="2" HorizontalAlignment="Stretch" IsEnabled="{Binding CanInteract}" />
             <Button Content="Сохранить" Grid.Row="3" HorizontalAlignment="Stretch" IsEnabled="{Binding CanInteract}" />
             <Button Content="Копировать в буфер обмена" Grid.Row="4" HorizontalAlignment="Stretch" IsEnabled="{Binding CanInteract}" />
