@@ -7,8 +7,12 @@
     x:DataType="vm:MainViewModel"
     x:Class="TSListCreator.Views.MainView">
     <Grid ColumnDefinitions="*, Auto">
-        <Canvas Grid.Column="0" Background="Gray">
-            <Image Source="{Binding Image}"/>
+            <Image Grid.Column="0"
+                   Source="{Binding Image}" 
+                   Stretch="Uniform"
+                   HorizontalAlignment="Center"
+                   Height="{Binding $parent.Bounds.Height}"/>
+         <Canvas Grid.Column="0" Background="Transparent">
         </Canvas>
         <Grid RowDefinitions="*,Auto,Auto,Auto,Auto" Grid.Column="1">
             <TabControl Grid.Row="0">
@@ -30,6 +34,8 @@
 					    <ItemsRepeater />
 				    </ScrollViewer>
 			    </TabItem>
+                <TabItem Header="Общее">
+                </TabItem>
             </TabControl>
             <Button Content="Выбрать изображение" Grid.Row="1" HorizontalAlignment="Stretch" Command="{Binding LoadImage}" />
             <Button Content="Загрузить" Grid.Row="2" HorizontalAlignment="Stretch" IsEnabled="{Binding CanInteract}" />
