@@ -6,7 +6,7 @@
     mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
     x:DataType="vm:MainViewModel"
     x:Class="TSListCreator.Views.MainView">
-    <Grid ColumnDefinitions="*, Auto">
+    <Grid ColumnDefinitions="*, Auto" Background="#bdbdbd">
             <Image Grid.Column="0"
                    Source="{Binding Image}" 
                    Stretch="Uniform"
@@ -14,7 +14,7 @@
                    Height="{Binding $parent.Bounds.Height}"/>
          <Canvas Grid.Column="0" Background="Transparent">
         </Canvas>
-        <Grid RowDefinitions="*,Auto,Auto,Auto,Auto" Grid.Column="1">
+        <Grid RowDefinitions="*,Auto,Auto,Auto,Auto" Grid.Column="1" Background="#eaede8">
             <TabControl Grid.Row="0">
                 <TabItem Header="Поля ввода"> 
                     <Grid RowDefinitions="Auto, *">
