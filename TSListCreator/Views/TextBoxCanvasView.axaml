@@ -3,36 +3,39 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:thumbs="clr-namespace:TSListCreator.Thumbs"
+             xmlns:converters="clr-namespace:TSListCreator.Converters"
              Width="50"
+             MinWidth="50"
              Height="50"
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d"
              x:Class="TSListCreator.Views.TextBoxCanvasView">
-
+    <UserControl.Resources>
+        <converters:SideSpaceConverter x:Key="SideSpaceConverter"/>
+    </UserControl.Resources>
     <Border Background="Black"
-            BorderThickness="1" >
-            <thumbs:MovedThumb VerticalAlignment="Center"
-                               HorizontalAlignment="Center"
-                               Height="40"
-                               Width="40"
-                               x:DataType="UserControl"
-                               DataContext="{Binding $parent[UserControl]}">
-                <thumbs:MovedThumb.Styles>
-                    <Style Selector="thumbs|MovedThumb">
-                        <Setter Property="Cursor"
-                                Value="DragMove"/>
-                    </Style>
-                </thumbs:MovedThumb.Styles>
-                <thumbs:MovedThumb.Template>
-                    <ControlTemplate>
-                        <Rectangle Stretch="Fill"
-                                   Fill="White"
-                                   HorizontalAlignment="Stretch"
-                                   VerticalAlignment="Stretch"></Rectangle>
-                    </ControlTemplate>
-                </thumbs:MovedThumb.Template>
-            </thumbs:MovedThumb>
+            BorderThickness="1"
+            PointerMoved="OnPointerMoved"
+            PointerPressed="OnPointerPressed"
+            PointerReleased="OnPointerReleased"
+            Cursor="SizeWestEast">
+        <thumbs:MovedThumb VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Height="{Binding Height}"
+                           Width="{Binding Width, Converter={StaticResource SideSpaceConverter}, ConverterParameter=10}"
+                           Cursor="DragMove"
+                           x:DataType="UserControl"
+                           DataContext="{Binding $parent[UserControl]}">
+            <thumbs:MovedThumb.Template>
+                <ControlTemplate>
+                    <Rectangle Stretch="Fill"
+                               Fill="White"
+                               HorizontalAlignment="Stretch"
+                               VerticalAlignment="Stretch"></Rectangle>
+                </ControlTemplate>
+            </thumbs:MovedThumb.Template>
+        </thumbs:MovedThumb>
     </Border>
 </UserControl>
 
