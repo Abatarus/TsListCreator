@@ -10,7 +10,6 @@ namespace TSListCreator.Views;
 public partial class TextBoxCanvasView: UserControl
 {
     private bool _isPointerPressed = false;
-    private Point _startStretchPoint;
     public TextBoxCanvasView()
     {
         InitializeComponent();
@@ -28,7 +27,6 @@ public partial class TextBoxCanvasView: UserControl
     }
     private void OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
-        _startStretchPoint = e.GetPosition((Visual)Parent!);
         _isPointerPressed = true;
     }
 
