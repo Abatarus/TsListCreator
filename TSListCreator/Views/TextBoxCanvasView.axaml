@@ -6,6 +6,7 @@
              xmlns:converters="clr-namespace:TSListCreator.Converters"
              Width="50"
              MinWidth="50"
+             MinHeight="50"
              Height="50"
              d:DesignHeight="450"
              d:DesignWidth="800"
@@ -13,16 +14,16 @@
              x:Class="TSListCreator.Views.TextBoxCanvasView">
     <UserControl.Resources>
         <converters:SideSpaceConverter x:Key="SideSpaceConverter"/>
+        <converters:OneSideSpaceConverter x:Key="OneSideSpaceConverter"/>
     </UserControl.Resources>
     <Border Background="Black"
             BorderThickness="1"
             PointerMoved="OnPointerMoved"
             PointerPressed="OnPointerPressed"
-            PointerReleased="OnPointerReleased"
-            Cursor="SizeWestEast">
-        <thumbs:MovedThumb VerticalAlignment="Center"
+            PointerReleased="OnPointerReleased">
+        <thumbs:MovedThumb VerticalAlignment="Top"
                            HorizontalAlignment="Center"
-                           Height="{Binding Height}"
+                           Height="{Binding Height, Converter={StaticResource OneSideSpaceConverter}, ConverterParameter=10}"
                            Width="{Binding Width, Converter={StaticResource SideSpaceConverter}, ConverterParameter=10}"
                            Cursor="DragMove"
                            x:DataType="UserControl"
