@@ -1,50 +1,61 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:v="using:TSListCreator.Views"
-             xmlns:vm="using:TSListCreator.ViewModels"
-             d:DesignHeight="450"
-             d:DesignWidth="800"
-             x:DataType="vm:MainViewModel"
-             mc:Ignorable="d"
-             x:Class="TSListCreator.Views.MainView">
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:v="using:TSListCreator.Views"
+			 xmlns:vm="using:TSListCreator.ViewModels"
+			 d:DesignHeight="450"
+			 d:DesignWidth="800"
+			 x:DataType="vm:MainViewModel"
+			 mc:Ignorable="d"
+			 x:Class="TSListCreator.Views.MainView">
 	<Grid Background="#bdbdbd"
-          ColumnDefinitions="*, Auto">
+		  ColumnDefinitions="*, Auto">
 		<Image Grid.Column="0"
-               Height="{Binding $parent.Bounds.Height}"
-               HorizontalAlignment="Center"
-               Source="{Binding Image}"
-               Stretch="Uniform" />
-		<Canvas Grid.Column="0"
-                Background="Transparent"
-                PointerMoved="OnPointerMoved"
-                PointerPressed="OnPointerPressed"
-                PointerReleased="OnPointerReleased">
-			<v:TextBoxCanvasView Canvas.Left="100"
-                                 Canvas.Top="100"/>
-			<v:TextBoxCanvasView Canvas.Left="200"
-                                 Canvas.Top="200"/>
-		</Canvas>
+			   Height="{Binding $parent.Bounds.Height}"
+			   HorizontalAlignment="Center"
+			   Source="{Binding Image}"
+			   Stretch="Uniform" />
+		<ItemsControl Grid.Column="0"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch"
+					  ItemsSource="{Binding TextBoxes, Mode=TwoWay}">
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<Canvas x:Name="Canvas"
+							Background="Transparent"
+							PointerMoved="OnPointerMoved"
+							PointerPressed="OnPointerPressed"
+							PointerReleased="OnPointerReleased">
+					</Canvas>
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+
+			<ItemsControl.ItemTemplate>
+				<DataTemplate>
+					<v:TextBoxCanvasView/>
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
 		<Grid Grid.Column="1"
-              Background="#eaede8"
-              RowDefinitions="*,Auto,Auto,Auto,Auto">
+			  Background="#eaede8"
+			  RowDefinitions="*,Auto,Auto,Auto,Auto">
 			<TabControl Grid.Row="0">
 				<TabItem Header="Поля ввода">
 					<Grid RowDefinitions="Auto, *">
 						<Button Grid.Row="0"
-                                HorizontalAlignment="Stretch"
-                                Content="Добавить"
-                                Command="{Binding AddNewTextBox}"
-                                IsEnabled="{Binding CanInteract}" />
+								HorizontalAlignment="Stretch"
+								Content="Добавить"
+								Command="{Binding AddNewTextBox}"
+								IsEnabled="{Binding CanInteract}" />
 						<ScrollViewer Grid.Row="1">
 							<ItemsControl ItemsSource="{Binding TextBoxes, Mode=TwoWay}">
 								<ItemsControl.ItemTemplate>
 									<DataTemplate>
-                                        <v:TextBoxListView/>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
+										<v:TextBoxListView/>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
 						</ScrollViewer>
 					</Grid>
 				</TabItem>
@@ -61,21 +72,21 @@
 				<TabItem Header="Общее" />
 			</TabControl>
 			<Button Grid.Row="1"
-                    HorizontalAlignment="Stretch"
-                    Command="{Binding LoadImage}"
-                    Content="Выбрать изображение" />
+					HorizontalAlignment="Stretch"
+					Command="{Binding LoadImage}"
+					Content="Выбрать изображение" />
 			<Button Grid.Row="2"
-                    HorizontalAlignment="Stretch"
-                    Content="Загрузить"
-                    IsEnabled="{Binding CanInteract}" />
+					HorizontalAlignment="Stretch"
+					Content="Загрузить"
+					IsEnabled="{Binding CanInteract}" />
 			<Button Grid.Row="3"
-                    HorizontalAlignment="Stretch"
-                    Content="Сохранить"
-                    IsEnabled="{Binding CanInteract}" />
+					HorizontalAlignment="Stretch"
+					Content="Сохранить"
+					IsEnabled="{Binding CanInteract}" />
 			<Button Grid.Row="4"
-                    HorizontalAlignment="Stretch"
-                    Content="Копировать в буфер обмена"
-                    IsEnabled="{Binding CanInteract}" />
+					HorizontalAlignment="Stretch"
+					Content="Копировать в буфер обмена"
+					IsEnabled="{Binding CanInteract}" />
 		</Grid>
 	</Grid>
 </UserControl>

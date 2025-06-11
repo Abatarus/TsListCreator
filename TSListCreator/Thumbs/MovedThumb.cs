@@ -15,7 +15,7 @@ namespace TSListCreator.Thumbs
             {
                 double left = Canvas.GetLeft(designerItem);
                 double top = Canvas.GetTop(designerItem);
-                StyledElement parentCanvas = designerItem.Parent;
+                /*StyledElement parentCanvas = designerItem.Parent;
                 while (designerItem.Parent is not Canvas)
                 {
                     parentCanvas = parentCanvas!.Parent!;
@@ -23,14 +23,14 @@ namespace TSListCreator.Thumbs
                     {
                         throw new Exception("MoveThumb must be inside Canvas");
                     }
-                }
+                }*/
 
-                double right = parentCanvas.GetValue(WidthProperty);
-                double bottom = parentCanvas.GetValue(HeightProperty);
+                /*double right = parentCanvas.GetValue(WidthProperty);
+                double bottom = parentCanvas.GetValue(HeightProperty);*/
 
                 double newPosX = left + e.Vector.X;
                 double newPosY = top + e.Vector.Y;
-                if (newPosX < 0)
+                /*if (newPosX < 0)
                 {
                     newPosX = 0;
                 }
@@ -45,7 +45,7 @@ namespace TSListCreator.Thumbs
                 else if (newPosY + designerItem.GetValue(HeightProperty) > bottom)
                 {
                     newPosY = bottom - designerItem.GetValue(HeightProperty);
-                }
+                }*/
                 Canvas.SetLeft(designerItem, newPosX);
                 Canvas.SetTop(designerItem, newPosY);
             }
