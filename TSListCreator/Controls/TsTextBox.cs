@@ -1,5 +1,6 @@
 namespace TSListCreator.Controls;
-enum AlignmentId
+
+public enum AlignmentId
 {
     Automatic,
     Left,
@@ -7,7 +8,8 @@ enum AlignmentId
     Right,
     Justified
 }
-class TextBox : Control
+
+public class TsTextBox : Control
 {
     private AlignmentId _alignment = AlignmentId.Left;
     public AlignmentId Alignment

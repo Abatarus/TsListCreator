@@ -6,46 +6,49 @@
 			 d:DesignWidth="800"
 			 d:DesignHeight="450"
 			 x:Class="TSListCreator.Views.TextBoxListView">
-	<Grid ColumnDefinitions="*,*,*,*"
-		  RowDefinitions="Auto,*,*">
-		<Label Grid.Column="0"
-			   Grid.Row="0"
-			   Grid.ColumnSpan="2"
-			   Content="Название:"/>
-		<TextBox Grid.Column="2"
-				 Grid.Row="0"
-				 Grid.ColumnSpan="2"
-                 VerticalAlignment="Top"/>
+	<Border BorderThickness="1"
+			Padding="5"
+			BorderBrush="Blue"
+			CornerRadius="5">
 
-        <Label Grid.Column="0"
-               Grid.Row="1"
-               Content="Значение:"/>
-        <TextBox Grid.Column="1"
-                 Grid.Row="1"
-                 VerticalAlignment="Top"/>
-        <Label Grid.Column="2"
-               Grid.Row="1"
-               Content="Заменитель:"/>
-        <TextBox Grid.Column="3"
-                 Grid.Row="1"
-                 VerticalAlignment="Top"/>
+		<Grid ColumnDefinitions="*,*,*,*"
+			  RowDefinitions="Auto,*,*">
+			<Label Grid.Column="0"
+				   Grid.Row="0"
+				   Grid.ColumnSpan="2"
+				   Content="Название:"/>
+			<TextBox Grid.Column="2"
+					 Grid.Row="0"
+					 Grid.ColumnSpan="2"
+					 VerticalAlignment="Top"/>
 
-        <Label Grid.Column="0"
-               Grid.Row="2"
-               Content="Размер шрифта px:"/>
-        <TextBox Grid.Column="1"
-                 Grid.Row="2"
-                 VerticalAlignment="Top"/>
+			<Label Grid.Column="0"
+				   Grid.Row="1"
+				   Content="Значение:"/>
+			<TextBox Grid.Column="1"
+					 Grid.Row="1"
+					 VerticalAlignment="Top"/>
+			<Label Grid.Column="2"
+				   Grid.Row="1"
+				   Content="Заменитель:"/>
+			<TextBox Grid.Column="3"
+					 Grid.Row="1"
+					 VerticalAlignment="Top"/>
 
-        <Label Grid.Column="2"
-               Grid.Row="2"
-               Content="Заменитель:"/>
-        <ComboBox Grid.Column="3"
-                  Grid.Row="2"
-                  HorizontalAlignment="Stretch"/>
+			<Label Grid.Column="0"
+				   Grid.Row="2"
+				   Content="Размер шрифта px:"/>
+			<TextBox Grid.Column="1"
+					 Grid.Row="2"
+					 VerticalAlignment="Top"/>
 
-
-
-
-	</Grid>
+			<Label Grid.Column="2"
+				   Grid.Row="2"
+				   Content="Выравнивать по:"/>
+			<ComboBox Grid.Column="3"
+					  Grid.Row="2"
+					  HorizontalAlignment="Stretch"/>
+		</Grid>
+	</Border>
 </UserControl>
+
