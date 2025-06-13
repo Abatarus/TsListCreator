@@ -17,5 +17,12 @@ public abstract class TsControl : DataModel, IJsonInput
         set => SetField(ref _posY, value); 
     }
 
+    private bool _isHighlighted = false;
+    public bool IsHighlighted
+    {
+        get => _isHighlighted;
+        set => SetField(ref _isHighlighted, value);
+    }
+
     public abstract string GetJsonString();
 }

@@ -2,9 +2,12 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:controls="clr-namespace:TSListCreator.Controls"
 			 mc:Ignorable="d"
 			 d:DesignWidth="800"
-			 d:DesignHeight="450"
+             d:DesignHeight="450"
+             x:DataType="controls:TsTextBox"
+			 IsPointerOver="{Binding IsHighlighted, Mode=OneWayToSource}"
 			 x:Class="TSListCreator.Views.TextBoxListView">
 	<UserControl.Resources>
 		<StreamGeometry x:Key="dismiss_regular">M3.52499419,3.71761187 L3.61611652,3.61611652 C4.0717282,3.16050485 4.79154862,3.13013074 5.28238813,3.52499419 L5.38388348,3.61611652 L14,12.233 L22.6161165,3.61611652 C23.1042719,3.12796116 23.8957281,3.12796116 24.3838835,3.61611652 C24.8720388,4.10427189 24.8720388,4.89572811 24.3838835,5.38388348 L15.767,14 L24.3838835,22.6161165 C24.8394952,23.0717282 24.8698693,23.7915486 24.4750058,24.2823881 L24.3838835,24.3838835 C23.9282718,24.8394952 23.2084514,24.8698693 22.7176119,24.4750058 L22.6161165,24.3838835 L14,15.767 L5.38388348,24.3838835 C4.89572811,24.8720388 4.10427189,24.8720388 3.61611652,24.3838835 C3.12796116,23.8957281 3.12796116,23.1042719 3.61611652,22.6161165 L12.233,14 L3.61611652,5.38388348 C3.16050485,4.9282718 3.13013074,4.20845138 3.52499419,3.71761187 L3.61611652,3.61611652 L3.52499419,3.71761187 Z</StreamGeometry>
@@ -13,7 +16,20 @@
 			Padding="5"
 			BorderBrush="Blue"
 			CornerRadius="5">
-
+        <Interaction.Behaviors>
+            <DataTriggerBehavior Binding="{Binding IsHighlighted}"
+                                 ComparisonCondition="Equal"
+                                 Value="True">
+                <ChangePropertyAction PropertyName="BorderBrush"
+                                      Value="Green"/>
+            </DataTriggerBehavior>
+            <DataTriggerBehavior Binding="{Binding IsHighlighted}"
+                                 ComparisonCondition="Equal"
+                                 Value="False">
+                <ChangePropertyAction PropertyName="BorderBrush"
+                                      Value="Blue"/>
+            </DataTriggerBehavior>
+        </Interaction.Behaviors>
 		<Grid ColumnDefinitions="*,*,*,*"
 			  RowDefinitions="Auto,*,*">
 			<Label Grid.Column="0"

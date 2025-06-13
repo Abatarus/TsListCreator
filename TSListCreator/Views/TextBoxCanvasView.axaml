@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:thumbs="clr-namespace:TSListCreator.Thumbs"
              xmlns:converters="clr-namespace:TSListCreator.Converters"
+             xmlns:controls="clr-namespace:TSListCreator.Controls"
              Width="50"
              MinWidth="50"
              MinHeight="50"
@@ -11,16 +12,31 @@
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d"
+             x:DataType="controls:TsTextBox"
+             IsPointerOver="{Binding IsHighlighted, Mode=OneWayToSource}"
              x:Class="TSListCreator.Views.TextBoxCanvasView">
     <UserControl.Resources>
         <converters:SideSpaceConverter x:Key="SideSpaceConverter"/>
         <converters:OneSideSpaceConverter x:Key="OneSideSpaceConverter"/>
     </UserControl.Resources>
     <Border Background="Black"
-            BorderThickness="1"
+            BorderThickness="0"
             PointerMoved="OnPointerMoved"
             PointerPressed="OnPointerPressed"
             PointerReleased="OnPointerReleased">
+        <Interaction.Behaviors>
+            <DataTriggerBehavior Binding="{Binding IsHighlighted}" ComparisonCondition="Equal"
+                                 Value="True">
+                <ChangePropertyAction PropertyName="Background"
+                                      Value="Green"/>
+            </DataTriggerBehavior>
+            <DataTriggerBehavior Binding="{Binding IsHighlighted}"
+                                 ComparisonCondition="Equal"
+                                 Value="False">
+                <ChangePropertyAction PropertyName="Background"
+                                      Value="Black"/>
+            </DataTriggerBehavior>
+        </Interaction.Behaviors>
         <thumbs:MovedThumb VerticalAlignment="Top"
                            HorizontalAlignment="Center"
                            Height="{Binding Height, Converter={StaticResource OneSideSpaceConverter}, ConverterParameter=10}"
@@ -33,7 +49,7 @@
                     <Rectangle Stretch="Fill"
                                Fill="White"
                                HorizontalAlignment="Stretch"
-                               VerticalAlignment="Stretch"></Rectangle>
+                               VerticalAlignment="Stretch"/>
                 </ControlTemplate>
             </thumbs:MovedThumb.Template>
         </thumbs:MovedThumb>
