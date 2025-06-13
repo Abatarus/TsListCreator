@@ -9,10 +9,12 @@ using TSListCreator.Thumbs;
 
 namespace TSListCreator.Views;
 
-public partial class TextBoxCanvasView: UserControl
+public partial class TextBoxCanvasView : UserControl
 {
     private bool _isPointerPressed = false;
     private bool _isRightLeftStretching = false;
+    private double PosX => ((TsControl)(DataContext)).PosX;
+    private double PosY => ((TsControl)(DataContext)).PosY;
     public TextBoxCanvasView()
     {
         InitializeComponent();
@@ -55,7 +57,7 @@ public partial class TextBoxCanvasView: UserControl
         {
             if (_isRightLeftStretching)
             {
-                double newWidth = Math.Abs(((TsControl)(DataContext)).PosX - e.GetPosition((Visual)Parent.Parent!).X);
+                double newWidth = Math.Abs(PosX - e.GetPosition((Visual)Parent.Parent!).X);
                 if (MinWidth < newWidth)
                 {
                     Width = newWidth;
@@ -63,7 +65,7 @@ public partial class TextBoxCanvasView: UserControl
             }
             else
             {
-                double newHeight = Math.Abs(((TsControl)(DataContext)).PosY - e.GetPosition((Visual)Parent.Parent!).Y);
+                double newHeight = Math.Abs(PosY - e.GetPosition((Visual)Parent.Parent!).Y);
                 int newIntHeight = (int)(newHeight / MinHeight);
                 if (newIntHeight >= 1)
                 {
