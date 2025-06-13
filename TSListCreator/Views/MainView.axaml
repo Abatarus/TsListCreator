@@ -3,7 +3,8 @@
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:v="using:TSListCreator.Views"
-			 xmlns:vm="using:TSListCreator.ViewModels"
+			 xmlns:vm="using:TSListCreator.ViewModels" 
+			 xmlns:controls="clr-namespace:TSListCreator.Controls"
 			 d:DesignHeight="450"
 			 d:DesignWidth="800"
 			 x:DataType="vm:MainViewModel"
@@ -20,7 +21,16 @@
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Stretch"
 					  ItemsSource="{Binding TextBoxes, Mode=TwoWay}">
-			<ItemsControl.ItemsPanel>
+            <ItemsControl.Styles>
+                <Style Selector="ContentPresenter"
+                       x:DataType="controls:TsControl">
+                    <Setter Property="Canvas.Left"
+                            Value="{Binding PosX}"/>
+                    <Setter Property="Canvas.Top"
+                            Value="{Binding PosY}"/>
+                </Style>
+            </ItemsControl.Styles>
+            <ItemsControl.ItemsPanel>
 				<ItemsPanelTemplate>
 					<Canvas x:Name="Canvas"
 							Background="Transparent"
@@ -36,6 +46,7 @@
 					<v:TextBoxCanvasView/>
 				</DataTemplate>
 			</ItemsControl.ItemTemplate>
+
 		</ItemsControl>
 		<Grid Grid.Column="1"
 			  Background="#eaede8"

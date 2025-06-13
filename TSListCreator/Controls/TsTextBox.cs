@@ -9,7 +9,7 @@ public enum AlignmentId
     Justified
 }
 
-public class TsTextBox : Control
+public class TsTextBox : TsControl
 {
     private AlignmentId _alignment = AlignmentId.Left;
     public AlignmentId Alignment

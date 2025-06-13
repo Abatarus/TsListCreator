@@ -4,6 +4,7 @@ using Avalonia.Input;
 using Avalonia.Media;
 using System;
 using System.ComponentModel.Design;
+using TSListCreator.Controls;
 using TSListCreator.Thumbs;
 
 namespace TSListCreator.Views;
@@ -54,7 +55,7 @@ public partial class TextBoxCanvasView: UserControl
         {
             if (_isRightLeftStretching)
             {
-                double newWidth = Math.Abs(Canvas.GetLeft(this) - e.GetPosition((Visual)Parent!).X);
+                double newWidth = Math.Abs(((TsControl)(DataContext)).PosX - e.GetPosition((Visual)Parent.Parent!).X);
                 if (MinWidth < newWidth)
                 {
                     Width = newWidth;
@@ -62,7 +63,7 @@ public partial class TextBoxCanvasView: UserControl
             }
             else
             {
-                double newHeight = Math.Abs(Canvas.GetTop(this) - e.GetPosition((Visual)Parent!).Y);
+                double newHeight = Math.Abs(((TsControl)(DataContext)).PosY - e.GetPosition((Visual)Parent.Parent!).Y);
                 int newIntHeight = (int)(newHeight / MinHeight);
                 if (newIntHeight >= 1)
                 {

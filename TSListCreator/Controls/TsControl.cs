@@ -1,7 +1,7 @@
 using TSListCreator.Interfaces;
 using TSListCreator.Utils;
-
-public abstract class Control : DataModel, IJsonInput
+namespace TSListCreator.Controls;
+public abstract class TsControl : DataModel, IJsonInput
 {
     private double _posX = 0.0;
     public double PosX

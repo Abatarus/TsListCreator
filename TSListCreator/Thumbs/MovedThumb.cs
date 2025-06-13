@@ -4,6 +4,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using System;
 using Avalonia.Interactivity;
+using TSListCreator.Controls;
 
 namespace TSListCreator.Thumbs
 {
@@ -13,8 +14,8 @@ namespace TSListCreator.Thumbs
         {
             if (DataContext is StyledElement designerItem)
             {
-                double left = Canvas.GetLeft(designerItem);
-                double top = Canvas.GetTop(designerItem);
+                double left = ((TsControl)(designerItem.DataContext)).PosX;
+                double top = ((TsControl)(designerItem.DataContext)).PosY;
                 /*StyledElement parentCanvas = designerItem.Parent;
                 while (designerItem.Parent is not Canvas)
                 {
@@ -46,8 +47,8 @@ namespace TSListCreator.Thumbs
                 {
                     newPosY = bottom - designerItem.GetValue(HeightProperty);
                 }*/
-                Canvas.SetLeft(designerItem, newPosX);
-                Canvas.SetTop(designerItem, newPosY);
+                ((TsControl)(designerItem.DataContext)).PosX = newPosX;
+                ((TsControl)(designerItem.DataContext)).PosY = newPosY;
             }
         }
     }

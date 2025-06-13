@@ -1,6 +1,6 @@
 ﻿namespace TSListCreator.Controls;
 
-public class Checkbox : Control
+public class Checkbox : TsControl
 {
     public override string GetJsonString()
     {
