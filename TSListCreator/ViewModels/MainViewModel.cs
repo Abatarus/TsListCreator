@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media.Imaging;
@@ -12,8 +14,8 @@ namespace TSListCreator.ViewModels;
 
 public class MainViewModel: DataModel
 {
-    private Bitmap? _image = null;
-    public Bitmap? Image
+    private TsImage? _image = null;
+    public TsImage? TsImage
     {
         get => _image;
         set
@@ -22,6 +24,7 @@ public class MainViewModel: DataModel
             OnPropertyChanged(nameof(CanInteract));
         }
     }
+    public bool CanInteract => TsImage != null;
 
     private ObservableCollection<TsTextBox> _textBoxes = new ObservableCollection<TsTextBox>(new List<TsTextBox>());
     public ObservableCollection<TsTextBox> TextBoxes
@@ -29,7 +32,6 @@ public class MainViewModel: DataModel
         get => _textBoxes;
         set => SetField(ref _textBoxes, value);
     }
-    public bool CanInteract => Image != null;
 
     private object _view;
     public MainViewModel(object view)
@@ -37,20 +39,27 @@ public class MainViewModel: DataModel
         _view = view;
     }
 
-    public async void LoadImage()
+    public async Task LoadImage()
     {
-        var topLevel = TopLevel.GetTopLevel((Visual)_view);
-        var value = new FilePickerOpenOptions {
-            Title = "Выберете изображение",
-            AllowMultiple = false,
-            FileTypeFilter = new[] { FilePickerFileTypes.ImagePng, FilePickerFileTypes.ImageAll }
-        };
-        var files = await topLevel!.StorageProvider.OpenFilePickerAsync(value);
-
-        if (files.Count >= 1)
+        try
         {
-            await using Stream stream = await files[0].OpenReadAsync();
-            Image = new Bitmap(stream);
+            var topLevel = TopLevel.GetTopLevel((Visual)_view);
+            var value = new FilePickerOpenOptions {
+                Title = "Выберете изображение",
+                AllowMultiple = false,
+                FileTypeFilter = new[] { FilePickerFileTypes.ImagePng, FilePickerFileTypes.ImageAll }
+            };
+            var files = await topLevel!.StorageProvider.OpenFilePickerAsync(value);
+
+            if (files.Count >= 1)
+            {
+                await using Stream stream = await files[0].OpenReadAsync();
+                TsImage = new TsImage(new Bitmap(stream));
+            }
+        }
+        catch (Exception e)
+        {
+            throw new Exception("File loading failed");
         }
     }
 

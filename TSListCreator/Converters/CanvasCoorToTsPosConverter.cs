@@ -8,16 +8,11 @@ using Avalonia.Data.Converters;
 
 namespace TSListCreator.Converters
 {
-    class CanvasCoorToTsPosConverter: IValueConverter
+    public class CanvasCoorToTsPosConverter: IMultiValueConverter
     {
-        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+        public object? Convert(IList<object?> values, Type targetType, object? parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
-        }
-
-        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
+            return values[0];
         }
     }
 }

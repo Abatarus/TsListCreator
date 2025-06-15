@@ -1,104 +1,135 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:v="using:TSListCreator.Views"
-			 xmlns:vm="using:TSListCreator.ViewModels" 
-			 xmlns:controls="clr-namespace:TSListCreator.Controls"
-			 d:DesignHeight="450"
-			 d:DesignWidth="800"
-			 x:DataType="vm:MainViewModel"
-			 mc:Ignorable="d"
-			 x:Class="TSListCreator.Views.MainView">
-	<Grid Background="#bdbdbd"
-		  ColumnDefinitions="*, Auto">
-		<Image Grid.Column="0"
-			   Height="{Binding $parent.Bounds.Height}"
-			   HorizontalAlignment="Center"
-			   Source="{Binding Image}"
-			   Stretch="Uniform" />
-		<ItemsControl Grid.Column="0"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:v="using:TSListCreator.Views"
+             xmlns:vm="using:TSListCreator.ViewModels"
+             xmlns:controls="clr-namespace:TSListCreator.Controls"
+             xmlns:converters="clr-namespace:TSListCreator.Converters"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             x:DataType="vm:MainViewModel"
+             x:Name="Main"
+             mc:Ignorable="d"
+             x:Class="TSListCreator.Views.MainView">
+    <UserControl.Resources>
+        <converters:CanvasCoorToTsPosConverter x:Key="CanvasCoorToTsPos"/>
+    </UserControl.Resources>
+    <Grid Background="#bdbdbd"
+          ColumnDefinitions="*,Auto,*, Auto">
+        <StackPanel Grid.Column="1">
+            <Image x:Name="ShowedImage"
+                   HorizontalAlignment="Center"
+                   Stretch="Uniform"
+                   Width="{Binding TsImage.Width, Mode=OneWayToSource}"
+                   Height="{Binding $parent.Bounds.Height}"
+                   Source="{Binding TsImage.Source}"/><!---->
+        </StackPanel>
+        <ItemsControl Grid.Column="1"
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Stretch"
-					  ItemsSource="{Binding TextBoxes, Mode=TwoWay}">
+                      ItemsSource="{Binding TextBoxes, Mode=TwoWay}">
+            <!--Width="{Binding #ShowedImage.Width}"
+                      Height="{Binding #ShowedImage.Height}"HorizontalAlignment="Center"
+                      VerticalAlignment="Center"-->
             <ItemsControl.Styles>
                 <Style Selector="ContentPresenter"
                        x:DataType="controls:TsControl">
                     <Setter Property="Canvas.Left"
-                            Value="{Binding PosX}"/>
+                            Value="{Binding PosX}">
+                        <!--<Setter.Value>
+                            <MultiBinding Converter="{StaticResource CanvasCoorToTsPos}">
+                                <Binding Path="PosX"/>
+                                <Binding ElementName="ShowedImage"
+                                         Path="Width"/>
+                                <ReflectionBinding ElementName="Main"
+                                                   Path="DataContext.TsImage.EmToPix"/>
+                            </MultiBinding>
+                        </Setter.Value>-->
+                    </Setter>
                     <Setter Property="Canvas.Top"
-                            Value="{Binding PosY}"/>
+                            Value="{Binding PosY}">
+                        <!--<Setter.Value>
+                            <MultiBinding Converter="{StaticResource CanvasCoorToTsPos}">
+                                <Binding Path="PosY"/>
+                                <Binding ElementName="ShowedImage"
+                                         Path="Height"/>
+                                <ReflectionBinding ElementName="Main"
+                                                   Path="DataContext.TsImage.EmToPix"/>
+                            </MultiBinding>
+                        </Setter.Value>-->
+                    </Setter>
                 </Style>
             </ItemsControl.Styles>
             <ItemsControl.ItemsPanel>
-				<ItemsPanelTemplate>
-					<Canvas x:Name="Canvas"
-							Background="Transparent"
-							PointerMoved="OnPointerMoved"
-							PointerPressed="OnPointerPressed"
-							PointerReleased="OnPointerReleased">
-					</Canvas>
-				</ItemsPanelTemplate>
-			</ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas x:Name="Canvas"
+                            Background="Transparent"
+                            PointerMoved="OnPointerMoved"
+                            PointerPressed="OnPointerPressed"
+                            PointerReleased="OnPointerReleased">
+                    </Canvas>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
 
-			<ItemsControl.ItemTemplate>
-				<DataTemplate>
-					<v:TextBoxCanvasView/>
-				</DataTemplate>
-			</ItemsControl.ItemTemplate>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <v:TextBoxCanvasView/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
 
-		</ItemsControl>
-		<Grid Grid.Column="1"
-			  Background="#eaede8"
-			  RowDefinitions="*,Auto,Auto,Auto,Auto">
-			<TabControl Grid.Row="0">
-				<TabItem Header="Поля ввода">
-					<Grid RowDefinitions="Auto, *">
-						<Button Grid.Row="0"
-								HorizontalAlignment="Stretch"
-								Content="Добавить"
-								Command="{Binding AddNewTextBox}"
-								IsEnabled="{Binding CanInteract}" />
-						<ScrollViewer Grid.Row="1">
-							<ItemsControl ItemsSource="{Binding TextBoxes, Mode=TwoWay}">
-								<ItemsControl.ItemTemplate>
-									<DataTemplate>
-										<v:TextBoxListView/>
-									</DataTemplate>
-								</ItemsControl.ItemTemplate>
-							</ItemsControl>
-						</ScrollViewer>
-					</Grid>
-				</TabItem>
-				<TabItem Header="Счетчики">
-					<ScrollViewer>
-						<ItemsRepeater />
-					</ScrollViewer>
-				</TabItem>
-				<TabItem Header="Галочки">
-					<ScrollViewer>
-						<ItemsRepeater />
-					</ScrollViewer>
-				</TabItem>
-				<TabItem Header="Общее" />
-			</TabControl>
-			<Button Grid.Row="1"
-					HorizontalAlignment="Stretch"
-					Command="{Binding LoadImage}"
-					Content="Выбрать изображение" />
-			<Button Grid.Row="2"
-					HorizontalAlignment="Stretch"
-					Content="Загрузить"
-					IsEnabled="{Binding CanInteract}" />
-			<Button Grid.Row="3"
-					HorizontalAlignment="Stretch"
-					Content="Сохранить"
-					IsEnabled="{Binding CanInteract}" />
-			<Button Grid.Row="4"
-					HorizontalAlignment="Stretch"
-					Content="Копировать в буфер обмена"
-					IsEnabled="{Binding CanInteract}" />
-		</Grid>
-	</Grid>
+        </ItemsControl>
+        <Grid Grid.Column="3"
+              Background="#eaede8"
+              RowDefinitions="*,Auto,Auto,Auto,Auto">
+            <TabControl Grid.Row="0">
+                <TabItem Header="Поля ввода">
+                    <Grid RowDefinitions="Auto, *">
+                        <Button Grid.Row="0"
+                                HorizontalAlignment="Stretch"
+                                Content="Добавить"
+                                Command="{Binding AddNewTextBox}"
+                                IsEnabled="{Binding CanInteract}" />
+                        <ScrollViewer Grid.Row="1">
+                            <ItemsControl ItemsSource="{Binding TextBoxes, Mode=TwoWay}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <v:TextBoxListView/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Счетчики">
+                    <ScrollViewer>
+                        <ItemsRepeater />
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem Header="Галочки">
+                    <ScrollViewer>
+                        <ItemsRepeater />
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem Header="Общее" />
+            </TabControl>
+            <Button Grid.Row="1"
+                    HorizontalAlignment="Stretch"
+                    Command="{Binding LoadImage}"
+                    Content="Выбрать изображение" />
+            <Button Grid.Row="2"
+                    HorizontalAlignment="Stretch"
+                    Content="Загрузить"
+                    IsEnabled="{Binding CanInteract}" />
+            <Button Grid.Row="3"
+                    HorizontalAlignment="Stretch"
+                    Content="Сохранить"
+                    IsEnabled="{Binding CanInteract}" />
+            <Button Grid.Row="4"
+                    HorizontalAlignment="Stretch"
+                    Content="Копировать в буфер обмена"
+                    IsEnabled="{Binding CanInteract}" />
+        </Grid>
+    </Grid>
 </UserControl>
 
