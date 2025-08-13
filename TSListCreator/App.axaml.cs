@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using TSListCreator.Services;
 using TSListCreator.ViewModels;
 
 namespace TSListCreator
@@ -17,7 +18,8 @@ namespace TSListCreator
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 desktop.MainWindow = new MainWindow();
-                desktop.MainWindow.DataContext = new MainViewModel(desktop.MainWindow);
+                LoadImageService loadImageService = new LoadImageService(desktop.MainWindow);
+                desktop.MainWindow.DataContext = new MainViewModel(loadImageService);
             }
 
             base.OnFrameworkInitializationCompleted();
