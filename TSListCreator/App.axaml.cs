@@ -18,8 +18,11 @@ namespace TSListCreator
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 desktop.MainWindow = new MainWindow();
+
+                ImageDataService imageDataService = new ImageDataService();
+                SingletonServiceContainer serviceContainer = new SingletonServiceContainer(imageDataService);
                 LoadImageService loadImageService = new LoadImageService(desktop.MainWindow);
-                desktop.MainWindow.DataContext = new MainViewModel(loadImageService);
+                desktop.MainWindow.DataContext = new MainViewModel(loadImageService, SingletonServiceContainer.Instance.ImageDataService);
             }
 
             base.OnFrameworkInitializationCompleted();

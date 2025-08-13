@@ -29,36 +29,13 @@
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Stretch"
                       ItemsSource="{Binding TextBoxes, Mode=TwoWay}">
-            <!--Width="{Binding #ShowedImage.Width}"
-                      Height="{Binding #ShowedImage.Height}"HorizontalAlignment="Center"
-                      VerticalAlignment="Center"-->
             <ItemsControl.Styles>
                 <Style Selector="ContentPresenter"
                        x:DataType="controls:TsControl">
                     <Setter Property="Canvas.Left"
-                            Value="{Binding PosX}">
-                        <!--<Setter.Value>
-                            <MultiBinding Converter="{StaticResource CanvasCoorToTsPos}">
-                                <Binding Path="PosX"/>
-                                <Binding ElementName="ShowedImage"
-                                         Path="Width"/>
-                                <ReflectionBinding ElementName="Main"
-                                                   Path="DataContext.TsImage.EmToPix"/>
-                            </MultiBinding>
-                        </Setter.Value>-->
-                    </Setter>
+                            Value="{Binding PosX, Converter=CanvasCoorToTsPosConverter, ConverterParameter=Height}"/>
                     <Setter Property="Canvas.Top"
-                            Value="{Binding PosY}">
-                        <!--<Setter.Value>
-                            <MultiBinding Converter="{StaticResource CanvasCoorToTsPos}">
-                                <Binding Path="PosY"/>
-                                <Binding ElementName="ShowedImage"
-                                         Path="Height"/>
-                                <ReflectionBinding ElementName="Main"
-                                                   Path="DataContext.TsImage.EmToPix"/>
-                            </MultiBinding>
-                        </Setter.Value>-->
-                    </Setter>
+                            Value="{Binding PosY, Converter=CanvasCoorToTsPosConverter, ConverterParameter=Width}"/>
                 </Style>
             </ItemsControl.Styles>
             <ItemsControl.ItemsPanel>

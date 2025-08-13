@@ -14,7 +14,8 @@ using TSListCreator.Utils;
 
 namespace TSListCreator.ViewModels;
 
-public class MainViewModel : DataModel
+public class MainViewModel(LoadImageService loadImageService, ImageDataService imageDataService)
+    : DataModel
 {
     private TsImage? _image = null;
     public TsImage? TsImage
@@ -35,20 +36,15 @@ public class MainViewModel : DataModel
         set => SetField(ref _textBoxes, value);
     }
 
-    private LoadImageService _loadImageService;
-    public MainViewModel(LoadImageService loadImageService)
-    {
-        _loadImageService = loadImageService;
-    }
-
     public async Task LoadImage()
     {
         try
         {
-            Bitmap? bitmap = await _loadImageService.GetImage();
+            Bitmap? bitmap = await loadImageService.GetImage();
             if (bitmap != null)
             {
                 TsImage = new TsImage(bitmap);
+                imageDataService.LoadImage(TsImage);
             }
         }
         catch (Exception e)
