@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using Avalonia.Data.Converters;
@@ -34,8 +35,15 @@ namespace TSListCreator.Converters
                 }
             }
 
-            //doubleValue =
-            return doubleValue;
+            const double pixSize = 0.001;
+            int sign = Math.Sign(doubleValue);
+            double halfSizePix = sizePix / 2;
+            double imageSizedValue = doubleValue / pixSize;
+            if (sign < 0)
+            {
+                imageSizedValue += halfSizePix;
+            }
+            return imageSizedValue;
         }
 
         public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
