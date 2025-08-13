@@ -7,12 +7,14 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
+using SkiaSharp;
 using TSListCreator.Controls;
+using TSListCreator.Services;
 using TSListCreator.Utils;
 
 namespace TSListCreator.ViewModels;
 
-public class MainViewModel: DataModel
+public class MainViewModel : DataModel
 {
     private TsImage? _image = null;
     public TsImage? TsImage
@@ -33,33 +35,25 @@ public class MainViewModel: DataModel
         set => SetField(ref _textBoxes, value);
     }
 
-    private object _view;
-    public MainViewModel(object view)
+    private LoadImageService _loadImageService;
+    public MainViewModel(LoadImageService loadImageService)
     {
-        _view = view;
+        _loadImageService = loadImageService;
     }
 
     public async Task LoadImage()
     {
         try
         {
-            var topLevel = TopLevel.GetTopLevel((Visual)_view);
-            var value = new FilePickerOpenOptions {
-                Title = "Выберете изображение",
-                AllowMultiple = false,
-                FileTypeFilter = new[] { FilePickerFileTypes.ImagePng, FilePickerFileTypes.ImageAll }
-            };
-            var files = await topLevel!.StorageProvider.OpenFilePickerAsync(value);
-
-            if (files.Count >= 1)
+            Bitmap? bitmap = await _loadImageService.GetImage();
+            if (bitmap != null)
             {
-                await using Stream stream = await files[0].OpenReadAsync();
-                TsImage = new TsImage(new Bitmap(stream));
+                TsImage = new TsImage(bitmap);
             }
         }
         catch (Exception e)
         {
-            throw new Exception("File loading failed");
+            throw new Exception(e.Message);
         }
     }
 

@@ -23,7 +23,7 @@
                    Stretch="Uniform"
                    Width="{Binding TsImage.Width, Mode=OneWayToSource}"
                    Height="{Binding $parent.Bounds.Height}"
-                   Source="{Binding TsImage.Source}"/><!---->
+                   Source="{Binding TsImage.Source}"/>
         </StackPanel>
         <ItemsControl Grid.Column="1"
                       HorizontalAlignment="Stretch"
