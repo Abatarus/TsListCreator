@@ -33,9 +33,9 @@
                 <Style Selector="ContentPresenter"
                        x:DataType="controls:TsControl">
                     <Setter Property="Canvas.Left"
-                            Value="{Binding PosX, Converter=CanvasCoorToTsPosConverter, ConverterParameter=Height}"/>
+                            Value="{Binding PosX, Converter={StaticResource CanvasCoorToTsPos}, ConverterParameter=Height}"/>
                     <Setter Property="Canvas.Top"
-                            Value="{Binding PosY, Converter=CanvasCoorToTsPosConverter, ConverterParameter=Width}"/>
+                            Value="{Binding PosY, Converter={StaticResource CanvasCoorToTsPos}, ConverterParameter=Width}"/>
                 </Style>
             </ItemsControl.Styles>
             <ItemsControl.ItemsPanel>
