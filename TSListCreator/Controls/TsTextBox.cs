@@ -1,12 +1,14 @@
+using System.ComponentModel;
+
 namespace TSListCreator.Controls;
 
 public enum AlignmentId
 {
-    Automatic,
-    Left,
-    Center,
-    Right,
-    Justified
+    [Description("Автоматически")] Automatic,
+    [Description("Лево")] Left,
+    [Description("Центру")] Center,
+    [Description("Право")] Right,
+    [Description("Ширине")] Justified
 }
 
 public class TsTextBox : TsControl
