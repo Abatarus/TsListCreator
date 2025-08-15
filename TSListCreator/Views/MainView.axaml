@@ -90,19 +90,23 @@
                 </TabItem>
                 <TabItem Header="Общее" />
             </TabControl>
-            <Button Grid.Row="1"
+            <Button x:Name="LoadImageButton"
+                    Grid.Row="1"
                     HorizontalAlignment="Stretch"
                     Command="{Binding LoadImage}"
                     Content="Выбрать изображение" />
-            <Button Grid.Row="2"
+            <Button Name="LoadDataButton"
+                    Grid.Row="2"
                     HorizontalAlignment="Stretch"
                     Content="Загрузить"
                     IsEnabled="{Binding CanInteract}" />
-            <Button Grid.Row="3"
+            <Button x:Name="SaveButton"
+                    Grid.Row="3"
                     HorizontalAlignment="Stretch"
                     Content="Сохранить"
                     IsEnabled="{Binding CanInteract}" />
-            <Button Grid.Row="4"
+            <Button x:Name="CopyClipboard"
+                    Grid.Row="4"
                     HorizontalAlignment="Stretch"
                     Content="Копировать в буфер обмена"
                     IsEnabled="{Binding CanInteract}" />

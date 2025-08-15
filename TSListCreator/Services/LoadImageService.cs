@@ -20,7 +20,7 @@ namespace TSListCreator.Services
             _view = view;
         }
 
-        public async Task<Bitmap?> GetImage()
+        public virtual async Task<Bitmap?> GetImage()
         {
             try
             {
