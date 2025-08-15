@@ -7,3 +7,5 @@
 /.idea/.idea.TSListCreator/.idea
 /TSListCreator/obj
 /TSListCreator/bin
+/TSListCreator.Tests/bin/Debug/net8.0
+/TSListCreator.Tests/obj
