@@ -55,7 +55,6 @@ namespace TSListCreator.Converters
                     return (AlignmentId)field.GetValue(null);
             }
 
-            // Если нет атрибута, можно сравнить с самим именем
             var match = Enum.GetNames(type)
                 .FirstOrDefault(n => n.Equals(strValue, StringComparison.OrdinalIgnoreCase));
             if (match != null)
