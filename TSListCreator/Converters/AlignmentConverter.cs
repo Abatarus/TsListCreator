@@ -41,7 +41,27 @@ namespace TSListCreator.Converters
 
         public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            if (value is not string strValue)
+            {
+                return BindingNotification.ExtractError(new BindingNotification(new Exception("AlignmentConverter error"), BindingErrorType.Error));
+            }
+            var type = typeof(AlignmentId);
+            foreach (var field in type.GetFields())
+            {
+                var attr = field.GetCustomAttributes(typeof(DescriptionAttribute), false)
+                    .Cast<DescriptionAttribute>()
+                    .FirstOrDefault();
+                if (attr != null && attr.Description == strValue)
+                    return (AlignmentId)field.GetValue(null);
+            }
+
+            // Если нет атрибута, можно сравнить с самим именем
+            var match = Enum.GetNames(type)
+                .FirstOrDefault(n => n.Equals(strValue, StringComparison.OrdinalIgnoreCase));
+            if (match != null)
+                return Enum.Parse(type, match);
+
+            throw new ArgumentException($"No enum with description '{strValue}' found in {type.Name}");
         }
     }
 }
