@@ -12,11 +12,10 @@ namespace TSListCreator.Tests.Services
         [Theory]
         [InlineData("Лево")]
         [InlineData("Право")]
-        public void AlignmentList_MustConatinsDescriptions(string input)
+        public void AlignmentList_MustContainsDescriptions(string input)
         {
-            var dictService = new DictService();
 
-            Assert.Contains(input, dictService.AlignmentList);
+            Assert.Contains(input, DictService.AlignmentList);
         }
     }
 }

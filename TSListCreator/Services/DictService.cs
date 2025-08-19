@@ -13,7 +13,6 @@ namespace TSListCreator.Services
     {
         private List<string> _alignmentList;
 
-        public List<string> AlignmentList => _alignmentList;
 
         public DictService()
         {
@@ -23,5 +22,9 @@ namespace TSListCreator.Services
                 .Cast<string>().ToList();
         }
 
+        private static DictService _instance = new DictService();
+        public static DictService Instance => _instance;
+
+        public static List<string> AlignmentList => Instance._alignmentList;
     }
 }
