@@ -54,7 +54,39 @@ namespace TSListCreator.Converters
 
         public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            return 0;
+            if (value is not double doubleValue)
+            {
+                return 0;
+            }
+            double sizeBound = 0;
+            double sizeEm = 0;
+            if (parameter is string strParameter)
+            {
+                IImageDataService imageDataService = ConverterServiceContainer.Instance.ImageDataService;
+                ISettingsService settingsService = ConverterServiceContainer.Instance.SettingsService;
+                if (strParameter == "Height")
+                {
+                    sizeBound = settingsService.BoundHeight;
+                    sizeEm = imageDataService.GetImageHeight();
+                }
+                else if (strParameter == "Width")
+                {
+                    sizeBound = settingsService.BoundWidth;
+                    sizeEm = imageDataService.GetImageWidth();
+                }
+            }
+            else
+            {
+                return BindingNotification.ExtractError(
+                    new BindingNotification(new Exception("Parameter error"), BindingErrorType.Error)
+                );
+            }
+
+            double TsPosToEm = sizeEm / sizeBound;
+            double halfSizeEm = sizeEm / 2;
+
+            double result = doubleValue * TsPosToEm + halfSizeEm;
+            return result;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Avalonia;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
@@ -64,6 +65,57 @@ namespace TSListCreator.Tests.Converters
             double result = (double)converter.Convert(height, null, "Height", CultureInfo.CurrentCulture);
 
             Assert.Equal(expected, result, 1);
+        }
+
+        [Fact]
+        public void ConvertBack_ValueIsZero_ShouldReturnAsInTableTop()
+        {
+            ConverterServiceContainer serviceContainer =
+                new ConverterServiceContainer(
+                    new SettingsServiceMock().FakedObject,
+                    new ImageDataServiceMock().FakedObject);
+            var converter = new CanvasCoorToTsPosConverter();
+
+            double value = 0;
+            double expected = serviceContainer.ImageDataService.GetImageHeight() / 2;
+
+            double result = (double)converter.ConvertBack(value, null, "Height", CultureInfo.CurrentCulture);
+
+            Assert.Equal(expected, result, 5);
+        }
+
+        [Fact]
+        public void ConvertBack_ValueIsMax_ShouldReturnAsInTableTop()
+        {
+            ConverterServiceContainer serviceContainer =
+                new ConverterServiceContainer(
+                    new SettingsServiceMock().FakedObject,
+                    new ImageDataServiceMock().FakedObject);
+            var converter = new CanvasCoorToTsPosConverter();
+
+            double value = serviceContainer.SettingsService.BoundHeight / 2;
+            double expected = serviceContainer.ImageDataService.GetImageHeight();
+
+            var result = (double)converter.ConvertBack(value, null, "Height", CultureInfo.CurrentCulture);
+
+            Assert.Equal(expected, result, 5);
+        }
+
+        [Fact]
+        public void ConvertBack_ValueIsMin_ShouldReturnAsInTableTop()
+        {
+            ConverterServiceContainer serviceContainer =
+                new ConverterServiceContainer(
+                    new SettingsServiceMock().FakedObject,
+                    new ImageDataServiceMock().FakedObject);
+            var converter = new CanvasCoorToTsPosConverter();
+
+            double value = -serviceContainer.SettingsService.BoundHeight / 2;
+            double expected = 0;
+
+            double result = (double)converter.ConvertBack(value, null, "Height", CultureInfo.CurrentCulture);
+
+            Assert.Equal(expected, result, 5);
         }
     }
 }
