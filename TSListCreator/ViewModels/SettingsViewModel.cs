@@ -17,7 +17,7 @@ namespace TSListCreator.ViewModels
             get => _settingsService.BoundWidth;
             set
             {
-                _settingsService.BoundHeight = value;
+                _settingsService.BoundWidth = value;
                 OnPropertyChanged();
             }
         }

@@ -29,10 +29,10 @@ namespace TSListCreator.Tests.Converters
         {
             var converter = new StringToDoubleConverter();
             var value = "1.1dsa";
+            var expected = 0.0;
 
-            var result = converter.ConvertBack(value, null, null, CultureInfo.CurrentCulture);
-            var error = BindingNotification.ExtractError(result);
-            Assert.NotNull(error);
+            var result = (double)converter.ConvertBack(value, null, null, CultureInfo.CurrentCulture);
+            Assert.Equal(expected, result, 5);
         }
 
 
@@ -54,11 +54,11 @@ namespace TSListCreator.Tests.Converters
         {
             var converter = new StringToDoubleConverter();
             var value = "ds";
+            var expected = "0";
 
-            var result = converter.Convert(value, null, null, CultureInfo.CurrentCulture);
+            var result = (string)converter.Convert(value, null, null, CultureInfo.CurrentCulture);
             
-            var error = BindingNotification.ExtractError(result);
-            Assert.NotNull(error);
+            Assert.Equal(expected, result);
         }
     }
 }

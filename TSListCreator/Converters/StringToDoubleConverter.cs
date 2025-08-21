@@ -27,14 +27,14 @@ namespace TSListCreator.Converters
         {
             if (value is not string strValue)
             {
-                return 0;
+                return 0.0;
             }
 
             if (double.TryParse(strValue, out var doubleValue))
             {
                 return doubleValue;
             }
-            return 0;
+            return 0.0;
         }
     }
 }

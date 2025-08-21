@@ -1,5 +1,8 @@
+using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Text;
+using TSListCreator.Converters;
 
 namespace TSListCreator.Controls;
 
@@ -44,13 +47,16 @@ public class TsTextBox : TsControl
 
     public override string GetJsonString()
     {
+        var converter = new CanvasCoorToTsPosConverter();
+        double posX = (double)converter.Convert(PosX, null, "Width", CultureInfo.CurrentCulture);
+        double posY = (double)converter.Convert(PosY, null, "Height", CultureInfo.CurrentCulture);
         StringBuilder result = new StringBuilder("{");
-        result.Append($"\"pos\":[{PosX},0.1,{PosY}],");
+        result.Append($"\"pos\":[{posX},0.1,{posY}],");
         result.Append($"\"size\":{Width},");
         result.Append("\"font_size\":250,");
         result.Append($"\"width\":{Width},");
         result.Append($"\"value\":{Value},");
-        result.Append($"\"label\":{Value},");
+        result.Append($"\"label\":{Label},");
         result.Append($"\"alignment\":{(int)Alignment},");
         result.Append("},");
         return result.ToString();
