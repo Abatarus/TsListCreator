@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using FakeItEasy;
-using TSListCreator.Services;
+using TSListCreator.Interfaces;
 
 namespace TSListCreator.Tests.Mocks
 {
-    internal class LoadImageServiceMock: Fake<LoadImageService>
+    internal class LoadImageServiceMock: Fake<IImageLoadService>
     {
         public LoadImageServiceMock()
         {

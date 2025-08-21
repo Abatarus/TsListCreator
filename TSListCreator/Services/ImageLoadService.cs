@@ -8,19 +8,20 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TSListCreator.Interfaces;
 using TSListCreator.Utils;
 
 namespace TSListCreator.Services
 {
-    public class LoadImageService
+    public class ImageLoadService: IImageLoadService
     {
         private object _view;
-        public LoadImageService(object view)
+        public ImageLoadService(object view)
         {
             _view = view;
         }
 
-        public virtual async Task<Bitmap?> GetImage()
+        public async Task<Bitmap?> GetImage()
         {
             try
             {

@@ -9,14 +9,18 @@ using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
 using SkiaSharp;
 using TSListCreator.Controls;
+using TSListCreator.Interfaces;
 using TSListCreator.Services;
 using TSListCreator.Utils;
 
 namespace TSListCreator.ViewModels;
 
-public class MainViewModel(LoadImageService loadImageService, ImageDataService imageDataService)
+public class MainViewModel(IImageLoadService imageLoadService, 
+        IImageDataService imageDataService, 
+        ISettingsService settingsService)
     : DataModel
 {
+
     private TsImage? _image = null;
     public TsImage? TsImage
     {
@@ -36,11 +40,18 @@ public class MainViewModel(LoadImageService loadImageService, ImageDataService i
         set => SetField(ref _textBoxes, value);
     }
 
+    private SettingsViewModel _settings;
+    public SettingsViewModel Settings
+    {
+        get => _settings;
+        set => SetField(ref _settings, value);
+    }
+
     public async Task LoadImage()
     {
         try
         {
-            Bitmap? bitmap = await loadImageService.GetImage();
+            Bitmap? bitmap = await imageLoadService.GetImage();
             if (bitmap != null)
             {
                 TsImage = new TsImage(bitmap);
@@ -49,6 +60,7 @@ public class MainViewModel(LoadImageService loadImageService, ImageDataService i
         }
         catch (Exception e)
         {
+            //TODO Log
             throw new Exception(e.Message);
         }
     }

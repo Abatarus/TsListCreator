@@ -1,5 +1,6 @@
 namespace TSListCreator.Interfaces;
-interface IJsonInput
+
+public interface IJsonInput
 {
     string GetJsonString();
 }

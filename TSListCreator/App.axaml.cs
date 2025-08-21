@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using TSListCreator.Interfaces;
 using TSListCreator.Services;
 using TSListCreator.ViewModels;
 
@@ -19,10 +20,11 @@ namespace TSListCreator
             {
                 desktop.MainWindow = new MainWindow();
 
-                ImageDataService imageDataService = new ImageDataService();
-                SingletonServiceContainer serviceContainer = new SingletonServiceContainer(imageDataService);
-                LoadImageService loadImageService = new LoadImageService(desktop.MainWindow);
-                desktop.MainWindow.DataContext = new MainViewModel(loadImageService, SingletonServiceContainer.Instance.ImageDataService);
+                IImageDataService imageDataService = new ImageDataService();
+                ISettingsService settingsService = new SettingsService();
+                ConverterServiceContainer serviceContainer = new ConverterServiceContainer(settingsService, imageDataService);
+                ImageLoadService imageLoadService = new ImageLoadService(desktop.MainWindow);
+                desktop.MainWindow.DataContext = new MainViewModel(imageLoadService, imageDataService, settingsService);
             }
 
             base.OnFrameworkInitializationCompleted();

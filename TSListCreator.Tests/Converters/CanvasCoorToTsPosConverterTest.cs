@@ -18,8 +18,10 @@ namespace TSListCreator.Tests.Converters
         [Fact]
         public void Convert_ValueIsZero_ShouldReturnAsInTableTop()
         {
-            SingletonServiceContainer serviceContainer =
-                new SingletonServiceContainer(new ImageDataServiceMock().FakedObject);
+            ConverterServiceContainer serviceContainer =
+                new ConverterServiceContainer(
+                    new SettingsServiceMock().FakedObject,
+                    new ImageDataServiceMock().FakedObject);
             var converter = new CanvasCoorToTsPosConverter();
 
             var height = 0.0;

@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TSListCreator.Interfaces;
 using TSListCreator.Utils;
 
 namespace TSListCreator.Services
 {
-    public class ImageDataService
+    public class ImageDataService: IImageDataService
     {
         private TsImage? _image = null;
 

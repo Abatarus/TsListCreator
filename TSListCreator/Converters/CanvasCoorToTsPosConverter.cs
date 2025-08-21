@@ -5,50 +5,56 @@ using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using Avalonia.Data;
 using Avalonia.Data.Converters;
+using TSListCreator.Interfaces;
 using TSListCreator.Services;
 
 namespace TSListCreator.Converters
 {
     public class CanvasCoorToTsPosConverter: IValueConverter
     {
+        public const double PixToImageCoor = 4.459/3508;// bounds.z / imagePix.height
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (value is not double doubleValue)
             {
                 return 0;
             }
-            double sizePix = 0;
+            double sizeBound = 0;
             double sizeEm = 0;
             if (parameter is string strParameter)
             {
-                ImageDataService imageDataService = SingletonServiceContainer.Instance.ImageDataService;
+                IImageDataService imageDataService = ConverterServiceContainer.Instance.ImageDataService;
+                ISettingsService settingsService = ConverterServiceContainer.Instance.SettingsService;
                 if (strParameter == "Height")
                 {
-                    sizePix = imageDataService.GetImagePixHeight();
+                    sizeBound = settingsService.BoundHeight;
                     sizeEm = imageDataService.GetImageHeight();
                 }
                 else if(strParameter == "Width")
                 {
-                    sizePix = imageDataService.GetImagePixWidth();
+                    sizeBound = settingsService.BoundWidth;
                     sizeEm = imageDataService.GetImageWidth();
                 }
             }
-
-            const double pixSize = 0.001;
-            int sign = Math.Sign(doubleValue);
-            double halfSizePix = sizePix / 2;
-            double imageSizedValue = doubleValue / pixSize;
-            if (sign < 0)
+            else
             {
-                imageSizedValue += halfSizePix;
+                return BindingNotification.ExtractError(
+                        new BindingNotification(new Exception("Parameter error"), BindingErrorType.Error)
+                    );
             }
-            return imageSizedValue;
+
+            double EmToTsPos = sizeBound / sizeEm;
+            double halfSizeEm = sizeBound / 2;
+
+            double result = doubleValue * EmToTsPos  - halfSizeEm;
+            return result;
         }
 
         public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            return 0;
         }
     }
 }

@@ -8,6 +8,7 @@ using Avalonia.Headless;
 using Avalonia.Headless.XUnit;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
+using TSListCreator.Interfaces;
 using TSListCreator.Services;
 using TSListCreator.Tests.Mocks;
 using TSListCreator.ViewModels;
@@ -25,10 +26,14 @@ namespace TSListCreator.Tests.UI
                 var window = new Window();
                 var view = new MainView();
                 window.Content = view;
-                ImageDataService imageDataService = new ImageDataService();
-                SingletonServiceContainer serviceContainer = new SingletonServiceContainer(imageDataService);
-                LoadImageService loadImageService = new LoadImageService(window);
-                var viewModel = new MainViewModel(loadImageService, serviceContainer.ImageDataService);
+                ConverterServiceContainer serviceContainer =
+                    new ConverterServiceContainer(
+                        new SettingsServiceMock().FakedObject,
+                        new ImageDataServiceMock().FakedObject);
+                IImageLoadService imageLoadService = new LoadImageServiceMock().FakedObject;
+                var viewModel = new MainViewModel(imageLoadService,
+                    new ImageDataServiceMock().FakedObject,
+                    new SettingsServiceMock().FakedObject);
                 view.DataContext = viewModel;
 
                 window.Show();
@@ -43,10 +48,14 @@ namespace TSListCreator.Tests.UI
             var window = new Window();
             var view = new MainView();
             window.Content = view;
-            ImageDataService imageDataService = new ImageDataService();
-            SingletonServiceContainer serviceContainer = new SingletonServiceContainer(imageDataService);
-            LoadImageService loadImageService = new LoadImageService(window);
-            var viewModel = new MainViewModel(loadImageService, serviceContainer.ImageDataService);
+            ConverterServiceContainer serviceContainer =
+                new ConverterServiceContainer(
+                    new SettingsServiceMock().FakedObject,
+                    new ImageDataServiceMock().FakedObject);
+            IImageLoadService imageLoadService = new LoadImageServiceMock().FakedObject;
+            var viewModel = new MainViewModel(imageLoadService,
+                new ImageDataServiceMock().FakedObject,
+                new SettingsServiceMock().FakedObject);
             window.DataContext = viewModel;
 
             window.Show();
@@ -65,11 +74,15 @@ namespace TSListCreator.Tests.UI
             var window = new Window();
             var view = new MainView();
             window.Content = view;
-            ImageDataService imageDataService = new ImageDataService();
-            SingletonServiceContainer serviceContainer = new SingletonServiceContainer(imageDataService);
-            LoadImageService loadImageService = new LoadImageServiceMock().FakedObject;
+            ConverterServiceContainer serviceContainer =
+                new ConverterServiceContainer(
+                    new SettingsServiceMock().FakedObject,
+                    new ImageDataServiceMock().FakedObject);
+            IImageLoadService imageLoadService = new LoadImageServiceMock().FakedObject;
 
-            var viewModel = new MainViewModel(loadImageService, serviceContainer.ImageDataService);
+            var viewModel = new MainViewModel(imageLoadService,
+                new ImageDataServiceMock().FakedObject,
+                new SettingsServiceMock().FakedObject);
             window.DataContext = viewModel;
 
             window.Show();

@@ -1,14 +1,11 @@
 ﻿using FakeItEasy;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TSListCreator.Services;
+using TSListCreator.Interfaces;
 
 namespace TSListCreator.Tests.Mocks
 {
-    class ImageDataServiceMock : Fake<ImageDataService>
+    class ImageDataServiceMock : Fake<IImageDataService>
     {
         public ImageDataServiceMock()
         {

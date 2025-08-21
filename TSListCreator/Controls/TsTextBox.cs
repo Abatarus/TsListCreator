@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Text;
 
 namespace TSListCreator.Controls;
 
@@ -43,15 +44,15 @@ public class TsTextBox : TsControl
 
     public override string GetJsonString()
     {
-        string result = "{";
-        result += $"\"pos\":[{PosX},0.1,{PosY}],";
-        result += $"\"size\":{Width},";
-        result += "\"font_size\":250,";
-        result += $"\"width\":{Width},";
-        result += $"\"value\":{Value},";
-        result += $"\"label\":{Value},";
-        result += $"\"alignment\":{(int)Alignment},";
-        result += "},";
-        return result;
+        StringBuilder result = new StringBuilder("{");
+        result.Append($"\"pos\":[{PosX},0.1,{PosY}],");
+        result.Append($"\"size\":{Width},");
+        result.Append("\"font_size\":250,");
+        result.Append($"\"width\":{Width},");
+        result.Append($"\"value\":{Value},");
+        result.Append($"\"label\":{Value},");
+        result.Append($"\"alignment\":{(int)Alignment},");
+        result.Append("},");
+        return result.ToString();
     }
 }

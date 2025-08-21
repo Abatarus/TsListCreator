@@ -12,6 +12,7 @@
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d"
+             RenderTransformOrigin="0.5,0.5"
              x:DataType="controls:TsTextBox"
              IsPointerOver="{Binding IsHighlighted, Mode=OneWayToSource}"
              x:Class="TSListCreator.Views.TextBoxCanvasView">

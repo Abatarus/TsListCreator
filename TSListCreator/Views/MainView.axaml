@@ -88,7 +88,11 @@
                         <ItemsRepeater />
                     </ScrollViewer>
                 </TabItem>
-                <TabItem Header="Общее" />
+                <TabItem Header="Настройки">
+                    <ScrollViewer>
+                        <v:SettingsView DataContext="{Binding Settings}"/>
+                    </ScrollViewer>
+                </TabItem>
             </TabControl>
             <Button x:Name="LoadImageButton"
                     Grid.Row="1"
