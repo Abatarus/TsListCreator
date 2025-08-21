@@ -40,7 +40,7 @@ public class MainViewModel(IImageLoadService imageLoadService,
         set => SetField(ref _textBoxes, value);
     }
 
-    private SettingsViewModel _settings;
+    private SettingsViewModel _settings = new SettingsViewModel(settingsService);
     public SettingsViewModel Settings
     {
         get => _settings;

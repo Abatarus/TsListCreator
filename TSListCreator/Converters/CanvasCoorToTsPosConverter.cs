@@ -38,12 +38,6 @@ namespace TSListCreator.Converters
                     sizeEm = imageDataService.GetImageWidth();
                 }
             }
-            else
-            {
-                return BindingNotification.ExtractError(
-                        new BindingNotification(new Exception("Parameter error"), BindingErrorType.Error)
-                    );
-            }
 
             double EmToTsPos = sizeBound / sizeEm;
             double halfSizeEm = sizeBound / 2;
@@ -74,12 +68,6 @@ namespace TSListCreator.Converters
                     sizeBound = settingsService.BoundWidth;
                     sizeEm = imageDataService.GetImageWidth();
                 }
-            }
-            else
-            {
-                return BindingNotification.ExtractError(
-                    new BindingNotification(new Exception("Parameter error"), BindingErrorType.Error)
-                );
             }
 
             double TsPosToEm = sizeEm / sizeBound;

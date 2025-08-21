@@ -3,11 +3,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:TSListCreator.ViewModels"
+             xmlns:converters="clr-namespace:TSListCreator.Converters"
              mc:Ignorable="d"
              d:DesignWidth="800"
              d:DesignHeight="450"
              x:DataType="vm:SettingsViewModel"
              x:Class="TSListCreator.Views.SettingsView">
+    <UserControl.Resources>
+        <converters:StringToDoubleConverter x:Key="StringToDoubleConverter"/>
+    </UserControl.Resources>
     <StackPanel Orientation="Horizontal">
         <Grid ColumnDefinitions="Auto, *"
               RowDefinitions="Auto, Auto">
@@ -17,14 +21,14 @@
             <TextBox Grid.Column="1"
                      Grid.Row="0"
                      HorizontalAlignment="Stretch"
-                     Text="" />
+                     Text="{Binding BoundWidth, Converter={StaticResource StringToDoubleConverter}}" />
             <Label Grid.Column="0"
                    Grid.Row="1"
                    Content="Длина объекта в игре"/>
             <TextBox Grid.Column="1"
                      Grid.Row="1"
                      HorizontalAlignment="Stretch"
-                     Text=""/>
+                     Text="{Binding BoundHeight, Converter={StaticResource StringToDoubleConverter}}"/>
         </Grid>
     </StackPanel>
 </UserControl>

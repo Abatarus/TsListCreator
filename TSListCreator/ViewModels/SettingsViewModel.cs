@@ -18,7 +18,7 @@ namespace TSListCreator.ViewModels
             set
             {
                 _settingsService.BoundHeight = value;
-                OnPropertyChanged(nameof(BoundWidth));
+                OnPropertyChanged();
             }
         }
 
@@ -28,7 +28,7 @@ namespace TSListCreator.ViewModels
             set
             {
                 _settingsService.BoundHeight = value;
-                OnPropertyChanged(nameof(BoundHeight));
+                OnPropertyChanged();
             }
         }
 
@@ -38,7 +38,7 @@ namespace TSListCreator.ViewModels
             set
             {
                 _settingsService.Background = value;
-                OnPropertyChanged(nameof(Background));
+                OnPropertyChanged();
             }
         }
 
@@ -48,7 +48,7 @@ namespace TSListCreator.ViewModels
             set
             {
                 _settingsService.FontColor = value;
-                OnPropertyChanged(nameof(FontColor));
+                OnPropertyChanged();
             }
         }
     }
