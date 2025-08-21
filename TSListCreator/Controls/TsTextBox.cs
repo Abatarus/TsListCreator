@@ -48,11 +48,10 @@ public class TsTextBox : TsControl
     public override string GetJsonString()
     {
         var converter = new CanvasCoorToTsPosConverter();
-        double posX = (double)converter.Convert(PosX, null, "Width", CultureInfo.CurrentCulture);
-        double posY = (double)converter.Convert(PosY, null, "Height", CultureInfo.CurrentCulture);
+        double posX = (double)converter.ConvertBack(PosX, null, "Width", CultureInfo.CurrentCulture);
+        double posY = (double)converter.ConvertBack(PosY, null, "Height", CultureInfo.CurrentCulture);
         StringBuilder result = new StringBuilder("{");
         result.Append($"\"pos\":[{posX},0.1,{posY}],");
-        result.Append($"\"size\":{Width},");
         result.Append("\"font_size\":250,");
         result.Append($"\"width\":{Width},");
         result.Append($"\"value\":{Value},");

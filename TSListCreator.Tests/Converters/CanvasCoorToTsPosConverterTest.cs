@@ -26,11 +26,11 @@ namespace TSListCreator.Tests.Converters
             var converter = new CanvasCoorToTsPosConverter();
 
             var value = 0.0;
-            double expected = -1.9 ;
+            double expected = -serviceContainer.SettingsService.BoundHeight/2;
 
             double result = (double)converter.ConvertBack(value, null, "Height", CultureInfo.CurrentCulture);
 
-            Assert.Equal(expected, result, 1);
+            Assert.Equal(expected, result, 5);
         }
 
         [Fact]
@@ -43,7 +43,7 @@ namespace TSListCreator.Tests.Converters
             var converter = new CanvasCoorToTsPosConverter();
 
             var value = serviceContainer.ImageDataService.GetImageHeight();
-            double expected = 1.9;
+            double expected = serviceContainer.SettingsService.BoundHeight / 2;
 
             double result = (double)converter.ConvertBack(value, null, "Height", CultureInfo.CurrentCulture);
 

@@ -44,7 +44,7 @@ namespace TSListCreator.Converters
             double result = doubleValue * TsPosToEm + halfSizeEm;
             return result;
         }
-
+        //to TsCoor
         public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (value is not double doubleValue)
