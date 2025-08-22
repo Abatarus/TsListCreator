@@ -49,14 +49,14 @@ public class TsTextBox : TsControl
 
 
     private string _value = "";
-    public string Value
+    public string? Value
     {
         get => _value;
         set => SetField(ref _value, value);
     }
 
     private string _label = "";
-    public string Label
+    public string? Label
     {
         get => _label;
         set => SetField(ref _label, value);
@@ -74,8 +74,8 @@ public class TsTextBox : TsControl
         var result = new JsonObject
         {
             ["name"] = Name, // строка сама обернётся в кавычки
-            ["pos"] = new JsonArray(PosX, 0.1, PosY),
             ["font_size"] = FontSize,
+            ["pos"] = new JsonArray(PosX, 0.1, PosY),
             ["width"] = (int)Width,
             ["value"] = Value,
             ["label"] = Label,

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TSListCreator.Utils;
 
 namespace TSListCreator.Interfaces
 {
@@ -10,6 +11,6 @@ namespace TSListCreator.Interfaces
     {
         Task Save(IJsonInput settings, IEnumerable<IJsonInput> textBoxes, IEnumerable<IJsonInput> counters, IEnumerable<IJsonInput> checkBoxes);
 
-        void Load();
+        Task<DataHolder> Load();
     }
 }

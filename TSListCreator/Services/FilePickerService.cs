@@ -7,21 +7,63 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using TSListCreator.Interfaces;
 using TSListCreator.Utils;
 
 namespace TSListCreator.Services
 {
-    public class FilePickerService: IFilePickerService
+    public class FilePickerService : IFilePickerService
     {
         private object _view;
         public FilePickerService(object view)
         {
             _view = view;
         }
-        public async Task SaveToFile(MemoryStream stream)
+
+        public async Task<string?> LoadJsonFile()
         {
+            try
+            {
+                var topLevel = TopLevel.GetTopLevel((Visual)_view);
+                var value = new FilePickerOpenOptions
+                {
+                    Title = "Выберете файл загрузки",
+                    AllowMultiple = false,
+                    FileTypeFilter = new[] {
+                        new FilePickerFileType("json")
+                        {
+                            Patterns = new[] { "*.json" },
+                            AppleUniformTypeIdentifiers = new[] { "public.json" },
+                            MimeTypes = new[] { "application/json" }
+                        }
+                    }
+                };
+                var files = await topLevel!.StorageProvider.OpenFilePickerAsync(value);
+
+                if (files.Count >= 1)
+                {
+                    await using Stream stream = await files[0].OpenReadAsync();
+                    using var reader = new StreamReader(stream);
+                    return await reader.ReadToEndAsync();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("File loading failed");
+            }
+            return null;
+        }
+
+        public async Task SaveJsonToFile(JsonObject json)
+        {
+            JsonSerializerOptions options = new JsonSerializerOptions()
+            {
+                WriteIndented = false,
+            };
+            using MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(json.ToJsonString(options)));
             stream.Position = 0;
             try
             {
@@ -29,7 +71,15 @@ namespace TSListCreator.Services
                 var value = new FilePickerSaveOptions()
                 {
                     Title = "Выберете файл сохранения",
-                    FileTypeChoices = new[] { FilePickerFileTypes.All }
+                    SuggestedFileName = "save.json",
+                    FileTypeChoices = new[] { 
+                        new FilePickerFileType("json")
+                        {
+                            Patterns = new[] { "*.json" },
+                            AppleUniformTypeIdentifiers = new[] { "public.json" },
+                            MimeTypes = new[] { "application/json" }
+                        }
+                    }
                 };
                 var file = await topLevel!.StorageProvider.SaveFilePickerAsync(value);
 

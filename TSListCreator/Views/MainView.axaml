@@ -110,6 +110,7 @@
                     Grid.Row="2"
                     HorizontalAlignment="Stretch"
                     Content="Загрузить"
+                    Command="{Binding Load}"
                     IsEnabled="{Binding CanInteract}" />
             <Button x:Name="SaveButton"
                     Grid.Row="3"

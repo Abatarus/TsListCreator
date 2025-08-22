@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Net.Mime;
 using System.Threading.Tasks;
 using Avalonia;
@@ -106,5 +107,15 @@ public class MainViewModel
     public async void Save()
     {
         await _saveLoadService.Save(_settingsService, _textBoxes, new List<IJsonInput>(), new List<IJsonInput>());
+    }
+    public async void Load()
+    {
+        DataHolder holder = await _saveLoadService.Load();
+        Settings.BoundHeight = holder.Settings.BoundHeight;
+        Settings.BoundWidth = holder.Settings.BoundWidth;
+        Settings.Background = holder.Settings.Background;
+        Settings.FontColor = holder.Settings.FontColor;
+        TextBoxes.Clear();
+        TextBoxes = holder.TextBoxes;
     }
 }

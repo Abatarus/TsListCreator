@@ -5,8 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using System.Text.Json.Serialization.Metadata;
 using System.Threading.Tasks;
+using Avalonia.Media;
+using TSListCreator.Controls;
 using TSListCreator.Interfaces;
+using TSListCreator.Utils;
 
 namespace TSListCreator.Services
 {
@@ -38,18 +42,42 @@ namespace TSListCreator.Services
 
             JsonObject result = new JsonObject
             {
-                ["Settings"] = settings.GetJsonObject(),
-                ["TextBoxes"] = textBoxesArray,
-                ["Counters"] = countersArray,
-                ["CheckBoxes"] = checkBoxesArray
+                ["settings"] = settings.GetJsonObject(),
+                ["textboxes"] = textBoxesArray,
+                ["counters"] = countersArray,
+                ["checkBoxes"] = checkBoxesArray
             };
-            using MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(result.ToString()));
-            await _filePickerService.SaveToFile(stream);
+            await _filePickerService.SaveJsonToFile(result);
         }
 
-        public void Load()
+        public async Task<DataHolder> Load()
         {
-            throw new NotImplementedException();
+            DataHolder holder = new DataHolder();
+            JsonDocument document = JsonDocument.Parse(await _filePickerService.LoadJsonFile());
+
+            var settingsElem = document.RootElement.GetProperty("settings");
+            holder.Settings.BoundWidth = settingsElem.GetProperty("bound_width").GetDouble();
+            holder.Settings.BoundHeight = settingsElem.GetProperty("bound_height").GetDouble();
+            holder.Settings.Background = Color.FromUInt32(settingsElem.GetProperty("background").GetUInt32());
+            holder.Settings.FontColor = Color.FromUInt32(settingsElem.GetProperty("font_color").GetUInt32());
+
+            var textBoxesElem = document.RootElement.GetProperty("textboxes");
+
+            foreach (var textBoxElem in textBoxesElem.EnumerateArray())
+            {
+                holder.TextBoxes.Add(new TsTextBox()
+                {
+                    Alignment = (AlignmentId)textBoxElem.GetProperty("alignment").GetInt32(),
+                    FontSize = textBoxElem.GetProperty("font_size").GetDouble(),
+                    PosX = textBoxElem.GetProperty("pos")[0].GetDouble(),
+                    PosY = textBoxElem.GetProperty("pos")[2].GetDouble(),
+                    Width = textBoxElem.GetProperty("width").GetDouble(),
+                    Value = textBoxElem.GetProperty("value").GetString(),
+                    Label = textBoxElem.GetProperty("label").GetString()
+                });
+            }
+
+            return holder;
         }
     }
 }
