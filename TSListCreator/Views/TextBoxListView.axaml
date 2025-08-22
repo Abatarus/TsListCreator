@@ -47,7 +47,8 @@
                      Text="{Binding Name}"/>
 			<Button Grid.Column="3"
 					Grid.Row="0"
-					HorizontalAlignment="Right">
+					HorizontalAlignment="Right"
+                    Command="{Binding Delete}">
 				<PathIcon Foreground="Black"
 						  Data="{StaticResource dismiss_regular}"/>
 			</Button>

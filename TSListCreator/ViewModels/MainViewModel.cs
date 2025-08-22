@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.Metrics;
 using System.IO;
 using System.Linq;
 using System.Net.Mime;
@@ -102,6 +103,7 @@ public class MainViewModel
     public void AddNewTextBox()
     {
         TextBoxes.Add(new TsTextBox(){Name = $"TextBox{TextBoxes.Count}"});
+        TextBoxes.Last().SetRemove(RemoveMe);
     }
 
     public async void Save()
@@ -117,5 +119,16 @@ public class MainViewModel
         Settings.FontColor = holder.Settings.FontColor;
         TextBoxes.Clear();
         TextBoxes = holder.TextBoxes;
+        foreach (var textBox in TextBoxes)
+        {
+            textBox.SetRemove(RemoveMe);
+        }
+    }
+    private void RemoveMe(object child)
+    {
+        //TODO
+        if (child is TsTextBox tb) TextBoxes.Remove(tb);
+        //else if (child is TsCounter c) Counters.Remove(c);
+        //else if (child is TsCounter cb) CheckBoxes.Remove(cb);
     }
 }

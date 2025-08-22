@@ -1,5 +1,7 @@
+using System;
 using System.Globalization;
 using System.Text.Json.Nodes;
+using System.Windows.Input;
 using TSListCreator.Converters;
 using TSListCreator.Interfaces;
 using TSListCreator.Utils;
@@ -35,5 +37,14 @@ public abstract class TsControl : DataModel, IJsonInput
         set => SetField(ref _isHighlighted, value);
     }
 
+    public void Delete()
+    {
+        _removeMe(this);
+    }
     public abstract JsonObject GetJsonObject();
+    private Action<TsControl> _removeMe;
+    public void SetRemove(Action<TsControl> removeMe)
+    {
+        _removeMe = removeMe;;
+    }
 }
