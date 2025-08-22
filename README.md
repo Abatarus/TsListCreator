@@ -15,6 +15,11 @@ function onLoad()
         :format(bn.size.x, bn.size.y, bn.size.z))
 end
 ```
+## Пример работы программы
+![Пример работы программы](doc/result2.png)
 
-[Пример работы программы](doc/result2.png)
-[Вид в игре](doc/result1.png)
+## Вид в игре
+![Вид в игре](doc/result.png)
+
+Путь к тестовому изображению: TSListCreator.Tests\Images\list.png
+Его границы внутри игры: 3.742 и 3.742
