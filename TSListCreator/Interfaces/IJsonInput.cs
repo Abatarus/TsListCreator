@@ -1,6 +1,8 @@
+using System.Text.Json.Nodes;
+
 namespace TSListCreator.Interfaces;
 
 public interface IJsonInput
 {
-    string GetJsonString();
+    JsonObject GetJsonObject();
 }

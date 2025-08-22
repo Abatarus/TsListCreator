@@ -30,8 +30,9 @@ namespace TSListCreator.Tests.UI
                     new ConverterServiceContainer(
                         new SettingsServiceMock().FakedObject,
                         new ImageDataServiceMock().FakedObject);
-                IImageLoadService imageLoadService = new LoadImageServiceMock().FakedObject;
-                var viewModel = new MainViewModel(imageLoadService,
+                IFilePickerService filePickerService = new FilePickerServiceMock().FakedObject;
+                var viewModel = new MainViewModel(filePickerService,
+                    new SaveLoadServiceMock().FakedObject,
                     new ImageDataServiceMock().FakedObject,
                     new SettingsServiceMock().FakedObject);
                 view.DataContext = viewModel;
@@ -52,8 +53,9 @@ namespace TSListCreator.Tests.UI
                 new ConverterServiceContainer(
                     new SettingsServiceMock().FakedObject,
                     new ImageDataServiceMock().FakedObject);
-            IImageLoadService imageLoadService = new LoadImageServiceMock().FakedObject;
-            var viewModel = new MainViewModel(imageLoadService,
+            IFilePickerService filePickerService = new FilePickerServiceMock().FakedObject;
+            var viewModel = new MainViewModel(filePickerService,
+                new SaveLoadServiceMock().FakedObject,
                 new ImageDataServiceMock().FakedObject,
                 new SettingsServiceMock().FakedObject);
             window.DataContext = viewModel;
@@ -78,9 +80,10 @@ namespace TSListCreator.Tests.UI
                 new ConverterServiceContainer(
                     new SettingsServiceMock().FakedObject,
                     new ImageDataServiceMock().FakedObject);
-            IImageLoadService imageLoadService = new LoadImageServiceMock().FakedObject;
+            IFilePickerService filePickerService = new FilePickerServiceMock().FakedObject;
 
-            var viewModel = new MainViewModel(imageLoadService,
+            var viewModel = new MainViewModel(filePickerService,
+                new SaveLoadServiceMock().FakedObject,
                 new ImageDataServiceMock().FakedObject,
                 new SettingsServiceMock().FakedObject);
             window.DataContext = viewModel;

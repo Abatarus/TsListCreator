@@ -19,15 +19,18 @@ namespace TSListCreator.ViewModels;
 public class MainViewModel
     : DataModel
 {
-    private IImageLoadService _imageLoadService;
+    private IFilePickerService _filePickerService;
     private IImageDataService _imageDataService;
     private ISettingsService _settingsService;
+    private ISaveLoadService _saveLoadService;
 
-    public MainViewModel(IImageLoadService imageLoadService,
+    public MainViewModel(IFilePickerService filePickerService,
+        ISaveLoadService saveLoadService,
         IImageDataService imageDataService,
         ISettingsService settingsService)
     {
-        _imageLoadService = imageLoadService;
+        _saveLoadService = saveLoadService;
+        _filePickerService = filePickerService;
         _imageDataService = imageDataService;
         _settingsService = settingsService;
         Settings = new SettingsViewModel(_settingsService);
@@ -50,6 +53,7 @@ public class MainViewModel
         {
             SetField(ref _image, value);
             OnPropertyChanged(nameof(CanInteract));
+            OnPropertyChanged(nameof(CanAdd));
         }
     }
     public bool CanInteract => TsImage != null;
@@ -73,7 +77,7 @@ public class MainViewModel
     {
         try
         {
-            Bitmap? bitmap = await _imageLoadService.GetImage();
+            Bitmap? bitmap = await _filePickerService.GetImage();
             if (bitmap != null)
             {
                 TsImage = new TsImage(bitmap);
@@ -97,5 +101,10 @@ public class MainViewModel
     public void AddNewTextBox()
     {
         TextBoxes.Add(new TsTextBox(){Name = $"TextBox{TextBoxes.Count}"});
+    }
+
+    public async void Save()
+    {
+        await _saveLoadService.Save(_settingsService, _textBoxes, new List<IJsonInput>(), new List<IJsonInput>());
     }
 }

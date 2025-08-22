@@ -1,8 +1,10 @@
-﻿namespace TSListCreator.Controls;
+﻿using System.Text.Json.Nodes;
+
+namespace TSListCreator.Controls;
 
 public class TsCheckbox : TsControl
 {
-    public override string GetJsonString()
+    public override JsonObject GetJsonObject()
     {
         throw new System.NotImplementedException();
     }

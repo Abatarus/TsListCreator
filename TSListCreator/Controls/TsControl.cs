@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Text.Json.Nodes;
 using TSListCreator.Converters;
 using TSListCreator.Interfaces;
 using TSListCreator.Utils;
@@ -34,5 +35,5 @@ public abstract class TsControl : DataModel, IJsonInput
         set => SetField(ref _isHighlighted, value);
     }
 
-    public abstract string GetJsonString();
+    public abstract JsonObject GetJsonObject();
 }

@@ -23,8 +23,12 @@ namespace TSListCreator
                 IImageDataService imageDataService = new ImageDataService();
                 ISettingsService settingsService = new SettingsService();
                 ConverterServiceContainer serviceContainer = new ConverterServiceContainer(settingsService, imageDataService);
-                ImageLoadService imageLoadService = new ImageLoadService(desktop.MainWindow);
-                desktop.MainWindow.DataContext = new MainViewModel(imageLoadService, imageDataService, settingsService);
+                FilePickerService filePickerService = new FilePickerService(desktop.MainWindow);
+                SaveLoadService saveLoadService = new SaveLoadService(filePickerService);
+                desktop.MainWindow.DataContext = new MainViewModel(filePickerService,
+                    saveLoadService,
+                    imageDataService,
+                    settingsService);
             }
 
             base.OnFrameworkInitializationCompleted();

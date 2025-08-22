@@ -115,6 +115,7 @@
                     Grid.Row="3"
                     HorizontalAlignment="Stretch"
                     Content="Сохранить"
+                    Command="{Binding Save}"
                     IsEnabled="{Binding CanInteract}" />
             <Button x:Name="CopyClipboard"
                     Grid.Row="4"

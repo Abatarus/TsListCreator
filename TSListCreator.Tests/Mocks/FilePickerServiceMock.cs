@@ -10,9 +10,9 @@ using TSListCreator.Interfaces;
 
 namespace TSListCreator.Tests.Mocks
 {
-    internal class LoadImageServiceMock: Fake<IImageLoadService>
+    internal class FilePickerServiceMock: Fake<IFilePickerService>
     {
-        public LoadImageServiceMock()
+        public FilePickerServiceMock()
         {
             CallsTo<Task>(x =>
                     x.GetImage())

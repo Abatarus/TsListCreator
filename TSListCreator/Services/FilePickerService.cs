@@ -13,14 +13,38 @@ using TSListCreator.Utils;
 
 namespace TSListCreator.Services
 {
-    public class ImageLoadService: IImageLoadService
+    public class FilePickerService: IFilePickerService
     {
         private object _view;
-        public ImageLoadService(object view)
+        public FilePickerService(object view)
         {
             _view = view;
         }
+        public async Task SaveToFile(MemoryStream stream)
+        {
+            stream.Position = 0;
+            try
+            {
+                var topLevel = TopLevel.GetTopLevel((Visual)_view);
+                var value = new FilePickerSaveOptions()
+                {
+                    Title = "Выберете файл сохранения",
+                    FileTypeChoices = new[] { FilePickerFileTypes.All }
+                };
+                var file = await topLevel!.StorageProvider.SaveFilePickerAsync(value);
 
+                if (file != null)
+                {
+                    await using Stream fileStream = await file.OpenWriteAsync();
+                    await stream.CopyToAsync(fileStream);
+                }
+            }
+            catch (Exception e)
+            {
+                // ReSharper disable once AsyncVoidThrowException
+                throw new Exception("File loading failed");
+            }
+        }
         public async Task<Bitmap?> GetImage()
         {
             try

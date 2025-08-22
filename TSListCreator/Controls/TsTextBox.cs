@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Text;
+using System.Text.Json.Nodes;
 using TSListCreator.Converters;
 
 namespace TSListCreator.Controls;
@@ -68,20 +69,18 @@ public class TsTextBox : TsControl
         set => SetField(ref _fontSize, value);
     }
 
-    public override string GetJsonString()
+    public override JsonObject GetJsonObject()
     {
-        var converter = new CanvasCoorToTsPosConverter();
-        double posX = (double)converter.ConvertBack(PosX, null, "Width", CultureInfo.CurrentCulture);
-        double posY = (double)converter.ConvertBack(PosY, null, "Height", CultureInfo.CurrentCulture);
-        StringBuilder result = new StringBuilder("{");
-        result.Append($"\"name\":{Name},");
-        result.Append($"\"pos\":[{posX},0.1,{posY}],");
-        result.Append($"\"font_size\":{FontSize},");
-        result.Append($"\"width\":{(int)Width},");
-        result.Append($"\"value\":{Value},");
-        result.Append($"\"label\":{Label},");
-        result.Append($"\"alignment\":{(int)Alignment},");
-        result.Append("},");
-        return result.ToString();
+        var result = new JsonObject
+        {
+            ["name"] = Name, // строка сама обернётся в кавычки
+            ["pos"] = new JsonArray(PosX, 0.1, PosY),
+            ["font_size"] = FontSize,
+            ["width"] = (int)Width,
+            ["value"] = Value,
+            ["label"] = Label,
+            ["alignment"] = (int)Alignment
+        };
+        return result;
     }
 }
