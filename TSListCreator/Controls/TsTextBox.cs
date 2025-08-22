@@ -45,14 +45,22 @@ public class TsTextBox : TsControl
         set => SetField(ref _label, value);
     }
 
+    private double _fontSize = 250;
+    public double FontSize
+    {
+        get => _fontSize;
+        set => SetField(ref _fontSize, value);
+    }
+
     public override string GetJsonString()
     {
         var converter = new CanvasCoorToTsPosConverter();
         double posX = (double)converter.ConvertBack(PosX, null, "Width", CultureInfo.CurrentCulture);
         double posY = (double)converter.ConvertBack(PosY, null, "Height", CultureInfo.CurrentCulture);
         StringBuilder result = new StringBuilder("{");
+        result.Append($"\"name\":{Name},");
         result.Append($"\"pos\":[{posX},0.1,{posY}],");
-        result.Append("\"font_size\":250,");
+        result.Append($"\"font_size\":{FontSize},");
         result.Append($"\"width\":{Width},");
         result.Append($"\"value\":{Value},");
         result.Append($"\"label\":{Label},");

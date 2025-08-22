@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Net.Mime;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
@@ -67,6 +68,6 @@ public class MainViewModel(IImageLoadService imageLoadService,
 
     public void AddNewTextBox()
     {
-        TextBoxes.Add(new TsTextBox());
+        TextBoxes.Add(new TsTextBox(){Name = $"TextBox{TextBoxes.Count}"});
     }
 }
