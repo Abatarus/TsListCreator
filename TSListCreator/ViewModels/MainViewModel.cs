@@ -16,12 +16,31 @@ using TSListCreator.Utils;
 
 namespace TSListCreator.ViewModels;
 
-public class MainViewModel(IImageLoadService imageLoadService, 
-        IImageDataService imageDataService, 
-        ISettingsService settingsService)
+public class MainViewModel
     : DataModel
 {
+    public MainViewModel(IImageLoadService imageLoadService,
+        IImageDataService imageDataService,
+        ISettingsService settingsService)
+    {
+        _imageLoadService = imageLoadService;
+        _imageDataService = imageDataService;
+        _settingsService = settingsService;
+        Settings = new SettingsViewModel(_settingsService);
+        
+        Settings.PropertyChanged += (_, e) =>
+        {
+            if (e.PropertyName == nameof(Settings.BoundHeight) ||
+                e.PropertyName == nameof(Settings.BoundWidth))
+            {
+                OnPropertyChanged(nameof(CanAdd));
+            }
+        };
+    }
 
+    private IImageLoadService _imageLoadService;
+    private IImageDataService _imageDataService;
+    private ISettingsService _settingsService;
     private TsImage? _image = null;
     public TsImage? TsImage
     {
@@ -33,6 +52,7 @@ public class MainViewModel(IImageLoadService imageLoadService,
         }
     }
     public bool CanInteract => TsImage != null;
+    public bool CanAdd => CanInteract && Settings.BoundHeight > 0 && Settings.BoundWidth > 0;
 
     private ObservableCollection<TsTextBox> _textBoxes = new ObservableCollection<TsTextBox>(new List<TsTextBox>());
     public ObservableCollection<TsTextBox> TextBoxes
@@ -41,7 +61,7 @@ public class MainViewModel(IImageLoadService imageLoadService,
         set => SetField(ref _textBoxes, value);
     }
 
-    private SettingsViewModel _settings = new SettingsViewModel(settingsService);
+    private SettingsViewModel? _settings;
     public SettingsViewModel Settings
     {
         get => _settings;
@@ -52,11 +72,11 @@ public class MainViewModel(IImageLoadService imageLoadService,
     {
         try
         {
-            Bitmap? bitmap = await imageLoadService.GetImage();
+            Bitmap? bitmap = await _imageLoadService.GetImage();
             if (bitmap != null)
             {
                 TsImage = new TsImage(bitmap);
-                imageDataService.LoadImage(TsImage);
+                _imageDataService.LoadImage(TsImage);
             }
         }
         catch (Exception e)
@@ -66,6 +86,13 @@ public class MainViewModel(IImageLoadService imageLoadService,
         }
     }
 
+    public void UpdateControls()
+    {
+        //TODO костыль
+        var textBoxes = TextBoxes;
+        TextBoxes = null;
+        TextBoxes = textBoxes;
+    }
     public void AddNewTextBox()
     {
         TextBoxes.Add(new TsTextBox(){Name = $"TextBox{TextBoxes.Count}"});

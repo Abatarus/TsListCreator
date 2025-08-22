@@ -23,7 +23,7 @@ namespace TSListCreator.Services
             {
                 throw new Exception("Image not loaded");
             }
-            return _image.Source.Size.Height;
+            return _image.Height;
         }
 
         public double GetImageWidth()
@@ -32,7 +32,7 @@ namespace TSListCreator.Services
             {
                 throw new Exception("Image not loaded");
             }
-            return _image.Source.Size.Width;
+            return _image.Width;
         }
 
         public int GetImagePixHeight()

@@ -24,12 +24,28 @@ public class TsTextBox : TsControl
         set => SetField(ref _alignment, value);
     }
 
-    private int _width = 1000;
-    public int Width
+    private double _width = 1000;
+    public double Width
     {
         get => _width;
         set => SetField(ref _width, value);
     }
+
+    private int _rowCount = 1;
+    public double Height
+    {
+        get => FontSize * _rowCount + 24; // из скрипта
+        set
+        {
+            _rowCount = (int)(value / FontSize);
+            if (_rowCount < 1)
+            {
+                _rowCount = 1;
+            }
+            OnPropertyChanged();
+        }
+    }
+
 
     private string _value = "";
     public string Value
@@ -61,7 +77,7 @@ public class TsTextBox : TsControl
         result.Append($"\"name\":{Name},");
         result.Append($"\"pos\":[{posX},0.1,{posY}],");
         result.Append($"\"font_size\":{FontSize},");
-        result.Append($"\"width\":{Width},");
+        result.Append($"\"width\":{(int)Width},");
         result.Append($"\"value\":{Value},");
         result.Append($"\"label\":{Label},");
         result.Append($"\"alignment\":{(int)Alignment},");

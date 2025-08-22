@@ -15,14 +15,21 @@
     <UserControl.Resources>
         <converters:CanvasCoorToTsPosConverter x:Key="CanvasCoorToTsPos"/>
     </UserControl.Resources>
+    <Interaction.Behaviors>
+        <EventTriggerBehavior EventName="SizeChanged" SourceObject="Main">
+            <InvokeCommandAction Command="{Binding UpdateControls}"/>
+        </EventTriggerBehavior>
+    </Interaction.Behaviors>
+
+
     <Grid Background="#bdbdbd"
           ColumnDefinitions="*,Auto,*, Auto">
         <StackPanel Grid.Column="1">
             <Image x:Name="ShowedImage"
                    HorizontalAlignment="Center"
                    Stretch="Uniform"
-                   Width="{Binding TsImage.Width, Mode=OneWayToSource}"
                    Height="{Binding $parent.Bounds.Height}"
+                   Bounds="{Binding TsImage.Bounds, Mode=OneWayToSource}"
                    Source="{Binding TsImage.Source}"/>
         </StackPanel>
         <ItemsControl Grid.Column="1"
@@ -66,7 +73,7 @@
                                 HorizontalAlignment="Stretch"
                                 Content="Добавить"
                                 Command="{Binding AddNewTextBox}"
-                                IsEnabled="{Binding CanInteract}" />
+                                IsEnabled="{Binding CanAdd}" />
                         <ScrollViewer Grid.Row="1">
                             <ItemsControl ItemsSource="{Binding TextBoxes, Mode=TwoWay}">
                                 <ItemsControl.ItemTemplate>

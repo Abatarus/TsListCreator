@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Avalonia;
 using Avalonia.Media.Imaging;
 
 namespace TSListCreator.Utils
@@ -12,7 +13,6 @@ namespace TSListCreator.Utils
         public TsImage(Bitmap source)
         {
             Source = source;
-            Width = Source.Size.Width;
         }
         private Bitmap _source;
 
@@ -22,25 +22,19 @@ namespace TSListCreator.Utils
             set => SetField(ref _source, value);
         }
 
-        //private double _height;
+        private Rect _bounds;
 
-        //public double Height
-        //{
-        //    get => _height;
-        //    set => SetField(ref _height, value);
-        //}
-        private double _width;
-
-        public double Width
+        public Rect Bounds
         {
-            get => _width;
+            get => _bounds;
             set
             {
-                SetField(ref _width, value);
-                OnPropertyChanged(nameof(EmToPix));
-            } 
+                SetField(ref _bounds, value);
+            }
         }
 
-        public double EmToPix => Width / Source.PixelSize.Width;
+        public double Width => _bounds.Width;
+
+        public double Height => _bounds.Height;
     }
 }

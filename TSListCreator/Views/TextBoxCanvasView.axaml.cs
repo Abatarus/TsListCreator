@@ -4,6 +4,7 @@ using Avalonia.Input;
 using Avalonia.Media;
 using System;
 using System.ComponentModel.Design;
+using System.Runtime.CompilerServices;
 using TSListCreator.Controls;
 using TSListCreator.Thumbs;
 
@@ -13,11 +14,13 @@ public partial class TextBoxCanvasView : UserControl
 {
     private bool _isPointerPressed = false;
     private bool _isRightLeftStretching = false;
+    private Border border;
     private double PosX => ((TsControl)(DataContext)).PosX;
     private double PosY => ((TsControl)(DataContext)).PosY;
     public TextBoxCanvasView()
     {
         InitializeComponent();
+        border = this.Get<Border>("ResizeButton");
     }
     private const double BORDER = 5;
     private static readonly Cursor _bottonCursor = new Cursor(StandardCursorType.SizeNorthSouth);
@@ -25,11 +28,11 @@ public partial class TextBoxCanvasView : UserControl
 
     private bool IsRightLeftStretching(Point point)
     {
-        if (Height - point.Y < 0)
+        if (border.Height - point.Y < 0)
         {
             return false;
         }
-        double heightDelta = Math.Abs(Height - point.Y);
+        double heightDelta = Math.Abs(border.Height - point.Y);
         return heightDelta > BORDER;
     }
     private void SetCorrectCursor()
@@ -58,18 +61,18 @@ public partial class TextBoxCanvasView : UserControl
             if (_isRightLeftStretching)
             {
                 double newWidth = Math.Abs(PosX - e.GetPosition((Visual)Parent.Parent!).X);
-                if (MinWidth < newWidth)
+                if (border.MinWidth < newWidth)
                 {
-                    Width = newWidth;
+                    border.Width = newWidth;
                 }
             }
             else
             {
                 double newHeight = Math.Abs(PosY - e.GetPosition((Visual)Parent.Parent!).Y);
-                int newIntHeight = (int)(newHeight / MinHeight);
+                int newIntHeight = (int)(newHeight / border.MinHeight);
                 if (newIntHeight >= 1)
                 {
-                    Height = newIntHeight * MinHeight;
+                    border.Height = newIntHeight * border.MinHeight;
                 }
             }
         }
