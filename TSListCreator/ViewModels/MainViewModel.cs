@@ -117,9 +117,10 @@ public class MainViewModel
     public void UpdateControls()
     {
         //TODO костыль
-        var textBoxes = TextBoxes;
-        TextBoxes = null;
-        TextBoxes = textBoxes;
+        var shared = SharedCollection;
+        SharedCollection = null;
+        SharedCollection = shared;
+
     }
     public void AddNewTextBox()
     {
