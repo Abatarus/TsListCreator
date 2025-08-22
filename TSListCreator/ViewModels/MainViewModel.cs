@@ -43,6 +43,7 @@ public class MainViewModel
                 e.PropertyName == nameof(Settings.BoundWidth))
             {
                 OnPropertyChanged(nameof(CanAdd));
+                UpdateControls();
             }
         };
     }

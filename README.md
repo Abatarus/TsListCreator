@@ -10,18 +10,20 @@
 Перед началом работы требуется получить границы будущего объекта внутри игры и внести соответсвующие поля x и z в настройках
 ``` lua
 function onLoad()
+    self.setScale({x=1,y=1,z=1})
     local bn = self.getBoundsNormalized()
-    print(("Normalized bounds (scale=1): X=%.3f, Y=%.3f, Z=%.3f")
-        :format(bn.size.x, bn.size.y, bn.size.z))
+    print(("Ширина: %.3f Длина: %.3f")
+        :format(bn.size.x,  bn.size.z))
 end
 ```
 или
 ``` lua
 function onLoad()
+    self.setScale({x=1,y=1,z=1})
     local bn = self.getBoundsNormalized()
     setNotes(("Ширина: %.3f\n Длина: %.3f")
         :format(bn.size.x,  bn.size.z))
-end
+end   
 ```
 ## Пример работы программы
 ![Пример работы программы](doc/result2.png)
