@@ -2,15 +2,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:thumbs="clr-namespace:TSListCreator.Thumbs"
              xmlns:converters="clr-namespace:TSListCreator.Converters"
+             xmlns:thumbs="clr-namespace:TSListCreator.Thumbs"
              xmlns:controls="clr-namespace:TSListCreator.Controls"
-             d:DesignHeight="450"
-             d:DesignWidth="800"
              mc:Ignorable="d"
-             x:DataType="controls:TsTextBox"
+             d:DesignWidth="800"
+             d:DesignHeight="450"
+             x:DataType="controls:TsCheckBox"
              IsPointerOver="{Binding IsHighlighted, Mode=OneWayToSource}"
-             x:Class="TSListCreator.Views.TextBoxCanvasView">
+             x:Class="TSListCreator.Views.CheckBoxCanvasView">
     <UserControl.Resources>
         <converters:SideSpaceConverter x:Key="SideSpaceConverter"/>
         <converters:OneSideSpaceConverter x:Key="OneSideSpaceConverter"/>
@@ -19,10 +19,10 @@
     <Border x:Name="ResizeBorder"
             Background="Black"
             BorderThickness="1"
-            Width="{Binding Width, Converter={StaticResource CanvasToTsSizeConverter}, ConverterParameter=Width, Mode=TwoWay}"
-            Height="{Binding Height, Converter={StaticResource CanvasToTsSizeConverter}, ConverterParameter=Height, Mode=TwoWay}"
-            MinHeight="{Binding FontSize, Converter={StaticResource CanvasToTsSizeConverter}, ConverterParameter=Height}"
-            MinWidth="{Binding FontSize, Converter={StaticResource CanvasToTsSizeConverter}, ConverterParameter=Width}"
+            Width="{Binding Size, Converter={StaticResource CanvasToTsSizeConverter}, ConverterParameter=Width, Mode=TwoWay}"
+            Height="{Binding Size, Converter={StaticResource CanvasToTsSizeConverter}, ConverterParameter=Width, Mode=OneTime}"
+            MinWidth="15"
+            Cursor="SizeAll"
             PointerMoved="OnPointerMoved"
             PointerPressed="OnPointerPressed"
             PointerReleased="OnPointerReleased">
@@ -40,22 +40,25 @@
                                       Value="Black"/>
             </DataTriggerBehavior>
         </Interaction.Behaviors>
-        <thumbs:MovedThumb VerticalAlignment="Top"
+        <thumbs:MovedThumb VerticalAlignment="Center"
                            HorizontalAlignment="Center"
-                           Height="{Binding Height, Converter={StaticResource OneSideSpaceConverter}, ConverterParameter=10}"
+                           Height="{Binding Height, Converter={StaticResource SideSpaceConverter}, ConverterParameter=10}"
                            Width="{Binding Width, Converter={StaticResource SideSpaceConverter}, ConverterParameter=10}"
                            Cursor="DragMove"
                            x:DataType="UserControl"
                            DataContext="{Binding $parent[Border]}">
             <thumbs:MovedThumb.Template>
                 <ControlTemplate>
-                    <Rectangle Stretch="Fill"
-                               Fill="White"
-                               HorizontalAlignment="Stretch"
-                               VerticalAlignment="Stretch"/>
+                    <Grid RowDefinitions="Auto">
+                        <Rectangle Grid.Row="0"
+                                   Stretch="Fill"
+                                   Fill="White"
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Stretch"/>
+                    </Grid>
+
                 </ControlTemplate>
             </thumbs:MovedThumb.Template>
         </thumbs:MovedThumb>
     </Border>
 </UserControl>
-

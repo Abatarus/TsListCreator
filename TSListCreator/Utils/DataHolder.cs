@@ -33,8 +33,8 @@ namespace TSListCreator.Utils
             get => _counters;
             set => SetField(ref _counters, value);
         }
-        private ObservableCollection<TsCheckbox> _checkBoxes = new ObservableCollection<TsCheckbox>(new List<TsCheckbox>());
-        public ObservableCollection<TsCheckbox> Checkboxes
+        private ObservableCollection<TsCheckBox> _checkBoxes = new ObservableCollection<TsCheckBox>(new List<TsCheckBox>());
+        public ObservableCollection<TsCheckBox> CheckBoxes
         {
             get => _checkBoxes;
             set => SetField(ref _checkBoxes, value);

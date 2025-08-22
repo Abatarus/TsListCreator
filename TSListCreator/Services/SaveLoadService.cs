@@ -46,35 +46,57 @@ namespace TSListCreator.Services
                 ["settings"] = settings.GetJsonObject(),
                 ["textboxes"] = textBoxesArray,
                 ["counters"] = countersArray,
-                ["checkBoxes"] = checkBoxesArray
+                ["checkboxes"] = checkBoxesArray
             };
             await _topLevelService.SaveJsonToFile(result);
         }
 
-        public async Task<DataHolder> Load()
+        public async Task<DataHolder> Load(ISettingsService settingsService)
         {
             DataHolder holder = new DataHolder();
-            JsonDocument document = JsonDocument.Parse(await _topLevelService.LoadJsonFile());
+            var jsonString = await _topLevelService.LoadJsonFile();
+            if (jsonString == null)
+            {
+                throw new Exception("File not loaded");
+            }
+            JsonDocument document = JsonDocument.Parse(jsonString);
 
             var settingsElem = document.RootElement.GetProperty("settings");
             holder.Settings.BoundWidth = settingsElem.GetProperty("bound_width").GetDouble();
+            settingsService.BoundWidth = holder.Settings.BoundWidth;
             holder.Settings.BoundHeight = settingsElem.GetProperty("bound_height").GetDouble();
+            settingsService.BoundHeight = holder.Settings.BoundHeight;
             holder.Settings.Background = Color.FromUInt32(settingsElem.GetProperty("background").GetUInt32());
             holder.Settings.FontColor = Color.FromUInt32(settingsElem.GetProperty("font_color").GetUInt32());
 
             var textBoxesElem = document.RootElement.GetProperty("textboxes");
 
-            foreach (var textBoxElem in textBoxesElem.EnumerateArray())
+            foreach (var elem in textBoxesElem.EnumerateArray())
             {
                 holder.TextBoxes.Add(new TsTextBox()
                 {
-                    Alignment = (AlignmentId)textBoxElem.GetProperty("alignment").GetInt32(),
-                    FontSize = textBoxElem.GetProperty("font_size").GetDouble(),
-                    PosX = textBoxElem.GetProperty("pos")[0].GetDouble(),
-                    PosY = textBoxElem.GetProperty("pos")[2].GetDouble(),
-                    Width = textBoxElem.GetProperty("width").GetDouble(),
-                    Value = textBoxElem.GetProperty("value").GetString(),
-                    Label = textBoxElem.GetProperty("label").GetString()
+                    Alignment = (AlignmentId)elem.GetProperty("alignment").GetInt32(),
+                    FontSize = elem.GetProperty("font_size").GetDouble(),
+                    PosX = elem.GetProperty("pos")[0].GetDouble(),
+                    PosY = elem.GetProperty("pos")[2].GetDouble(),
+                    Width = elem.GetProperty("width").GetDouble(),
+                    Value = elem.GetProperty("value").GetString(),
+                    Label = elem.GetProperty("label").GetString(),
+                    Name = elem.GetProperty("name").GetString()!
+                });
+            }
+
+            var checkBoxesElem = document.RootElement.GetProperty("checkboxes");
+
+            foreach (var elem in checkBoxesElem.EnumerateArray())
+            {
+                holder.CheckBoxes.Add(new TsCheckBox()
+                {
+                    PosX = elem.GetProperty("pos")[0].GetDouble(),
+                    PosY = elem.GetProperty("pos")[2].GetDouble(),
+                    Size = elem.GetProperty("size").GetDouble(),
+                    State = elem.GetProperty("state").GetBoolean(),
+                    Name = elem.GetProperty("name").GetString()!
                 });
             }
 

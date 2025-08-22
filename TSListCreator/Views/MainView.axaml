@@ -5,7 +5,8 @@
              xmlns:v="using:TSListCreator.Views"
              xmlns:vm="using:TSListCreator.ViewModels"
              xmlns:controls="clr-namespace:TSListCreator.Controls"
-             xmlns:converters="clr-namespace:TSListCreator.Converters"
+             xmlns:converters="clr-namespace:TSListCreator.Converters" 
+             xmlns:utils="clr-namespace:TSListCreator.Utils"
              d:DesignHeight="450"
              d:DesignWidth="800"
              x:DataType="vm:MainViewModel"
@@ -35,7 +36,7 @@
         <ItemsControl Grid.Column="1"
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Stretch"
-                      ItemsSource="{Binding TextBoxes, Mode=TwoWay}">
+                      ItemsSource="{Binding SharedCollection, Mode=TwoWay}">
             <ItemsControl.Styles>
                 <Style Selector="ContentPresenter"
                        x:DataType="controls:TsControl">
@@ -57,9 +58,17 @@
             </ItemsControl.ItemsPanel>
 
             <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <v:TextBoxCanvasView/>
-                </DataTemplate>
+                <utils:CanvasTemplateSelector>
+                    <DataTemplate x:Key="TsTextBox">
+                        <v:TextBoxCanvasView/>
+                    </DataTemplate>
+                    <DataTemplate x:Key="TsCounter">
+                        <v:TextBoxCanvasView/>
+                    </DataTemplate>
+                    <DataTemplate x:Key="TsCheckBox">
+                        <v:CheckBoxCanvasView/>
+                    </DataTemplate>
+                </utils:CanvasTemplateSelector>
             </ItemsControl.ItemTemplate>
 
         </ItemsControl>
@@ -91,9 +100,22 @@
                     </ScrollViewer>
                 </TabItem>
                 <TabItem Header="Галочки">
-                    <ScrollViewer>
-                        <ItemsRepeater />
-                    </ScrollViewer>
+                    <Grid RowDefinitions="Auto, *">
+                        <Button Grid.Row="0"
+                                HorizontalAlignment="Stretch"
+                                Content="Добавить"
+                                Command="{Binding AddNewCheckBox}"
+                                IsEnabled="{Binding CanAdd}" />
+                        <ScrollViewer Grid.Row="1">
+                            <ItemsControl ItemsSource="{Binding CheckBoxes, Mode=TwoWay}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <v:CheckBoxListView/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Grid>
                 </TabItem>
                 <TabItem Header="Настройки">
                     <ScrollViewer>

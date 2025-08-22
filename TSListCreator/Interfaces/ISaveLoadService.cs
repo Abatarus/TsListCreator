@@ -11,7 +11,7 @@ namespace TSListCreator.Interfaces
     {
         Task Save(IJsonInput settings, IEnumerable<IJsonInput> textBoxes, IEnumerable<IJsonInput> counters, IEnumerable<IJsonInput> checkBoxes);
 
-        Task<DataHolder> Load();
+        Task<DataHolder> Load(ISettingsService settingsService);
 
         void SaveToClipBoard(ILuaInput settings,
             IEnumerable<ILuaInput> textBoxes,

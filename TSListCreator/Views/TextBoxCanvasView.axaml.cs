@@ -20,7 +20,7 @@ public partial class TextBoxCanvasView : UserControl
     public TextBoxCanvasView()
     {
         InitializeComponent();
-        border = this.Get<Border>("ResizeButton");
+        border = this.Get<Border>("ResizeBorder");
     }
     private const double BORDER = 5;
     private static readonly Cursor _bottonCursor = new Cursor(StandardCursorType.SizeNorthSouth);

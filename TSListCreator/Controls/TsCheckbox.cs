@@ -4,7 +4,7 @@ using System.Text.Json.Nodes;
 
 namespace TSListCreator.Controls;
 
-public class TsCheckbox : TsControl
+public class TsCheckBox : TsControl
 {
     private double _size = 150;
     public double Size

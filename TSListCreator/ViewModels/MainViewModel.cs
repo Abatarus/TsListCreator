@@ -36,7 +36,7 @@ public class MainViewModel
         _imageDataService = imageDataService;
         _settingsService = settingsService;
         Settings = new SettingsViewModel(_settingsService);
-        
+
         Settings.PropertyChanged += (_, e) =>
         {
             if (e.PropertyName == nameof(Settings.BoundHeight) ||
@@ -61,11 +61,26 @@ public class MainViewModel
     public bool CanInteract => TsImage != null;
     public bool CanAdd => CanInteract && Settings.BoundHeight > 0 && Settings.BoundWidth > 0;
 
+
+    private ObservableCollection<TsControl> _sharedCollection = new ObservableCollection<TsControl>(new List<TsControl>());
+    public ObservableCollection<TsControl> SharedCollection
+    {
+        get => _sharedCollection;
+        set => SetField(ref _sharedCollection, value);
+    }
+
     private ObservableCollection<TsTextBox> _textBoxes = new ObservableCollection<TsTextBox>(new List<TsTextBox>());
     public ObservableCollection<TsTextBox> TextBoxes
     {
         get => _textBoxes;
         set => SetField(ref _textBoxes, value);
+    }
+
+    private ObservableCollection<TsCheckBox> _checkBoxes = new ObservableCollection<TsCheckBox>(new List<TsCheckBox>());
+    public ObservableCollection<TsCheckBox> CheckBoxes
+    {
+        get => _checkBoxes;
+        set => SetField(ref _checkBoxes, value);
     }
 
     private SettingsViewModel? _settings;
@@ -102,26 +117,51 @@ public class MainViewModel
     }
     public void AddNewTextBox()
     {
-        TextBoxes.Add(new TsTextBox(){Name = $"TextBox{TextBoxes.Count}"});
+        TextBoxes.Add(new TsTextBox() { Name = $"TextBox{TextBoxes.Count}" });
+        SharedCollection.Add(TextBoxes.Last());
         TextBoxes.Last().SetRemove(RemoveMe);
+    }
+    public void AddNewCheckBox()
+    {
+        CheckBoxes.Add(new TsCheckBox() { Name = $"TsCheckbox{CheckBoxes.Count}" });
+        SharedCollection.Add(CheckBoxes.Last());
+        CheckBoxes.Last().SetRemove(RemoveMe);
     }
 
     public async void Save()
     {
-        await _saveLoadService.Save(_settingsService, _textBoxes, new List<IJsonInput>(), new List<IJsonInput>());
+        await _saveLoadService.Save(_settingsService, _textBoxes, new List<IJsonInput>(), CheckBoxes);
     }
     public async void Load()
     {
-        DataHolder holder = await _saveLoadService.Load();
+        DataHolder holder;
+        try
+        {
+            holder = await _saveLoadService.Load(_settingsService);
+        }
+        catch (Exception ex)
+        {
+            //TODO log
+            return;
+        }
         Settings.BoundHeight = holder.Settings.BoundHeight;
         Settings.BoundWidth = holder.Settings.BoundWidth;
         Settings.Background = holder.Settings.Background;
         Settings.FontColor = holder.Settings.FontColor;
+        SharedCollection.Clear();
         TextBoxes.Clear();
         TextBoxes = holder.TextBoxes;
         foreach (var textBox in TextBoxes)
         {
+            SharedCollection.Add(textBox);
             textBox.SetRemove(RemoveMe);
+        }
+        CheckBoxes.Clear();
+        CheckBoxes = holder.CheckBoxes;
+        foreach (var checkBox in CheckBoxes)
+        {
+            SharedCollection.Add(checkBox);
+            checkBox.SetRemove(RemoveMe);
         }
     }
     public void CopyToClipBoard()
@@ -130,9 +170,10 @@ public class MainViewModel
     }
     private void RemoveMe(object child)
     {
+        SharedCollection.Remove((TsControl)child);
         //TODO
         if (child is TsTextBox tb) TextBoxes.Remove(tb);
         //else if (child is TsCounter c) Counters.Remove(c);
-        //else if (child is TsCounter cb) CheckBoxes.Remove(cb);
+        else if (child is TsCheckBox cb) CheckBoxes.Remove(cb);
     }
 }
