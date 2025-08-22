@@ -22,6 +22,7 @@
             Width="{Binding Size, Converter={StaticResource CanvasToTsSizeConverter}, ConverterParameter=Width, Mode=TwoWay}"
             Height="{Binding Size, Converter={StaticResource CanvasToTsSizeConverter}, ConverterParameter=Height, Mode=OneTime}"
             MinWidth="15"
+            MinHeight="15"
             Cursor="SizeAll"
             PointerMoved="OnPointerMoved"
             PointerPressed="OnPointerPressed"
