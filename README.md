@@ -15,6 +15,14 @@ function onLoad()
         :format(bn.size.x, bn.size.y, bn.size.z))
 end
 ```
+или
+``` lua
+function onLoad()
+    local bn = self.getBoundsNormalized()
+    setNotes(("Ширина: %.3f\n Длина: %.3f")
+        :format(bn.size.x,  bn.size.z))
+end
+```
 ## Пример работы программы
 ![Пример работы программы](doc/result2.png)
 
