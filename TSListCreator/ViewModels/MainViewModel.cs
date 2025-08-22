@@ -10,6 +10,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
+using Avalonia.Threading;
 using SkiaSharp;
 using TSListCreator.Controls;
 using TSListCreator.Interfaces;
@@ -118,9 +119,12 @@ public class MainViewModel
     public void UpdateControls()
     {
         //TODO костыль
-        var shared = SharedCollection;
-        SharedCollection = null;
-        SharedCollection = shared;
+        Dispatcher.UIThread.Invoke(() =>
+        {
+            var shared = SharedCollection;
+            SharedCollection = null;
+            SharedCollection = shared;
+        });
 
     }
     public void AddNewTextBox()
