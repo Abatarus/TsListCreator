@@ -122,6 +122,7 @@
                     Grid.Row="4"
                     HorizontalAlignment="Stretch"
                     Content="Копировать в буфер обмена"
+                    Command="{Binding CopyToClipBoard}"
                     IsEnabled="{Binding CanInteract}" />
         </Grid>
     </Grid>

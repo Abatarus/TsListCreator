@@ -6,13 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
+using Avalonia.Xaml.Interactions.Core;
 
 namespace TSListCreator.Interfaces
 {
-    public interface IFilePickerService
+    public interface ITopLevelService
     {
         Task<string> LoadJsonFile();
         Task SaveJsonToFile(JsonObject json);
         Task<Bitmap?> GetImage();
+
+        void SetClipboardText(string text);
     }
 }

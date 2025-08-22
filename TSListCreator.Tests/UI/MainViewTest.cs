@@ -30,8 +30,8 @@ namespace TSListCreator.Tests.UI
                     new ConverterServiceContainer(
                         new SettingsServiceMock().FakedObject,
                         new ImageDataServiceMock().FakedObject);
-                IFilePickerService filePickerService = new FilePickerServiceMock().FakedObject;
-                var viewModel = new MainViewModel(filePickerService,
+                ITopLevelService topLevelService = new FilePickerServiceMock().FakedObject;
+                var viewModel = new MainViewModel(topLevelService,
                     new SaveLoadServiceMock().FakedObject,
                     new ImageDataServiceMock().FakedObject,
                     new SettingsServiceMock().FakedObject);
@@ -53,8 +53,8 @@ namespace TSListCreator.Tests.UI
                 new ConverterServiceContainer(
                     new SettingsServiceMock().FakedObject,
                     new ImageDataServiceMock().FakedObject);
-            IFilePickerService filePickerService = new FilePickerServiceMock().FakedObject;
-            var viewModel = new MainViewModel(filePickerService,
+            ITopLevelService topLevelService = new FilePickerServiceMock().FakedObject;
+            var viewModel = new MainViewModel(topLevelService,
                 new SaveLoadServiceMock().FakedObject,
                 new ImageDataServiceMock().FakedObject,
                 new SettingsServiceMock().FakedObject);
@@ -80,9 +80,9 @@ namespace TSListCreator.Tests.UI
                 new ConverterServiceContainer(
                     new SettingsServiceMock().FakedObject,
                     new ImageDataServiceMock().FakedObject);
-            IFilePickerService filePickerService = new FilePickerServiceMock().FakedObject;
+            ITopLevelService topLevelService = new FilePickerServiceMock().FakedObject;
 
-            var viewModel = new MainViewModel(filePickerService,
+            var viewModel = new MainViewModel(topLevelService,
                 new SaveLoadServiceMock().FakedObject,
                 new ImageDataServiceMock().FakedObject,
                 new SettingsServiceMock().FakedObject);

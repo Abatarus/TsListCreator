@@ -26,5 +26,9 @@ namespace TSListCreator.Services
         public double BoundHeight { get; set; }
         public Color Background { get; set; } = Colors.Black;
         public Color FontColor { get; set; } = Colors.WhiteSmoke;
+        public string GetLuaString()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

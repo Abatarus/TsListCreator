@@ -7,7 +7,7 @@ using Avalonia.Media;
 
 namespace TSListCreator.Interfaces
 {
-    public interface ISettingsService: IJsonInput
+    public interface ISettingsService: IJsonInput, ILuaInput
     {
         double BoundWidth { get; set; }
         double BoundHeight { get; set; }

@@ -15,10 +15,10 @@ using TSListCreator.Utils;
 
 namespace TSListCreator.Services
 {
-    public class FilePickerService : IFilePickerService
+    public class TopLevelService : ITopLevelService
     {
         private object _view;
-        public FilePickerService(object view)
+        public TopLevelService(object view)
         {
             _view = view;
         }
@@ -119,6 +119,12 @@ namespace TSListCreator.Services
                 throw new Exception("File loading failed");
             }
             return null;
+        }
+
+        public void SetClipboardText(string text)
+        {
+            var topLevel = TopLevel.GetTopLevel((Visual)_view);
+            topLevel!.Clipboard!.SetTextAsync(text);
         }
     }
 }

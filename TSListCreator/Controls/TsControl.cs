@@ -6,7 +6,7 @@ using TSListCreator.Converters;
 using TSListCreator.Interfaces;
 using TSListCreator.Utils;
 namespace TSListCreator.Controls;
-public abstract class TsControl : DataModel, IJsonInput
+public abstract class TsControl : DataModel, IJsonInput, ILuaInput
 {
     private CanvasCoorToTsPosConverter posConverter = new CanvasCoorToTsPosConverter();
     private string _name = "";
@@ -16,14 +16,14 @@ public abstract class TsControl : DataModel, IJsonInput
         set => SetField(ref _name, value);
     }
 
-    private double _posX = 0.0;
+    protected double _posX = 0.0;
     public double PosX
     {
         get => (double)posConverter.Convert(_posX, null, "Width", CultureInfo.CurrentCulture);
         set => SetField(ref _posX, (double)posConverter.ConvertBack(value, null, "Width", CultureInfo.CurrentCulture)); 
     }
 
-    private double _posY = 0.0;
+    protected double _posY = 0.0;
     public double PosY
     {
         get => (double)posConverter.Convert(_posY, null, "Height", CultureInfo.CurrentCulture);
@@ -42,6 +42,8 @@ public abstract class TsControl : DataModel, IJsonInput
         _removeMe(this);
     }
     public abstract JsonObject GetJsonObject();
+    public abstract string GetLuaString();
+    
     private Action<TsControl> _removeMe;
     public void SetRemove(Action<TsControl> removeMe)
     {

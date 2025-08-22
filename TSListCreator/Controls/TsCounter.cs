@@ -9,4 +9,9 @@ public class TsCounter : TsControl
     {
         throw new System.NotImplementedException();
     }
+
+    public override string GetLuaString()
+    {
+        throw new System.NotImplementedException();
+    }
 }

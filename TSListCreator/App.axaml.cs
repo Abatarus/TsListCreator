@@ -23,9 +23,9 @@ namespace TSListCreator
                 IImageDataService imageDataService = new ImageDataService();
                 ISettingsService settingsService = new SettingsService();
                 ConverterServiceContainer serviceContainer = new ConverterServiceContainer(settingsService, imageDataService);
-                FilePickerService filePickerService = new FilePickerService(desktop.MainWindow);
-                SaveLoadService saveLoadService = new SaveLoadService(filePickerService);
-                desktop.MainWindow.DataContext = new MainViewModel(filePickerService,
+                TopLevelService topLevelService = new TopLevelService(desktop.MainWindow);
+                SaveLoadService saveLoadService = new SaveLoadService(topLevelService);
+                desktop.MainWindow.DataContext = new MainViewModel(topLevelService,
                     saveLoadService,
                     imageDataService,
                     settingsService);

@@ -8,4 +8,9 @@ public class TsCheckbox : TsControl
     {
         throw new System.NotImplementedException();
     }
+
+    public override string GetLuaString()
+    {
+        throw new System.NotImplementedException();
+    }
 }

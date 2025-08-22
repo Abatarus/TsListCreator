@@ -10,7 +10,7 @@ using TSListCreator.Interfaces;
 
 namespace TSListCreator.Tests.Mocks
 {
-    internal class FilePickerServiceMock: Fake<IFilePickerService>
+    internal class FilePickerServiceMock: Fake<ITopLevelService>
     {
         public FilePickerServiceMock()
         {

@@ -21,18 +21,18 @@ namespace TSListCreator.ViewModels;
 public class MainViewModel
     : DataModel
 {
-    private IFilePickerService _filePickerService;
+    private ITopLevelService _topLevelService;
     private IImageDataService _imageDataService;
     private ISettingsService _settingsService;
     private ISaveLoadService _saveLoadService;
 
-    public MainViewModel(IFilePickerService filePickerService,
+    public MainViewModel(ITopLevelService topLevelService,
         ISaveLoadService saveLoadService,
         IImageDataService imageDataService,
         ISettingsService settingsService)
     {
         _saveLoadService = saveLoadService;
-        _filePickerService = filePickerService;
+        _topLevelService = topLevelService;
         _imageDataService = imageDataService;
         _settingsService = settingsService;
         Settings = new SettingsViewModel(_settingsService);
@@ -79,7 +79,7 @@ public class MainViewModel
     {
         try
         {
-            Bitmap? bitmap = await _filePickerService.GetImage();
+            Bitmap? bitmap = await _topLevelService.GetImage();
             if (bitmap != null)
             {
                 TsImage = new TsImage(bitmap);
@@ -123,6 +123,10 @@ public class MainViewModel
         {
             textBox.SetRemove(RemoveMe);
         }
+    }
+    public void CopyToClipBoard()
+    {
+        _saveLoadService.SaveToClipBoard(_settingsService, _textBoxes, new List<ILuaInput>(), new List<ILuaInput>());
     }
     private void RemoveMe(object child)
     {
