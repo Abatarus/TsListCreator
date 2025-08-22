@@ -1,8 +1,11 @@
+using System.Globalization;
+using TSListCreator.Converters;
 using TSListCreator.Interfaces;
 using TSListCreator.Utils;
 namespace TSListCreator.Controls;
 public abstract class TsControl : DataModel, IJsonInput
 {
+    private CanvasCoorToTsPosConverter posConverter = new CanvasCoorToTsPosConverter();
     private string _name = "";
     public string Name
     {
@@ -13,15 +16,15 @@ public abstract class TsControl : DataModel, IJsonInput
     private double _posX = 0.0;
     public double PosX
     {
-        get => _posX;
-        set => SetField(ref _posX, value); 
+        get => (double)posConverter.Convert(_posX, null, "Width", CultureInfo.CurrentCulture);
+        set => SetField(ref _posX, (double)posConverter.ConvertBack(value, null, "Width", CultureInfo.CurrentCulture)); 
     }
 
     private double _posY = 0.0;
     public double PosY
     {
-        get => _posY;
-        set => SetField(ref _posY, value); 
+        get => (double)posConverter.Convert(_posY, null, "Height", CultureInfo.CurrentCulture);
+        set => SetField(ref _posY, (double)posConverter.ConvertBack(value, null, "Height", CultureInfo.CurrentCulture));
     }
 
     private bool _isHighlighted = false;

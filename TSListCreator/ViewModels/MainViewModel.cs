@@ -19,6 +19,10 @@ namespace TSListCreator.ViewModels;
 public class MainViewModel
     : DataModel
 {
+    private IImageLoadService _imageLoadService;
+    private IImageDataService _imageDataService;
+    private ISettingsService _settingsService;
+
     public MainViewModel(IImageLoadService imageLoadService,
         IImageDataService imageDataService,
         ISettingsService settingsService)
@@ -38,9 +42,6 @@ public class MainViewModel
         };
     }
 
-    private IImageLoadService _imageLoadService;
-    private IImageDataService _imageDataService;
-    private ISettingsService _settingsService;
     private TsImage? _image = null;
     public TsImage? TsImage
     {
