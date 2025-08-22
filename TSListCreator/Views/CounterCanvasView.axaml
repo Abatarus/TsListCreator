@@ -2,18 +2,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:converters="clr-namespace:TSListCreator.Converters"
              xmlns:thumbs="clr-namespace:TSListCreator.Thumbs"
              xmlns:controls="clr-namespace:TSListCreator.Controls"
+             xmlns:converters="clr-namespace:TSListCreator.Converters"
              mc:Ignorable="d"
              d:DesignWidth="800"
              d:DesignHeight="450"
-             x:DataType="controls:TsCheckBox"
+             x:DataType="controls:TsCounter"
              IsPointerOver="{Binding IsHighlighted, Mode=OneWayToSource}"
-             x:Class="TSListCreator.Views.CheckBoxCanvasView">
+             x:Class="TSListCreator.Views.CounterCanvasView">
     <UserControl.Resources>
         <converters:SideSpaceConverter x:Key="SideSpaceConverter"/>
-        <converters:OneSideSpaceConverter x:Key="OneSideSpaceConverter"/>
         <converters:CanvasCoorToTsSizeConverter x:Key="CanvasToTsSizeConverter"/>
     </UserControl.Resources>
     <Border x:Name="ResizeBorder"
@@ -49,10 +48,10 @@
                            DataContext="{Binding $parent[Border]}">
             <thumbs:MovedThumb.Template>
                 <ControlTemplate>
-                    <Rectangle Stretch="Fill"
-                               Fill="White"
-                               HorizontalAlignment="Stretch"
-                               VerticalAlignment="Stretch"/>
+                    <Ellipse Stretch="Fill"
+                             Fill="White"
+                             HorizontalAlignment="Stretch"
+                             VerticalAlignment="Stretch"/>
 
                 </ControlTemplate>
             </thumbs:MovedThumb.Template>

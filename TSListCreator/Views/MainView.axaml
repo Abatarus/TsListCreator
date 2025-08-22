@@ -63,7 +63,7 @@
                         <v:TextBoxCanvasView/>
                     </DataTemplate>
                     <DataTemplate x:Key="TsCounter">
-                        <v:TextBoxCanvasView/>
+                        <v:CounterCanvasView/>
                     </DataTemplate>
                     <DataTemplate x:Key="TsCheckBox">
                         <v:CheckBoxCanvasView/>
@@ -95,9 +95,22 @@
                     </Grid>
                 </TabItem>
                 <TabItem Header="Счетчики">
-                    <ScrollViewer>
-                        <ItemsRepeater />
-                    </ScrollViewer>
+                    <Grid RowDefinitions="Auto, *">
+                        <Button Grid.Row="0"
+                                HorizontalAlignment="Stretch"
+                                Content="Добавить"
+                                Command="{Binding AddNewCounter}"
+                                IsEnabled="{Binding CanAdd}" />
+                        <ScrollViewer Grid.Row="1">
+                            <ItemsControl ItemsSource="{Binding Counters, Mode=TwoWay}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <v:CounterListView/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Grid>
                 </TabItem>
                 <TabItem Header="Галочки">
                     <Grid RowDefinitions="Auto, *">

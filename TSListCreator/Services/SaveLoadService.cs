@@ -99,6 +99,20 @@ namespace TSListCreator.Services
                     Name = elem.GetProperty("name").GetString()!
                 });
             }
+            var countersElem = document.RootElement.GetProperty("counters");
+
+            foreach (var elem in countersElem.EnumerateArray())
+            {
+                holder.Counters.Add(new TsCounter()
+                {
+                    PosX = elem.GetProperty("pos")[0].GetDouble(),
+                    PosY = elem.GetProperty("pos")[2].GetDouble(),
+                    Size = elem.GetProperty("size").GetDouble(),
+                    Value = elem.GetProperty("value").GetInt32(),
+                    HideBg = elem.GetProperty("hideBG").GetBoolean(),
+                    Name = elem.GetProperty("name").GetString()!
+                });
+            }
 
             return holder;
         }

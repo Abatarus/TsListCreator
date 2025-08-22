@@ -5,6 +5,7 @@ using TSListCreator.Controls;
 using TSListCreator.Interfaces;
 using TSListCreator.Utils;
 
+namespace TSListCreator.Controls;
 public class TsCounter : TsControl
 {
     private double _size = 350;
@@ -34,7 +35,7 @@ public class TsCounter : TsControl
             ["name"] = Name,
             ["pos"] = new JsonArray(PosX, 0.1, PosY),
             ["size"] = (int)Size,
-            ["value"] = Value,
+            ["value"] = (int)Value,
             ["hideBG"] = HideBg,
         };
         return result;
@@ -48,6 +49,7 @@ public class TsCounter : TsControl
         builder.Append($"\r\n size = {Size},");
         builder.Append($"\r\n value = {Value},");
         builder.Append($"\r\n hideBG = {Convert.ToInt32(HideBg)},");
+        builder.Append("\r\n},");
         return builder.ToString();
     }
 }

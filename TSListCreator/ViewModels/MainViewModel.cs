@@ -75,6 +75,12 @@ public class MainViewModel
         get => _textBoxes;
         set => SetField(ref _textBoxes, value);
     }
+    private ObservableCollection<TsCounter> _counters = new ObservableCollection<TsCounter>(new List<TsCounter>());
+    public ObservableCollection<TsCounter> Counters
+    {
+        get => _counters;
+        set => SetField(ref _counters, value);
+    }
 
     private ObservableCollection<TsCheckBox> _checkBoxes = new ObservableCollection<TsCheckBox>(new List<TsCheckBox>());
     public ObservableCollection<TsCheckBox> CheckBoxes
@@ -127,10 +133,16 @@ public class MainViewModel
         SharedCollection.Add(CheckBoxes.Last());
         CheckBoxes.Last().SetRemove(RemoveMe);
     }
+    public void AddNewCounter()
+    {
+        Counters.Add(new TsCounter() { Name = $"Counter{Counters.Count}" });
+        SharedCollection.Add(Counters.Last());
+        Counters.Last().SetRemove(RemoveMe);
+    }
 
     public async void Save()
     {
-        await _saveLoadService.Save(_settingsService, _textBoxes, new List<IJsonInput>(), CheckBoxes);
+        await _saveLoadService.Save(_settingsService, TextBoxes, Counters, CheckBoxes);
     }
     public async void Load()
     {
@@ -163,17 +175,24 @@ public class MainViewModel
             SharedCollection.Add(checkBox);
             checkBox.SetRemove(RemoveMe);
         }
+        Counters.Clear();
+        Counters = holder.Counters;
+        foreach (var counter in Counters)
+        {
+            SharedCollection.Add(counter);
+            counter.SetRemove(RemoveMe);
+        }
     }
     public void CopyToClipBoard()
     {
-        _saveLoadService.SaveToClipBoard(_settingsService, _textBoxes, new List<ILuaInput>(), new List<ILuaInput>());
+        _saveLoadService.SaveToClipBoard(_settingsService, TextBoxes, Counters, CheckBoxes);
     }
     private void RemoveMe(object child)
     {
         SharedCollection.Remove((TsControl)child);
         //TODO
         if (child is TsTextBox tb) TextBoxes.Remove(tb);
-        //else if (child is TsCounter c) Counters.Remove(c);
+        else if (child is TsCounter c) Counters.Remove(c);
         else if (child is TsCheckBox cb) CheckBoxes.Remove(cb);
     }
 }
