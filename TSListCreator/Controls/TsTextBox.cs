@@ -73,7 +73,7 @@ public class TsTextBox : TsControl
     {
         var result = new JsonObject
         {
-            ["name"] = Name, // строка сама обернётся в кавычки
+            ["name"] = Name,
             ["font_size"] = FontSize,
             ["rows"] = _rowCount,
             ["pos"] = new JsonArray(PosX, 0.1, PosY),
@@ -88,7 +88,7 @@ public class TsTextBox : TsControl
     public override string GetLuaString()
     {
         double tsSizeToBound = 3.141 / 15100 / 2;
-        StringBuilder builder = new StringBuilder("{");
+        StringBuilder builder = new StringBuilder($"{{-- {Name}");
         builder.Append($"\r\n pos = {{{_posX + Width * tsSizeToBound},0.11,{_posY + Height * tsSizeToBound}}},");
         builder.Append($"\r\n rows = {_rowCount},");
         builder.Append($"\r\n width = {Width},");
