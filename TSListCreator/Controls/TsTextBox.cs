@@ -31,8 +31,18 @@ public class TsTextBox : TsControl
         get => _width;
         set => SetField(ref _width, value);
     }
-
     private int _rowCount = 1;
+
+    public int RowCount
+    {
+        get => _rowCount;
+        set
+        { 
+            SetField(ref _rowCount, value);
+            OnPropertyChanged(nameof(Height));
+        }
+    }
+
     public double Height
     {
         get => FontSize * _rowCount + 24; // из скрипта

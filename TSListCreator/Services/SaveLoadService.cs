@@ -82,6 +82,7 @@ namespace TSListCreator.Services
                     Width = elem.GetProperty("width").GetDouble(),
                     Value = elem.GetProperty("value").GetString(),
                     Label = elem.GetProperty("label").GetString(),
+                    RowCount = elem.GetProperty("rows").GetInt32(),
                     Name = elem.GetProperty("name").GetString()!
                 });
             }
