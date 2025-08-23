@@ -10,8 +10,12 @@ using TSListCreator.Services;
 
 namespace TSListCreator.Converters
 {
-    public class CanvasCoorToTsSizeConverter: IValueConverter
+    public class CanvasCoorToTsSizeConverter(ISettingsService settingsService, IImageDataService imageDataService) : IValueConverter
     {
+        IImageDataService _imageDataService = imageDataService;
+        ISettingsService _settingsService = settingsService;
+        public CanvasCoorToTsSizeConverter() : this(ConverterServiceContainer.Instance.SettingsService, ConverterServiceContainer.Instance.ImageDataService)
+        { }
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (value is not double doubleValue)
@@ -22,17 +26,15 @@ namespace TSListCreator.Converters
             double sizeEm = 0;
             if (parameter is string strParameter)
             {
-                ISettingsService settingsService = ConverterServiceContainer.Instance.SettingsService;
-                IImageDataService imageDataService = ConverterServiceContainer.Instance.ImageDataService;
                 if (strParameter == "Height")
                 {
-                    sizeBound = settingsService.BoundHeight;
-                    sizeEm = imageDataService.GetImageHeight();
+                    sizeBound = _settingsService.BoundHeight;
+                    sizeEm = _imageDataService.GetImageHeight();
                 }
                 else if (strParameter == "Width")
                 {
-                    sizeBound = settingsService.BoundWidth;
-                    sizeEm = imageDataService.GetImageWidth();
+                    sizeBound = _settingsService.BoundWidth;
+                    sizeEm = _imageDataService.GetImageWidth();
                 }
             }
             double tsSizeToBound = 3.141 / 15100;
@@ -51,17 +53,15 @@ namespace TSListCreator.Converters
             double sizeEm = 0;
             if (parameter is string strParameter)
             {
-                ISettingsService settingsService = ConverterServiceContainer.Instance.SettingsService;
-                IImageDataService imageDataService = ConverterServiceContainer.Instance.ImageDataService;
                 if (strParameter == "Height")
                 {
-                    sizeBound = settingsService.BoundHeight;
-                    sizeEm = imageDataService.GetImageHeight();
+                    sizeBound = _settingsService.BoundHeight;
+                    sizeEm = _imageDataService.GetImageHeight();
                 }
                 else if (strParameter == "Width")
                 {
-                    sizeBound = settingsService.BoundWidth;
-                    sizeEm = imageDataService.GetImageWidth();
+                    sizeBound = _settingsService.BoundWidth;
+                    sizeEm = _imageDataService.GetImageWidth();
                 }
             }
 

@@ -1,19 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-using Avalonia.Data;
 using Avalonia.Data.Converters;
 using TSListCreator.Interfaces;
 using TSListCreator.Services;
 
 namespace TSListCreator.Converters
 {
-    public class CanvasCoorToTsPosConverter: IValueConverter
+    public class CanvasCoorToTsPosConverter(ISettingsService settingsService, IImageDataService imageDataService) : IValueConverter
     {
+        IImageDataService _imageDataService = imageDataService;
+        ISettingsService _settingsService = settingsService;
+        public CanvasCoorToTsPosConverter(): this(ConverterServiceContainer.Instance.SettingsService, ConverterServiceContainer.Instance.ImageDataService)
+        {}
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (value is not double doubleValue)
@@ -24,17 +22,15 @@ namespace TSListCreator.Converters
             double sizeEm = 0;
             if (parameter is string strParameter)
             {
-                IImageDataService imageDataService = ConverterServiceContainer.Instance.ImageDataService;
-                ISettingsService settingsService = ConverterServiceContainer.Instance.SettingsService;
                 if (strParameter == "Height")
                 {
-                    sizeBound = settingsService.BoundHeight;
-                    sizeEm = imageDataService.GetImageHeight();
+                    sizeBound = _settingsService.BoundHeight;
+                    sizeEm = _imageDataService.GetImageHeight();
                 }
                 else if (strParameter == "Width")
                 {
-                    sizeBound = settingsService.BoundWidth;
-                    sizeEm = imageDataService.GetImageWidth();
+                    sizeBound = _settingsService.BoundWidth;
+                    sizeEm = _imageDataService.GetImageWidth();
                 }
             }
 
@@ -55,17 +51,15 @@ namespace TSListCreator.Converters
             double sizeEm = 0;
             if (parameter is string strParameter)
             {
-                IImageDataService imageDataService = ConverterServiceContainer.Instance.ImageDataService;
-                ISettingsService settingsService = ConverterServiceContainer.Instance.SettingsService;
                 if (strParameter == "Height")
                 {
-                    sizeBound = settingsService.BoundHeight;
-                    sizeEm = imageDataService.GetImageHeight();
+                    sizeBound = _settingsService.BoundHeight;
+                    sizeEm = _imageDataService.GetImageHeight();
                 }
                 else if (strParameter == "Width")
                 {
-                    sizeBound = settingsService.BoundWidth;
-                    sizeEm = imageDataService.GetImageWidth();
+                    sizeBound = _settingsService.BoundWidth;
+                    sizeEm = _imageDataService.GetImageWidth();
                 }
             }
 
