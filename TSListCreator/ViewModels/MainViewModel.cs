@@ -119,7 +119,7 @@ public class MainViewModel
     public void UpdateControls()
     {
         //TODO костыль
-        Dispatcher.UIThread.Invoke(() =>
+        Dispatcher.UIThread.Post(() =>
         {
             var shared = SharedCollection;
             SharedCollection = null;
