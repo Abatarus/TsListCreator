@@ -21,13 +21,13 @@ namespace TSListCreator.Thumbs
                 throw new Exception("DataContext.DataContext must be TsControl");
             }
 
-            double left = tsControl.PosX;
-            double top = tsControl.PosY;
+            double left = tsControl.CanvasPosX;
+            double top = tsControl.CanvasPosY;
 
             double newPosX = left + e.Vector.X;
             double newPosY = top + e.Vector.Y;
-            tsControl.PosX = newPosX;
-            tsControl.PosY = newPosY;
+            tsControl.CanvasPosX = newPosX;
+            tsControl.CanvasPosY = newPosY;
         }
     }
 }

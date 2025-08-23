@@ -17,8 +17,8 @@ public partial class CounterCanvasView : UserControl
     }
     private bool _isPointerPressed = false;
     private Border _border;
-    private double PosX => ((TsControl)(DataContext)).PosX;
-    private double PosY => ((TsControl)(DataContext)).PosY;
+    private double PosX => ((TsControl)(DataContext)).CanvasPosX;
+    private double PosY => ((TsControl)(DataContext)).CanvasPosY;
     private const double BORDER = 5;
 
     private bool IsRightLeftStretching(Point point)

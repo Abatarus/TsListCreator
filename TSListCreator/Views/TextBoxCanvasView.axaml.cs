@@ -15,8 +15,8 @@ public partial class TextBoxCanvasView : UserControl
     private bool _isPointerPressed = false;
     private bool _isRightLeftStretching = false;
     private Border border;
-    private double PosX => ((TsControl)(DataContext)).PosX;
-    private double PosY => ((TsControl)(DataContext)).PosY;
+    private double PosX => ((TsControl)(DataContext)).CanvasPosX;
+    private double PosY => ((TsControl)(DataContext)).CanvasPosY;
     public TextBoxCanvasView()
     {
         InitializeComponent();
