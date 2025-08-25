@@ -129,12 +129,11 @@ namespace TSListCreator.Services
                                                          "\r\ndisableSave = true\r\n" +
                                                          "--Remember to set this to false once you are done making changes" +
                                                          "\r\n--Then, after you save & apply it, save your game too\r\n" +
-                                                         "\r\n--Color information for button text (r,g,b, values of 0-1)" +
-                                                         "\r\nbuttonFontColor = {1,1,0.9}" +
+                                                         "\r\n--Color information for button text (r,g,b, values of 0-1)"+
                                                          "\r\n--Color information for button background" +
-                                                         "\r\nbuttonColor = {0.04,0,0.06}" +
                                                          "\r\n--Change scale of button (Avoid changing if possible)" +
                                                          "\r\nbuttonScale = {0.1,0.1,0.1}");
+            builder.Append(settings.GetLuaString());
             builder.Append(@"
 defaultButtonData = {
     --Add checkboxes
