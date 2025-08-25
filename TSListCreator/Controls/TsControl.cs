@@ -57,6 +57,6 @@ public abstract class TsControl : DataModel, IJsonInput, ILuaInput
     private Action<TsControl> _removeMe;
     public void SetRemove(Action<TsControl> removeMe)
     {
-        _removeMe = removeMe;;
+        _removeMe = removeMe;
     }
 }
