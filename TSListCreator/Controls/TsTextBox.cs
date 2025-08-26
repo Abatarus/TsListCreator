@@ -45,6 +45,7 @@ public class TsTextBox : TsControl
         { 
             SetField(ref _rowCount, value);
             OnPropertyChanged(nameof(Height));
+            OnPropertyChanged(nameof(CanvasHeight));
         }
     }
 
