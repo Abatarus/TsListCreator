@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Text;
 using System.Text.Json.Nodes;
 
@@ -12,6 +13,16 @@ public class TsCheckBox : TsControl
         get => _size;
         set => SetField(ref _size, value);
     }
+    public double CanvasSizeWidth
+    {
+        get => (double)sizeConverter.Convert(_size, null, "Width", CultureInfo.CurrentCulture);
+        set
+        {
+            SetField(ref _size, (double)sizeConverter.ConvertBack(value, null, "Width", CultureInfo.CurrentCulture));
+            OnPropertyChanged(nameof(CanvasSizeHeight));
+        }
+    }
+    public double CanvasSizeHeight => (double)sizeConverter.Convert(_size, null, "Height", CultureInfo.CurrentCulture);
 
     private bool _state = false;
     public bool State

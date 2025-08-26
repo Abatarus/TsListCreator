@@ -31,6 +31,11 @@ public class TsTextBox : TsControl
         get => _width;
         set => SetField(ref _width, value);
     }
+    public double CanvasWidth
+    {
+        get => (double)sizeConverter.Convert(_width, null, "Width", CultureInfo.CurrentCulture);
+        set => SetField(ref _width, (double)sizeConverter.ConvertBack(value, null, "Width", CultureInfo.CurrentCulture));
+    }
     private int _rowCount = 1;
 
     public int RowCount
@@ -56,6 +61,15 @@ public class TsTextBox : TsControl
             OnPropertyChanged();
         }
     }
+    public double CanvasHeight
+    {
+        get => (double)sizeConverter.Convert(Height, null, "Height", CultureInfo.CurrentCulture);
+        set
+        {
+            Height = (double)sizeConverter.ConvertBack(value, null, "Height", CultureInfo.CurrentCulture);
+            OnPropertyChanged();
+        }
+    }
 
 
     private string _value = "";
@@ -76,9 +90,21 @@ public class TsTextBox : TsControl
     public double FontSize
     {
         get => _fontSize;
-        set => SetField(ref _fontSize, value);
+        set
+        {
+            SetField(ref _fontSize, value);
+            OnPropertyChanged(nameof(CanvasFontSize));
+        }
     }
-
+    public double CanvasFontSize
+    {
+        get => (double)sizeConverter.Convert(_fontSize, null, "Height", CultureInfo.CurrentCulture);
+        set
+        {
+            SetField(ref _fontSize, (double)sizeConverter.ConvertBack(value, null, "Height", CultureInfo.CurrentCulture));
+            OnPropertyChanged(nameof(FontSize));
+        }
+    }
     public override JsonObject GetJsonObject()
     {
         var result = new JsonObject

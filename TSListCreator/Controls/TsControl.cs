@@ -9,7 +9,8 @@ using TSListCreator.Utils;
 namespace TSListCreator.Controls;
 public abstract class TsControl : DataModel, IJsonInput, ILuaInput, IRedraw
 {
-    private CanvasCoorToTsPosConverter posConverter = new CanvasCoorToTsPosConverter();
+    protected CanvasCoorToTsPosConverter posConverter = new CanvasCoorToTsPosConverter();
+    protected CanvasCoorToTsSizeConverter sizeConverter = new CanvasCoorToTsSizeConverter();
     private string _name = "";
     public string Name
     {

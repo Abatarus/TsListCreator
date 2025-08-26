@@ -13,13 +13,12 @@
              x:Class="TSListCreator.Views.CounterCanvasView">
     <UserControl.Resources>
         <converters:SideSpaceConverter x:Key="SideSpaceConverter"/>
-        <converters:CanvasCoorToTsSizeConverter x:Key="CanvasToTsSizeConverter"/>
     </UserControl.Resources>
     <Border x:Name="ResizeBorder"
             Background="Black"
             BorderThickness="1"
-            Width="{Binding Size, Converter={StaticResource CanvasToTsSizeConverter}, ConverterParameter=Width, Mode=TwoWay}"
-            Height="{Binding Size, Converter={StaticResource CanvasToTsSizeConverter}, ConverterParameter=Height, Mode=OneTime}"
+            Width="{Binding CanvasSizeWidth, Mode=TwoWay}"
+            Height="{Binding CanvasSizeHeight, Mode=OneWay}"
             MinWidth="15"
             MinHeight="15"
             Cursor="SizeAll"

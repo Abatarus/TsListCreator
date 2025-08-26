@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Text;
 using System.Text.Json.Nodes;
 using TSListCreator.Controls;
@@ -14,6 +15,16 @@ public class TsCounter : TsControl
         get => _size;
         set => SetField(ref _size, value);
     }
+    public double CanvasSizeWidth
+    {
+        get => (double)sizeConverter.Convert(_size, null, "Width", CultureInfo.CurrentCulture);
+        set
+        {
+            SetField(ref _size, (double)sizeConverter.ConvertBack(value, null, "Width", CultureInfo.CurrentCulture));
+            OnPropertyChanged(nameof(CanvasSizeHeight));
+        }
+    }
+    public double CanvasSizeHeight => (double)sizeConverter.Convert(_size, null, "Height", CultureInfo.CurrentCulture);
 
     private int _value = 0;
     public int Value
