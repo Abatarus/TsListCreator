@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Text.Json.Nodes;
 using System.Windows.Input;
@@ -6,7 +7,7 @@ using TSListCreator.Converters;
 using TSListCreator.Interfaces;
 using TSListCreator.Utils;
 namespace TSListCreator.Controls;
-public abstract class TsControl : DataModel, IJsonInput, ILuaInput
+public abstract class TsControl : DataModel, IJsonInput, ILuaInput, IRedraw
 {
     private CanvasCoorToTsPosConverter posConverter = new CanvasCoorToTsPosConverter();
     private string _name = "";
@@ -58,5 +59,13 @@ public abstract class TsControl : DataModel, IJsonInput, ILuaInput
     public void SetRemove(Action<TsControl> removeMe)
     {
         _removeMe = removeMe;;
+    }
+
+    public void Redraw()
+    {
+        foreach (var property in GetType().GetProperties())
+        {
+            OnPropertyChanged(property.Name);
+        }
     }
 }
