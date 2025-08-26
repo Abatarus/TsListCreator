@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Avalonia.Media;
 using TSListCreator.Interfaces;
 
@@ -28,7 +29,11 @@ namespace TSListCreator.Services
         public Color FontColor { get; set; } = Colors.WhiteSmoke;
         public string GetLuaString()
         {
-            throw new NotImplementedException();
+            double tsSizeToBound = 3.141 / 15100 / 2;
+            StringBuilder builder = 
+                new StringBuilder($"\r\n buttonColor = {{{Background.R / 255.0},{Background.G / 255.0},{Background.B / 255.0}}}");
+            builder.Append($"\r\n buttonFontColor = {{{FontColor.R / 255.0},{FontColor.G / 255.0},{FontColor.B / 255.0}}}");
+            return builder.ToString();
         }
     }
 }

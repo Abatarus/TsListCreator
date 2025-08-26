@@ -44,7 +44,7 @@ namespace TSListCreator.ViewModels
 
         public Color FontColor
         {
-            get => _settingsService.Background;
+            get => _settingsService.FontColor;
             set
             {
                 _settingsService.FontColor = value;
