@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Text;
 using System.Text.Json.Nodes;
 
@@ -6,11 +7,14 @@ namespace TSListCreator.Controls;
 
 public class TsCheckBox : TsControl
 {
-    private double _size = 150;
     public double Size
     {
-        get => _size;
-        set => SetField(ref _size, value);
+        get => _width;
+        set
+        {
+            Height = value;
+            Width = value;
+        }
     }
 
     private bool _state = false;

@@ -18,18 +18,16 @@ public enum AlignmentId
 
 public class TsTextBox : TsControl
 {
+    public TsTextBox()
+    {
+        Width = 1000;
+        Height = FontSize + 100;
+    }
     private AlignmentId _alignment = AlignmentId.Left;
     public AlignmentId Alignment
     {
         get => _alignment;
         set => SetField(ref _alignment, value);
-    }
-
-    private double _width = 1000;
-    public double Width
-    {
-        get => _width;
-        set => SetField(ref _width, value);
     }
     private int _rowCount = 1;
 
@@ -39,11 +37,12 @@ public class TsTextBox : TsControl
         set
         { 
             SetField(ref _rowCount, value);
+            Height = FontSize * _rowCount + 24;
             OnPropertyChanged(nameof(Height));
         }
     }
 
-    public double Height
+    public override double Height
     {
         get => FontSize * _rowCount + 24; // из скрипта
         set
@@ -54,6 +53,7 @@ public class TsTextBox : TsControl
                 _rowCount = 1;
             }
             OnPropertyChanged();
+            OnPropertyChanged(nameof(CanvasHeight));
         }
     }
 
@@ -76,9 +76,11 @@ public class TsTextBox : TsControl
     public double FontSize
     {
         get => _fontSize;
-        set => SetField(ref _fontSize, value);
+        set
+        {
+            SetField(ref _fontSize, value);
+        }
     }
-
     public override JsonObject GetJsonObject()
     {
         var result = new JsonObject

@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Text;
 using System.Text.Json.Nodes;
 using TSListCreator.Controls;
@@ -8,11 +9,14 @@ using TSListCreator.Utils;
 namespace TSListCreator.Controls;
 public class TsCounter : TsControl
 {
-    private double _size = 350;
     public double Size
     {
-        get => _size;
-        set => SetField(ref _size, value);
+        get => _width;
+        set
+        {
+            Height = value;
+            Width = value;
+        }
     }
 
     private int _value = 0;

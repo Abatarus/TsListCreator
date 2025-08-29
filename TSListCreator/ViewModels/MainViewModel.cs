@@ -121,9 +121,10 @@ public class MainViewModel
         //TODO костыль
         Dispatcher.UIThread.Post(() =>
         {
-            var shared = SharedCollection;
-            SharedCollection = null;
-            SharedCollection = shared;
+            foreach (var control in SharedCollection)
+            {
+                control.Redraw();
+            }
         });
 
     }

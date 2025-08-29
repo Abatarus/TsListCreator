@@ -19,17 +19,6 @@ public partial class CheckBoxCanvasView : UserControl
     private Border _border;
     private double PosX => ((TsControl)(DataContext)).CanvasPosX;
     private double PosY => ((TsControl)(DataContext)).CanvasPosY;
-    private const double BORDER = 5;
-
-    private bool IsRightLeftStretching(Point point)
-    {
-        if (_border.Height - point.Y < 0)
-        {
-            return false;
-        }
-        double heightDelta = Math.Abs(_border.Height - point.Y);
-        return heightDelta > BORDER;
-    }
     private void OnPointerMoved(object? sender, PointerEventArgs e)
     {
         if (_isPointerPressed)
