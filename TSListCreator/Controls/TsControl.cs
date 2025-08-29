@@ -7,7 +7,7 @@ using TSListCreator.Converters;
 using TSListCreator.Interfaces;
 using TSListCreator.Utils;
 namespace TSListCreator.Controls;
-public abstract class TsControl : DataModel, IJsonInput, ILuaInput, IRedraw
+public abstract class TsControl : DataModel, ICanvasDrawable, IJsonInput, ILuaInput, IRedraw
 {
     protected CanvasCoorToTsPosConverter posConverter = new CanvasCoorToTsPosConverter();
     protected CanvasCoorToTsSizeConverter sizeConverter = new CanvasCoorToTsSizeConverter();
@@ -42,6 +42,40 @@ public abstract class TsControl : DataModel, IJsonInput, ILuaInput, IRedraw
         set => SetField(ref _posY, (double)posConverter.ConvertBack(value, null, "Height", CultureInfo.CurrentCulture));
     }
 
+    public double _width;
+
+    public virtual double Width
+    {
+        get => _width;
+        set
+        {
+            SetField(ref _width, value);
+            OnPropertyChanged(nameof(CanvasWidth));
+        }
+    }
+    public double CanvasWidth
+    {
+        get => (double)sizeConverter.Convert(_width, null, "Width", CultureInfo.CurrentCulture);
+        set => Width = (double)sizeConverter.ConvertBack(value, null, "Width", CultureInfo.CurrentCulture);
+    }
+
+    public double _height;
+    public virtual double Height
+    {
+        get => _height;
+        set
+        {
+            SetField(ref _height, value);
+            OnPropertyChanged(nameof(CanvasHeight));
+        }
+    }
+    public double CanvasHeight
+    {
+        get => (double)sizeConverter.Convert(_height, null, "Height", CultureInfo.CurrentCulture);
+        set => Height = (double)sizeConverter.ConvertBack(value, null, "Height", CultureInfo.CurrentCulture);
+    }
+
+
     private bool _isHighlighted = false;
     public bool IsHighlighted
     {
@@ -55,11 +89,11 @@ public abstract class TsControl : DataModel, IJsonInput, ILuaInput, IRedraw
     }
     public abstract JsonObject GetJsonObject();
     public abstract string GetLuaString();
-    
+
     private Action<TsControl> _removeMe;
     public void SetRemove(Action<TsControl> removeMe)
     {
-        _removeMe = removeMe;;
+        _removeMe = removeMe; ;
     }
 
     public void Redraw()

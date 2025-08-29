@@ -7,22 +7,15 @@ namespace TSListCreator.Controls;
 
 public class TsCheckBox : TsControl
 {
-    private double _size = 150;
     public double Size
     {
-        get => _size;
-        set => SetField(ref _size, value);
-    }
-    public double CanvasSizeWidth
-    {
-        get => (double)sizeConverter.Convert(_size, null, "Width", CultureInfo.CurrentCulture);
+        get => _width;
         set
         {
-            SetField(ref _size, (double)sizeConverter.ConvertBack(value, null, "Width", CultureInfo.CurrentCulture));
-            OnPropertyChanged(nameof(CanvasSizeHeight));
+            Height = value;
+            Width = value;
         }
     }
-    public double CanvasSizeHeight => (double)sizeConverter.Convert(_size, null, "Height", CultureInfo.CurrentCulture);
 
     private bool _state = false;
     public bool State

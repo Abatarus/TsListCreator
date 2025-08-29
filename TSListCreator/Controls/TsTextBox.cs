@@ -18,23 +18,16 @@ public enum AlignmentId
 
 public class TsTextBox : TsControl
 {
+    public TsTextBox()
+    {
+        Width = 1000;
+        Height = FontSize + 100;
+    }
     private AlignmentId _alignment = AlignmentId.Left;
     public AlignmentId Alignment
     {
         get => _alignment;
         set => SetField(ref _alignment, value);
-    }
-
-    private double _width = 1000;
-    public double Width
-    {
-        get => _width;
-        set => SetField(ref _width, value);
-    }
-    public double CanvasWidth
-    {
-        get => (double)sizeConverter.Convert(_width, null, "Width", CultureInfo.CurrentCulture);
-        set => SetField(ref _width, (double)sizeConverter.ConvertBack(value, null, "Width", CultureInfo.CurrentCulture));
     }
     private int _rowCount = 1;
 
@@ -44,12 +37,12 @@ public class TsTextBox : TsControl
         set
         { 
             SetField(ref _rowCount, value);
+            Height = FontSize * _rowCount + 24;
             OnPropertyChanged(nameof(Height));
-            OnPropertyChanged(nameof(CanvasHeight));
         }
     }
 
-    public double Height
+    public override double Height
     {
         get => FontSize * _rowCount + 24; // из скрипта
         set
@@ -60,15 +53,7 @@ public class TsTextBox : TsControl
                 _rowCount = 1;
             }
             OnPropertyChanged();
-        }
-    }
-    public double CanvasHeight
-    {
-        get => (double)sizeConverter.Convert(Height, null, "Height", CultureInfo.CurrentCulture);
-        set
-        {
-            Height = (double)sizeConverter.ConvertBack(value, null, "Height", CultureInfo.CurrentCulture);
-            OnPropertyChanged();
+            OnPropertyChanged(nameof(CanvasHeight));
         }
     }
 
@@ -94,16 +79,6 @@ public class TsTextBox : TsControl
         set
         {
             SetField(ref _fontSize, value);
-            OnPropertyChanged(nameof(CanvasFontSize));
-        }
-    }
-    public double CanvasFontSize
-    {
-        get => (double)sizeConverter.Convert(_fontSize, null, "Height", CultureInfo.CurrentCulture);
-        set
-        {
-            SetField(ref _fontSize, (double)sizeConverter.ConvertBack(value, null, "Height", CultureInfo.CurrentCulture));
-            OnPropertyChanged(nameof(FontSize));
         }
     }
     public override JsonObject GetJsonObject()

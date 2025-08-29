@@ -4,25 +4,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:thumbs="clr-namespace:TSListCreator.Thumbs"
              xmlns:converters="clr-namespace:TSListCreator.Converters"
-             xmlns:controls="clr-namespace:TSListCreator.Controls"
+             xmlns:interfaces="clr-namespace:TSListCreator.Interfaces"
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d"
-             x:DataType="controls:TsTextBox"
+             x:DataType="interfaces:ICanvasDrawable"
              IsPointerOver="{Binding IsHighlighted, Mode=OneWayToSource}"
              x:Class="TSListCreator.Views.TextBoxCanvasView">
     <UserControl.Resources>
         <converters:SideSpaceConverter x:Key="SideSpaceConverter"/>
         <converters:OneSideSpaceConverter x:Key="OneSideSpaceConverter"/>
-        <converters:CanvasCoorToTsSizeConverter x:Key="CanvasToTsSizeConverter"/>
     </UserControl.Resources>
     <Border x:Name="ResizeBorder"
             Background="Black"
             BorderThickness="1"
             Width="{Binding CanvasWidth, Mode=TwoWay}"
             Height="{Binding CanvasHeight, Mode=TwoWay}"
-            MinHeight="{Binding CanvasFontSize}"
-            MinWidth="{Binding CanvasFontSize}"
+            MinWidth="15"
+            MinHeight="15"
             PointerMoved="OnPointerMoved"
             PointerPressed="OnPointerPressed"
             PointerReleased="OnPointerReleased">

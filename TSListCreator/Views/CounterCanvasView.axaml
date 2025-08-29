@@ -5,10 +5,11 @@
              xmlns:thumbs="clr-namespace:TSListCreator.Thumbs"
              xmlns:controls="clr-namespace:TSListCreator.Controls"
              xmlns:converters="clr-namespace:TSListCreator.Converters"
+             xmlns:interfaces="clr-namespace:TSListCreator.Interfaces"
              mc:Ignorable="d"
              d:DesignWidth="800"
              d:DesignHeight="450"
-             x:DataType="controls:TsCounter"
+             x:DataType="interfaces:ICanvasDrawable"
              IsPointerOver="{Binding IsHighlighted, Mode=OneWayToSource}"
              x:Class="TSListCreator.Views.CounterCanvasView">
     <UserControl.Resources>
@@ -17,8 +18,8 @@
     <Border x:Name="ResizeBorder"
             Background="Black"
             BorderThickness="1"
-            Width="{Binding CanvasSizeWidth, Mode=TwoWay}"
-            Height="{Binding CanvasSizeHeight, Mode=OneWay}"
+            Width="{Binding CanvasWidth, Mode=TwoWay}"
+            Height="{Binding CanvasHeight, Mode=TwoWay}"
             MinWidth="15"
             MinHeight="15"
             Cursor="SizeAll"
