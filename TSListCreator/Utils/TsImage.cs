@@ -27,10 +27,7 @@ namespace TSListCreator.Utils
         public Rect Bounds
         {
             get => _bounds;
-            set
-            {
-                SetField(ref _bounds, value);
-            }
+            set => SetField(ref _bounds, value);
         }
 
         public double Width => _bounds.Width;
