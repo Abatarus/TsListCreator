@@ -55,7 +55,7 @@ public abstract class TsControl : DataModel, ICanvasDrawable, IJsonInput, ILuaIn
     }
     public double CanvasWidth
     {
-        get => (double)sizeConverter.Convert(_width, null, "Width", CultureInfo.CurrentCulture);
+        get => (double)sizeConverter.Convert(Width, null, "Width", CultureInfo.CurrentCulture);
         set => Width = (double)sizeConverter.ConvertBack(value, null, "Width", CultureInfo.CurrentCulture);
     }
 
@@ -71,7 +71,7 @@ public abstract class TsControl : DataModel, ICanvasDrawable, IJsonInput, ILuaIn
     }
     public double CanvasHeight
     {
-        get => (double)sizeConverter.Convert(_height, null, "Height", CultureInfo.CurrentCulture);
+        get => (double)sizeConverter.Convert(Height, null, "Height", CultureInfo.CurrentCulture);
         set => Height = (double)sizeConverter.ConvertBack(value, null, "Height", CultureInfo.CurrentCulture);
     }
 

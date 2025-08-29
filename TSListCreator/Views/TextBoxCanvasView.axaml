@@ -41,8 +41,8 @@
         </Interaction.Behaviors>
         <thumbs:MovedThumb VerticalAlignment="Top"
                            HorizontalAlignment="Center"
-                           Height="{Binding Height, Converter={StaticResource OneSideSpaceConverter}, ConverterParameter=10}"
-                           Width="{Binding Width, Converter={StaticResource SideSpaceConverter}, ConverterParameter=10}"
+                           Height="{Binding Height, Converter={StaticResource OneSideSpaceConverter}, ConverterParameter=10, Mode=OneWay}"
+                           Width="{Binding Width, Converter={StaticResource SideSpaceConverter}, ConverterParameter=10, Mode=OneWay}"
                            Cursor="DragMove"
                            x:DataType="UserControl"
                            DataContext="{Binding $parent[Border]}">
