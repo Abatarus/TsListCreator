@@ -42,7 +42,7 @@ public abstract class TsControl : DataModel, ICanvasDrawable, IJsonInput, ILuaIn
         set => SetField(ref _posY, (double)posConverter.ConvertBack(value, null, "Height", CultureInfo.CurrentCulture));
     }
 
-    public double _width;
+    private double _width;
 
     public virtual double Width
     {
@@ -59,7 +59,7 @@ public abstract class TsControl : DataModel, ICanvasDrawable, IJsonInput, ILuaIn
         set => Width = (double)sizeConverter.ConvertBack(value, null, "Width", CultureInfo.CurrentCulture);
     }
 
-    public double _height;
+    private double _height;
     public virtual double Height
     {
         get => _height;
