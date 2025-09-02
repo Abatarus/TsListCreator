@@ -11,7 +11,7 @@ public class TsCounter : TsControl
 {
     public double Size
     {
-        get => _width;
+        get => Width;
         set
         {
             Height = value;

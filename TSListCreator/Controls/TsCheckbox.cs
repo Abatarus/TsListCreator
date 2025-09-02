@@ -9,7 +9,7 @@ public class TsCheckBox : TsControl
 {
     public double Size
     {
-        get => _width;
+        get => Width;
         set
         {
             Height = value;

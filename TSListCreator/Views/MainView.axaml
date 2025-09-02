@@ -13,9 +13,6 @@
              x:Name="Main"
              mc:Ignorable="d"
              x:Class="TSListCreator.Views.MainView">
-    <UserControl.Resources>
-        <converters:CanvasCoorToTsPosConverter x:Key="CanvasCoorToTsPos"/>
-    </UserControl.Resources>
     <Interaction.Behaviors>
         <EventTriggerBehavior EventName="SizeChanged" SourceObject="Main">
             <InvokeCommandAction Command="{Binding UpdateControls}"/>
@@ -56,7 +53,6 @@
                     </Canvas>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
-
             <ItemsControl.ItemTemplate>
                 <utils:CanvasTemplateSelector>
                     <DataTemplate x:Key="TsTextBox">
@@ -70,7 +66,6 @@
                     </DataTemplate>
                 </utils:CanvasTemplateSelector>
             </ItemsControl.ItemTemplate>
-
         </ItemsControl>
         <Grid Grid.Column="3"
               Background="#eaede8"
