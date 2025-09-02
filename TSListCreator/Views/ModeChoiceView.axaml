@@ -6,12 +6,26 @@
              d:DesignWidth="800"
              d:DesignHeight="450"
              x:Class="TSListCreator.Views.ModeChoiceView">
-    <StackPanel Orientation="Vertical">
-        <Button x:Name="MoveButton"
-                Height="20"
-                Width="20"/>
-        <Button x:Name="StretchButton"
-                Height="20"
-                Width="20"/>
+    <StackPanel Orientation="Vertical" Background="WhiteSmoke">
+        <ToggleButton x:Name="MoveButton"
+                      Height="40"
+                      Width="40"
+                      Padding="2"
+                      BorderBrush="Black"
+                      BorderThickness="1">
+            <PathIcon Foreground="Black"
+                      Padding="2"
+                      Data="{DynamicResource Move}"/>
+        </ToggleButton>
+        <ToggleButton x:Name="StretchButton"
+                Height="40"
+                Width="40"
+                Padding="2"
+                BorderBrush="Black"
+                BorderThickness="1">
+            <PathIcon Foreground="Black"
+                      Padding="2"
+                      Data="{DynamicResource Stretch}"/>
+        </ToggleButton>
     </StackPanel>
 </UserControl>

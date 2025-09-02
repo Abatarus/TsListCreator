@@ -5,7 +5,7 @@
              xmlns:v="using:TSListCreator.Views"
              xmlns:vm="using:TSListCreator.ViewModels"
              xmlns:controls="clr-namespace:TSListCreator.Controls"
-             xmlns:converters="clr-namespace:TSListCreator.Converters" 
+             xmlns:converters="clr-namespace:TSListCreator.Converters"
              xmlns:utils="clr-namespace:TSListCreator.Utils"
              d:DesignHeight="450"
              d:DesignWidth="800"
@@ -14,7 +14,8 @@
              mc:Ignorable="d"
              x:Class="TSListCreator.Views.MainView">
     <Interaction.Behaviors>
-        <EventTriggerBehavior EventName="SizeChanged" SourceObject="Main">
+        <EventTriggerBehavior EventName="SizeChanged"
+                              SourceObject="Main">
             <InvokeCommandAction Command="{Binding UpdateControls}"/>
         </EventTriggerBehavior>
     </Interaction.Behaviors>
@@ -30,6 +31,9 @@
                    Bounds="{Binding TsImage.Bounds, Mode=OneWayToSource}"
                    Source="{Binding TsImage.Source}"/>
         </StackPanel>
+        <v:ModeChoiceView Grid.Column="0"
+                          VerticalAlignment="Top"
+                          HorizontalAlignment="Left"/>
         <ItemsControl Grid.Column="1"
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Stretch"
