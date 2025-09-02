@@ -39,7 +39,7 @@
                                       Value="Black"/>
             </DataTriggerBehavior>
         </Interaction.Behaviors>
-        <thumbs:MovedThumb VerticalAlignment="Top"
+        <!--<thumbs:MovedThumb VerticalAlignment="Top"
                            HorizontalAlignment="Center"
                            Height="{Binding Height, Converter={StaticResource OneSideSpaceConverter}, ConverterParameter=10, Mode=OneWay}"
                            Width="{Binding Width, Converter={StaticResource SideSpaceConverter}, ConverterParameter=10, Mode=OneWay}"
@@ -54,7 +54,7 @@
                                VerticalAlignment="Stretch"/>
                 </ControlTemplate>
             </thumbs:MovedThumb.Template>
-        </thumbs:MovedThumb>
+        </thumbs:MovedThumb>-->
     </Border>
 </UserControl>
 

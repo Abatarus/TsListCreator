@@ -118,7 +118,6 @@ public class MainViewModel
 
     public void UpdateControls()
     {
-        //TODO костыль
         Dispatcher.UIThread.Post(() =>
         {
             foreach (var control in SharedCollection)
@@ -126,7 +125,6 @@ public class MainViewModel
                 control.Redraw();
             }
         });
-
     }
     public void AddNewTextBox()
     {

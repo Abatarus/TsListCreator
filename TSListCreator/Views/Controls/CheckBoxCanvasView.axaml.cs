@@ -12,35 +12,5 @@ public partial class CheckBoxCanvasView : UserControl
     public CheckBoxCanvasView()
     {
         InitializeComponent();
-        _border = this.Get<Border>("ResizeBorder");
-        _border.Height = _border.Width;
-    }
-    private bool _isPointerPressed = false;
-    private Border _border;
-    private double PosX => ((TsControl)(DataContext)).CanvasPosX;
-    private double PosY => ((TsControl)(DataContext)).CanvasPosY;
-    private void OnPointerMoved(object? sender, PointerEventArgs e)
-    {
-        if (_isPointerPressed)
-        {
-            double newWidth = Math.Abs(PosX - e.GetPosition((Visual)Parent.Parent!).X);
-            double newHeight = Math.Abs(PosY - e.GetPosition((Visual)Parent.Parent!).Y);
-            double max = Math.Max(newWidth, newHeight);
-            if (_border.MinWidth < max)
-            {
-                _border.Width = max;
-                _border.Height = max;
-            }
-        }
-
-    }
-    private void OnPointerPressed(object? sender, PointerPressedEventArgs e)
-    {
-        _isPointerPressed = true;
-    }
-
-    private void OnPointerReleased(object? sender, PointerReleasedEventArgs e)
-    {
-        _isPointerPressed = false;
     }
 }

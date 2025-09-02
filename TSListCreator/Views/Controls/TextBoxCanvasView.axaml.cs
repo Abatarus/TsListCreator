@@ -7,7 +7,6 @@ using System.ComponentModel.Design;
 using System.Runtime.CompilerServices;
 using TSListCreator.Controls;
 using TSListCreator.Interfaces;
-using TSListCreator.Thumbs;
 
 namespace TSListCreator.Views;
 

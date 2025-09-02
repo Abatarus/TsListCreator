@@ -1,4 +1,4 @@
-﻿using Avalonia.Controls;
+﻿using Avalonia.Controls.Primitives;
 using Avalonia.Xaml.Interactivity;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TSListCreator.Behaviors
 {
-    public class StretchCanvasItemBehavior: Behavior<Control>
+    public class StretchTextBoxBehavior : Behavior<Thumb>
     {
     }
 }

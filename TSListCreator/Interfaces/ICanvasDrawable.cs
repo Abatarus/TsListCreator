@@ -12,6 +12,8 @@ namespace TSListCreator.Interfaces
         double CanvasPosY { get; set; }
         double CanvasHeight { get; set; }
         double CanvasWidth { get; set; }
+        double CanvasMinHeight { get; set; }
+        double CanvasMinWidth { get; set; }
         bool IsHighlighted { get; set; }
     }
 }

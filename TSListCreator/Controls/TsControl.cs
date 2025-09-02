@@ -42,7 +42,7 @@ public abstract class TsControl : DataModel, ICanvasDrawable, IJsonInput, ILuaIn
         set => SetField(ref _posY, (double)posConverter.ConvertBack(value, null, "Height", CultureInfo.CurrentCulture));
     }
 
-    private double _width;
+    private double _width = 300;
 
     public virtual double Width
     {
@@ -58,8 +58,20 @@ public abstract class TsControl : DataModel, ICanvasDrawable, IJsonInput, ILuaIn
         get => (double)sizeConverter.Convert(Width, null, "Width", CultureInfo.CurrentCulture);
         set => Width = (double)sizeConverter.ConvertBack(value, null, "Width", CultureInfo.CurrentCulture);
     }
+    private double _canvasMinHeight = 1;
+    public double CanvasMinHeight
+    {
+        get => _canvasMinHeight;
+        set => SetField(ref _canvasMinHeight, value);
+    }
+    private double _canvasMinWidth = 1;
+    public double CanvasMinWidth
+    {
+        get => _canvasMinWidth;
+        set => SetField(ref _canvasMinWidth, value);
+    }
 
-    private double _height;
+    private double _height = 300;
     public virtual double Height
     {
         get => _height;
