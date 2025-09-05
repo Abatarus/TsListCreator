@@ -120,6 +120,22 @@ public abstract class TsControl(ISettingsService settingsService, IImageDataServ
         }
     }
 
-    public Mode Mode { get; set; }
-    public bool Magnet { get; set; }
+    public Mode Mode
+    {
+        get => _editorStateService.Mode;
+        set
+        {
+            _editorStateService.Mode = value;
+            OnPropertyChanged();
+        }
+    }
+    public bool Magnet
+    {
+        get => _editorStateService.Magnet;
+        set
+        {
+            _editorStateService.Magnet = value;
+            OnPropertyChanged();
+        }
+    }
 }

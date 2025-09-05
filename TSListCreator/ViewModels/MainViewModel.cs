@@ -37,6 +37,7 @@ public class MainViewModel
         _saveLoadService = saveLoadService;
         _imageDataService = imageDataService;
         _settingsService = settingsService;
+        _editorStateService = editorStateService;
 
         Settings = new SettingsViewModel(_settingsService);
         ModeChoice = new ModeChoiceViewModel(_editorStateService);
@@ -133,19 +134,19 @@ public class MainViewModel
     }
     public void AddNewTextBox()
     {
-        TextBoxes.Add(new TsTextBox(_settingsService, _imageDataService) { Name = $"TextBox{TextBoxes.Count}" });
+        TextBoxes.Add(new TsTextBox(_settingsService, _imageDataService, _editorStateService) { Name = $"TextBox{TextBoxes.Count}" });
         SharedCollection.Add(TextBoxes.Last());
         TextBoxes.Last().SetRemove(RemoveMe);
     }
     public void AddNewCheckBox()
     {
-        CheckBoxes.Add(new TsCheckBox(_settingsService, _imageDataService) { Name = $"TsCheckbox{CheckBoxes.Count}" });
+        CheckBoxes.Add(new TsCheckBox(_settingsService, _imageDataService, _editorStateService) { Name = $"TsCheckbox{CheckBoxes.Count}" });
         SharedCollection.Add(CheckBoxes.Last());
         CheckBoxes.Last().SetRemove(RemoveMe);
     }
     public void AddNewCounter()
     {
-        Counters.Add(new TsCounter(_settingsService, _imageDataService) { Name = $"Counter{Counters.Count}" });
+        Counters.Add(new TsCounter(_settingsService, _imageDataService, _editorStateService) { Name = $"Counter{Counters.Count}" });
         SharedCollection.Add(Counters.Last());
         Counters.Last().SetRemove(RemoveMe);
     }
@@ -159,7 +160,7 @@ public class MainViewModel
         DataHolder holder;
         try
         {
-            holder = await _saveLoadService.Load(_settingsService, _imageDataService);
+            holder = await _saveLoadService.Load(_settingsService, _imageDataService, _editorStateService);
         }
         catch (Exception ex)
         {
