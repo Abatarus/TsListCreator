@@ -47,8 +47,20 @@
                 </ControlTemplate>
             </Thumb.Template>
             <Interaction.Behaviors>
-                <!--<behaviors:MoveCanvasItemBehavior/>-->
-                <behaviors:StretchSizeCanvasItemBehavior/>
+                <behaviors:MoveCanvasItemBehavior Mode="{Binding Mode}"/>
+                <behaviors:StretchSizeCanvasItemBehavior Mode="{Binding Mode}"/>
+                <DataTriggerBehavior Binding="{Binding Mode}"
+                                     ComparisonCondition="Equal"
+                                     Value="Move">
+                    <ChangePropertyAction PropertyName="Cursor"
+                                          Value="DragMove"/>
+                </DataTriggerBehavior>
+                <DataTriggerBehavior Binding="{Binding Mode}"
+                                     ComparisonCondition="Equal"
+                                     Value="Stretch">
+                    <ChangePropertyAction PropertyName="Cursor"
+                                          Value="SizeAll"/>
+                </DataTriggerBehavior>
             </Interaction.Behaviors>
         </Thumb>
     </Border>

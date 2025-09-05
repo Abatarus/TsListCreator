@@ -42,6 +42,15 @@ public class MainViewModel
         Settings = new SettingsViewModel(_settingsService);
         ModeChoice = new ModeChoiceViewModel(_editorStateService);
 
+        ModeChoice.PropertyChanged += (_, e) =>
+        {
+            if (e.PropertyName == nameof(ModeChoice.Mode) ||
+                e.PropertyName == nameof(ModeChoice.Magnet))
+            {
+                UpdateControls();
+            }
+        };
+
         Settings.PropertyChanged += (_, e) =>
         {
             if (e.PropertyName == nameof(Settings.BoundHeight) ||
