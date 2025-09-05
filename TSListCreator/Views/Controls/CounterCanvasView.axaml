@@ -11,9 +11,6 @@
              x:DataType="interfaces:ICanvasDrawable"
              IsPointerOver="{Binding IsHighlighted, Mode=OneWayToSource}"
              x:Class="TSListCreator.Views.CounterCanvasView">
-    <UserControl.Resources>
-        <converters:SideSpaceConverter x:Key="SideSpaceConverter"/>
-    </UserControl.Resources>
     <Border x:Name="ResizeBorder"
             Background="Transparent"
             BorderThickness="1"
