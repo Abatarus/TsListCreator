@@ -31,9 +31,12 @@
                    Bounds="{Binding TsImage.Bounds, Mode=OneWayToSource}"
                    Source="{Binding TsImage.Source}"/>
         </StackPanel>
+
         <v:ModeChoiceView Grid.Column="0"
                           VerticalAlignment="Top"
-                          HorizontalAlignment="Left"/>
+                          HorizontalAlignment="Left"
+                          DataContext="{Binding ModeChoice}"/>
+
         <ItemsControl Grid.Column="1"
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Stretch"

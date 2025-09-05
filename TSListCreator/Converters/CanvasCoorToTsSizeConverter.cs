@@ -12,10 +12,8 @@ namespace TSListCreator.Converters
 {
     public class CanvasCoorToTsSizeConverter(ISettingsService settingsService, IImageDataService imageDataService) : IValueConverter
     {
-        IImageDataService _imageDataService = imageDataService;
-        ISettingsService _settingsService = settingsService;
-        public CanvasCoorToTsSizeConverter() : this(ConverterServiceContainer.Instance.SettingsService, ConverterServiceContainer.Instance.ImageDataService)
-        { }
+        private readonly IImageDataService _imageDataService = imageDataService;
+        private readonly ISettingsService _settingsService = settingsService;
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (value is not double doubleValue)

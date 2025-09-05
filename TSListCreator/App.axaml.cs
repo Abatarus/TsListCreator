@@ -25,10 +25,11 @@ namespace TSListCreator
 
                 IImageDataService imageDataService = new ImageDataService();
                 ISettingsService settingsService = new SettingsService();
-                ConverterServiceContainer serviceContainer = new ConverterServiceContainer(settingsService, imageDataService);
+                IEditorStateService editorStateService = new EditorStateServiceService();
                 TopLevelService topLevelService = new TopLevelService(desktop.MainWindow);
                 SaveLoadService saveLoadService = new SaveLoadService(topLevelService);
-                desktop.MainWindow.DataContext = new MainViewModel(topLevelService,
+                desktop.MainWindow.DataContext = new MainViewModel(
+                    editorStateService, 
                     saveLoadService,
                     imageDataService,
                     settingsService);

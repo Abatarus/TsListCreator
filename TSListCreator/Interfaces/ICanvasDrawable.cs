@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TSListCreator.Enums;
 
 namespace TSListCreator.Interfaces
 {
-    public interface ICanvasDrawable
+    public interface ICanvasDrawable : IEditorStateService
     {
         double CanvasPosX { get; set; }
         double CanvasPosY { get; set; }

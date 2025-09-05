@@ -9,7 +9,9 @@ using System.Text.Json.Serialization.Metadata;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
 using TSListCreator.Controls;
+using TSListCreator.Converters;
 using TSListCreator.Interfaces;
 using TSListCreator.Utils;
 
@@ -51,7 +53,7 @@ namespace TSListCreator.Services
             await _topLevelService.SaveJsonToFile(result);
         }
 
-        public async Task<DataHolder> Load(ISettingsService settingsService)
+        public async Task<DataHolder> Load(ISettingsService settingsService, IImageDataService imageDataService)
         {
             DataHolder holder = new DataHolder();
             var jsonString = await _topLevelService.LoadJsonFile();
@@ -73,7 +75,7 @@ namespace TSListCreator.Services
 
             foreach (var elem in textBoxesElem.EnumerateArray())
             {
-                holder.TextBoxes.Add(new TsTextBox()
+                holder.TextBoxes.Add(new TsTextBox(settingsService, imageDataService)
                 {
                     Alignment = (AlignmentId)elem.GetProperty("alignment").GetInt32(),
                     FontSize = elem.GetProperty("font_size").GetDouble(),
@@ -91,7 +93,7 @@ namespace TSListCreator.Services
 
             foreach (var elem in checkBoxesElem.EnumerateArray())
             {
-                holder.CheckBoxes.Add(new TsCheckBox()
+                holder.CheckBoxes.Add(new TsCheckBox(settingsService, imageDataService)
                 {
                     PosX = elem.GetProperty("pos")[0].GetDouble(),
                     PosY = elem.GetProperty("pos")[2].GetDouble(),
@@ -104,7 +106,7 @@ namespace TSListCreator.Services
 
             foreach (var elem in countersElem.EnumerateArray())
             {
-                holder.Counters.Add(new TsCounter()
+                holder.Counters.Add(new TsCounter(settingsService, imageDataService)
                 {
                     PosX = elem.GetProperty("pos")[0].GetDouble(),
                     PosY = elem.GetProperty("pos")[2].GetDouble(),
@@ -117,6 +119,18 @@ namespace TSListCreator.Services
 
             return holder;
         }
+
+        public async Task<TsImage?> LoadImage()
+        {
+            Bitmap? bitmap = await _topLevelService.GetImage();
+            if (bitmap != null)
+            {
+                return new TsImage(bitmap);
+            }
+
+            return null;
+        }
+
         public async void SaveToClipBoard(ILuaInput settings,
             IEnumerable<ILuaInput> textBoxes,
             IEnumerable<ILuaInput> counters,

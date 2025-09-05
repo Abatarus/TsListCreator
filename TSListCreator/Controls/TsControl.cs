@@ -4,13 +4,16 @@ using System.Globalization;
 using System.Text.Json.Nodes;
 using System.Windows.Input;
 using TSListCreator.Converters;
+using TSListCreator.Enums;
 using TSListCreator.Interfaces;
 using TSListCreator.Utils;
 namespace TSListCreator.Controls;
-public abstract class TsControl : DataModel, ICanvasDrawable, IJsonInput, ILuaInput, IRedraw
+public abstract class TsControl(ISettingsService settingsService, IImageDataService imageDataService, IEditorStateService editorStateService) 
+        : DataModel, ICanvasDrawable, IJsonInput, ILuaInput, IRedraw
 {
-    protected CanvasCoorToTsPosConverter posConverter = new CanvasCoorToTsPosConverter();
-    protected CanvasCoorToTsSizeConverter sizeConverter = new CanvasCoorToTsSizeConverter();
+    protected readonly IEditorStateService _editorStateService = editorStateService;
+    protected readonly CanvasCoorToTsPosConverter _posConverter = new (settingsService, imageDataService);
+    protected readonly CanvasCoorToTsSizeConverter _sizeConverter = new (settingsService, imageDataService);
     private string _name = "";
     public string Name
     {
@@ -26,8 +29,8 @@ public abstract class TsControl : DataModel, ICanvasDrawable, IJsonInput, ILuaIn
     }
     public double CanvasPosX
     {
-        get => (double)posConverter.Convert(_posX, null, "Width", CultureInfo.CurrentCulture);
-        set => SetField(ref _posX, (double)posConverter.ConvertBack(value, null, "Width", CultureInfo.CurrentCulture));
+        get => (double)_posConverter.Convert(_posX, null, "Width", CultureInfo.CurrentCulture);
+        set => SetField(ref _posX, (double)_posConverter.ConvertBack(value, null, "Width", CultureInfo.CurrentCulture));
     }
 
     protected double _posY = 0.0;
@@ -38,8 +41,8 @@ public abstract class TsControl : DataModel, ICanvasDrawable, IJsonInput, ILuaIn
     }
     public double CanvasPosY
     {
-        get => (double)posConverter.Convert(_posY, null, "Height", CultureInfo.CurrentCulture);
-        set => SetField(ref _posY, (double)posConverter.ConvertBack(value, null, "Height", CultureInfo.CurrentCulture));
+        get => (double)_posConverter.Convert(_posY, null, "Height", CultureInfo.CurrentCulture);
+        set => SetField(ref _posY, (double)_posConverter.ConvertBack(value, null, "Height", CultureInfo.CurrentCulture));
     }
 
     private double _width = 300;
@@ -55,8 +58,8 @@ public abstract class TsControl : DataModel, ICanvasDrawable, IJsonInput, ILuaIn
     }
     public double CanvasWidth
     {
-        get => (double)sizeConverter.Convert(Width, null, "Width", CultureInfo.CurrentCulture);
-        set => Width = (double)sizeConverter.ConvertBack(value, null, "Width", CultureInfo.CurrentCulture);
+        get => (double)_sizeConverter.Convert(Width, null, "Width", CultureInfo.CurrentCulture);
+        set => Width = (double)_sizeConverter.ConvertBack(value, null, "Width", CultureInfo.CurrentCulture);
     }
     private double _canvasMinHeight = 1;
     public double CanvasMinHeight
@@ -83,8 +86,8 @@ public abstract class TsControl : DataModel, ICanvasDrawable, IJsonInput, ILuaIn
     }
     public double CanvasHeight
     {
-        get => (double)sizeConverter.Convert(Height, null, "Height", CultureInfo.CurrentCulture);
-        set => Height = (double)sizeConverter.ConvertBack(value, null, "Height", CultureInfo.CurrentCulture);
+        get => (double)_sizeConverter.Convert(Height, null, "Height", CultureInfo.CurrentCulture);
+        set => Height = (double)_sizeConverter.ConvertBack(value, null, "Height", CultureInfo.CurrentCulture);
     }
 
 
@@ -103,6 +106,7 @@ public abstract class TsControl : DataModel, ICanvasDrawable, IJsonInput, ILuaIn
     public abstract string GetLuaString();
 
     private Action<TsControl> _removeMe;
+
     public void SetRemove(Action<TsControl> removeMe)
     {
         _removeMe = removeMe; ;
@@ -115,4 +119,7 @@ public abstract class TsControl : DataModel, ICanvasDrawable, IJsonInput, ILuaIn
             OnPropertyChanged(property.Name);
         }
     }
+
+    public Mode Mode { get; set; }
+    public bool Magnet { get; set; }
 }

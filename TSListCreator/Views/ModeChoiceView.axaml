@@ -5,28 +5,48 @@
              mc:Ignorable="d"
              d:DesignWidth="800"
              d:DesignHeight="450"
+             Height="500"
              x:Class="TSListCreator.Views.ModeChoiceView">
-    <StackPanel Orientation="Vertical"
-                Background="WhiteSmoke">
-        <ToggleButton x:Name="MoveButton"
-                      Height="40"
-                      Width="40"
-                      Padding="2"
-                      BorderBrush="Black"
-                      BorderThickness="1">
-            <PathIcon Foreground="Black"
-                      Padding="2"
-                      Data="{DynamicResource Move}"/>
-        </ToggleButton>
-        <ToggleButton x:Name="StretchButton"
-                      Height="40"
-                      Width="40"
-                      Padding="2"
-                      BorderBrush="Black"
-                      BorderThickness="1">
-            <PathIcon Foreground="Black"
-                      Padding="2"
-                      Data="{DynamicResource Stretch}"/>
-        </ToggleButton>
-    </StackPanel>
+    <Grid RowDefinitions="Auto, *, Auto"
+          Background="DarkGray">
+        <StackPanel Grid.Row="0"
+                    Orientation="Vertical">
+            <ToggleButton x:Name="MoveButton"
+                          Height="40"
+                          Width="40"
+                          Padding="2"
+                          Margin="0, 5"
+                          BorderBrush="Black"
+                          BorderThickness="1">
+                <PathIcon Foreground="Black"
+                          Padding="2"
+                          Data="{DynamicResource Move}"/>
+            </ToggleButton>
+            <ToggleButton x:Name="StretchButton"
+                          Height="40"
+                          Width="40"
+                          Padding="2"
+                          BorderBrush="Black"
+                          BorderThickness="1">
+                <PathIcon Foreground="Black"
+                          Padding="2"
+                          Data="{DynamicResource Stretch}"/>
+            </ToggleButton>
+        </StackPanel>
+        <StackPanel Grid.Row="2"
+                    Orientation="Vertical">
+            <ToggleButton x:Name="MagnetButton"
+                          Height="40"
+                          Width="40"
+                          Padding="2"
+                          Margin="0, 5"
+                          BorderBrush="Black"
+                          BorderThickness="1">
+                <PathIcon Foreground="Black"
+                          Padding="2"
+                          Data="{DynamicResource Magnet}"/>
+            </ToggleButton>
+        </StackPanel>
+    </Grid>
+
 </UserControl>

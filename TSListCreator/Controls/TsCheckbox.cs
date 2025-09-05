@@ -2,10 +2,13 @@
 using System.Globalization;
 using System.Text;
 using System.Text.Json.Nodes;
+using TSListCreator.Converters;
+using TSListCreator.Interfaces;
 
 namespace TSListCreator.Controls;
 
-public class TsCheckBox : TsControl
+public class TsCheckBox(ISettingsService settingsService, IImageDataService imageDataService, IEditorStateService editorStateService) 
+    : TsControl(settingsService, imageDataService, editorStateService)
 {
     public double Size
     {

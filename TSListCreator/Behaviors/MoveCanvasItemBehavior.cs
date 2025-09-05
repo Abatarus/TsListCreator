@@ -4,13 +4,23 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Xaml.Interactivity;
 using System;
+using Avalonia.Data;
 using TSListCreator.Controls;
+using TSListCreator.Enums;
 using TSListCreator.Interfaces;
 
 namespace TSListCreator.Behaviors
 {
     public class MoveCanvasItemBehavior: Behavior<Thumb>
     {
+        public static readonly StyledProperty<Mode> ModeProperty =
+            AvaloniaProperty.Register<MoveCanvasItemBehavior, Mode>(
+                nameof(Mode), defaultValue: Mode.Move, defaultBindingMode: BindingMode.OneWay);
+        public Mode Mode
+        {
+            get => GetValue(ModeProperty);
+            set => SetValue(ModeProperty, value);
+        }
         protected override void OnAttached()
         {
             base.OnAttached();
@@ -28,6 +38,10 @@ namespace TSListCreator.Behaviors
 
         protected void OnDragDelta(object s, VectorEventArgs e)
         {
+            if (Mode != Mode.Move)
+            {
+                return;
+            }
             if (AssociatedObject.DataContext is not ICanvasDrawable item)
             {
                 throw new Exception("DataContext.DataContext must be TsControl");
