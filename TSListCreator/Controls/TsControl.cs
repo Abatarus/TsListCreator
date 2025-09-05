@@ -62,13 +62,13 @@ public abstract class TsControl(ISettingsService settingsService, IImageDataServ
         set => Width = (double)_sizeConverter.ConvertBack(value, null, "Width", CultureInfo.CurrentCulture);
     }
     private double _canvasMinHeight = 1;
-    public double CanvasMinHeight
+    public virtual double CanvasMinHeight
     {
         get => _canvasMinHeight;
         set => SetField(ref _canvasMinHeight, value);
     }
     private double _canvasMinWidth = 1;
-    public double CanvasMinWidth
+    public virtual double CanvasMinWidth
     {
         get => _canvasMinWidth;
         set => SetField(ref _canvasMinWidth, value);
