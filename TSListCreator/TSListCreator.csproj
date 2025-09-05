@@ -19,4 +19,9 @@
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.3.0" />
     <PackageReference Include="Xaml.Behaviors.Interactions" Version="11.3.2" />
   </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\TSListCreator.Assets\TSListCreator.Assets.csproj" />
+  </ItemGroup>
 </Project>

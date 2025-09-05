@@ -1,9 +1,11 @@
 using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Globalization;
 using System.Text;
 using System.Text.Json.Nodes;
 using TSListCreator.Converters;
+using TSListCreator.Interfaces;
 
 namespace TSListCreator.Controls;
 
@@ -18,7 +20,8 @@ public enum AlignmentId
 
 public class TsTextBox : TsControl
 {
-    public TsTextBox()
+    public TsTextBox(ISettingsService settingsService, IImageDataService imageDataService, IEditorStateService editorStateService)
+        : base(settingsService, imageDataService, editorStateService)
     {
         Width = 1000;
         Height = FontSize + 100;
@@ -79,8 +82,24 @@ public class TsTextBox : TsControl
         set
         {
             SetField(ref _fontSize, value);
+            OnPropertyChanged(nameof(CanvasWidth));
+            OnPropertyChanged(nameof(CanvasHeight));
+            OnPropertyChanged(nameof(CanvasMinWidth));
+            OnPropertyChanged(nameof(CanvasMinHeight));
         }
     }
+
+    public override double CanvasMinHeight
+    {
+        get => (double)_sizeConverter.Convert(FontSize, null, "Height", CultureInfo.CurrentCulture);
+        set => FontSize = (double)_sizeConverter.ConvertBack(value, null, "Height", CultureInfo.CurrentCulture);
+    }
+    public override double CanvasMinWidth
+    {
+        get => (double)_sizeConverter.Convert(FontSize, null, "Width", CultureInfo.CurrentCulture);
+        set => FontSize = (double)_sizeConverter.ConvertBack(value, null, "Width", CultureInfo.CurrentCulture);
+    }
+
     public override JsonObject GetJsonObject()
     {
         var result = new JsonObject

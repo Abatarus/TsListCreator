@@ -8,6 +8,7 @@ using Avalonia.Headless;
 using Avalonia.Headless.XUnit;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
+using FakeItEasy;
 using TSListCreator.Interfaces;
 using TSListCreator.Services;
 using TSListCreator.Tests.Mocks;
@@ -26,12 +27,7 @@ namespace TSListCreator.Tests.UI
                 var window = new Window();
                 var view = new MainView();
                 window.Content = view;
-                ConverterServiceContainer serviceContainer =
-                    new ConverterServiceContainer(
-                        new SettingsServiceMock().FakedObject,
-                        new ImageDataServiceMock().FakedObject);
-                ITopLevelService topLevelService = new FilePickerServiceMock().FakedObject;
-                var viewModel = new MainViewModel(topLevelService,
+                var viewModel = new MainViewModel(A.Fake<IEditorStateService>(),
                     new SaveLoadServiceMock().FakedObject,
                     new ImageDataServiceMock().FakedObject,
                     new SettingsServiceMock().FakedObject);
@@ -49,12 +45,7 @@ namespace TSListCreator.Tests.UI
             var window = new Window();
             var view = new MainView();
             window.Content = view;
-            ConverterServiceContainer serviceContainer =
-                new ConverterServiceContainer(
-                    new SettingsServiceMock().FakedObject,
-                    new ImageDataServiceMock().FakedObject);
-            ITopLevelService topLevelService = new FilePickerServiceMock().FakedObject;
-            var viewModel = new MainViewModel(topLevelService,
+            var viewModel = new MainViewModel(A.Fake<IEditorStateService>(),
                 new SaveLoadServiceMock().FakedObject,
                 new ImageDataServiceMock().FakedObject,
                 new SettingsServiceMock().FakedObject);
@@ -76,13 +67,9 @@ namespace TSListCreator.Tests.UI
             var window = new Window();
             var view = new MainView();
             window.Content = view;
-            ConverterServiceContainer serviceContainer =
-                new ConverterServiceContainer(
-                    new SettingsServiceMock().FakedObject,
-                    new ImageDataServiceMock().FakedObject);
             ITopLevelService topLevelService = new FilePickerServiceMock().FakedObject;
 
-            var viewModel = new MainViewModel(topLevelService,
+            var viewModel = new MainViewModel(A.Fake<IEditorStateService>(),
                 new SaveLoadServiceMock().FakedObject,
                 new ImageDataServiceMock().FakedObject,
                 new SettingsServiceMock().FakedObject);

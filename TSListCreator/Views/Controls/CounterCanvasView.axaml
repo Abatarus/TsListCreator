@@ -1,0 +1,64 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:TSListCreator.Converters"
+             xmlns:interfaces="clr-namespace:TSListCreator.Interfaces"
+             xmlns:behaviors="clr-namespace:TSListCreator.Behaviors"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:DesignHeight="450"
+             x:DataType="interfaces:ICanvasDrawable"
+             IsPointerOver="{Binding IsHighlighted, Mode=OneWayToSource}"
+             x:Class="TSListCreator.Views.CounterCanvasView">
+    <Border x:Name="ResizeBorder"
+            Background="Transparent"
+            BorderThickness="1"
+            Width="{Binding CanvasWidth, Mode=OneWay}"
+            Height="{Binding CanvasHeight, Mode=OneWay}"
+            MinWidth="15"
+            MinHeight="15"
+            Cursor="SizeAll">
+        <Thumb Cursor="DragMove">
+            <Thumb.Template>
+                <ControlTemplate>
+                    <Ellipse Stretch="Fill"
+                             Fill="Black"
+                             HorizontalAlignment="Stretch"
+                             VerticalAlignment="Stretch">
+                        <Interaction.Behaviors>
+                            <DataTriggerBehavior Binding="{Binding IsHighlighted}"
+                                                 ComparisonCondition="Equal"
+                                                 Value="True">
+                                <ChangePropertyAction PropertyName="Fill"
+                                                      Value="Green"/>
+                            </DataTriggerBehavior>
+                            <DataTriggerBehavior Binding="{Binding IsHighlighted}"
+                                                 ComparisonCondition="Equal"
+                                                 Value="False">
+                                <ChangePropertyAction PropertyName="Fill"
+                                                      Value="Black"/>
+                            </DataTriggerBehavior>
+                        </Interaction.Behaviors>
+                    </Ellipse>
+                </ControlTemplate>
+            </Thumb.Template>
+            <Interaction.Behaviors>
+                <behaviors:MoveCanvasItemBehavior Mode="{Binding Mode}"/>
+                <behaviors:StretchSizeCanvasItemBehavior Mode="{Binding Mode}"/>
+                <DataTriggerBehavior Binding="{Binding Mode}"
+                                     ComparisonCondition="Equal"
+                                     Value="Move">
+                    <ChangePropertyAction PropertyName="Cursor"
+                                          Value="DragMove"/>
+                </DataTriggerBehavior>
+                <DataTriggerBehavior Binding="{Binding Mode}"
+                                     ComparisonCondition="Equal"
+                                     Value="Stretch">
+                    <ChangePropertyAction PropertyName="Cursor"
+                                          Value="SizeAll"/>
+                </DataTriggerBehavior>
+            </Interaction.Behaviors>
+        </Thumb>
+    </Border>
+</UserControl>

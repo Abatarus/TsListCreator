@@ -11,3 +11,5 @@
 /TSListCreator.Tests/obj
 /TSListCreator.sln.DotSettings.user
 /TSListCreator.Tests/bin/Release/net8.0
+/TSListCreator.Assets/obj
+/TSListCreator.Assets/bin

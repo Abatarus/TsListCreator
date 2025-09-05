@@ -13,6 +13,7 @@ using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using SkiaSharp;
 using TSListCreator.Controls;
+using TSListCreator.Converters;
 using TSListCreator.Interfaces;
 using TSListCreator.Services;
 using TSListCreator.Utils;
@@ -22,21 +23,33 @@ namespace TSListCreator.ViewModels;
 public class MainViewModel
     : DataModel
 {
-    private ITopLevelService _topLevelService;
-    private IImageDataService _imageDataService;
-    private ISettingsService _settingsService;
-    private ISaveLoadService _saveLoadService;
+    private readonly IEditorStateService _editorStateService;
+    private readonly IImageDataService _imageDataService;
+    private readonly ISettingsService _settingsService;
+    private readonly ISaveLoadService _saveLoadService;
 
-    public MainViewModel(ITopLevelService topLevelService,
+    public MainViewModel(
+        IEditorStateService editorStateService,
         ISaveLoadService saveLoadService,
         IImageDataService imageDataService,
         ISettingsService settingsService)
     {
         _saveLoadService = saveLoadService;
-        _topLevelService = topLevelService;
         _imageDataService = imageDataService;
         _settingsService = settingsService;
+        _editorStateService = editorStateService;
+
         Settings = new SettingsViewModel(_settingsService);
+        ModeChoice = new ModeChoiceViewModel(_editorStateService);
+
+        ModeChoice.PropertyChanged += (_, e) =>
+        {
+            if (e.PropertyName == nameof(ModeChoice.Mode) ||
+                e.PropertyName == nameof(ModeChoice.Magnet))
+            {
+                UpdateControls();
+            }
+        };
 
         Settings.PropertyChanged += (_, e) =>
         {
@@ -64,27 +77,27 @@ public class MainViewModel
     public bool CanAdd => CanInteract && Settings.BoundHeight > 0 && Settings.BoundWidth > 0;
 
 
-    private ObservableCollection<TsControl> _sharedCollection = new ObservableCollection<TsControl>(new List<TsControl>());
+    private ObservableCollection<TsControl> _sharedCollection = new(new List<TsControl>());
     public ObservableCollection<TsControl> SharedCollection
     {
         get => _sharedCollection;
         set => SetField(ref _sharedCollection, value);
     }
 
-    private ObservableCollection<TsTextBox> _textBoxes = new ObservableCollection<TsTextBox>(new List<TsTextBox>());
+    private ObservableCollection<TsTextBox> _textBoxes = new(new List<TsTextBox>());
     public ObservableCollection<TsTextBox> TextBoxes
     {
         get => _textBoxes;
         set => SetField(ref _textBoxes, value);
     }
-    private ObservableCollection<TsCounter> _counters = new ObservableCollection<TsCounter>(new List<TsCounter>());
+    private ObservableCollection<TsCounter> _counters = new(new List<TsCounter>());
     public ObservableCollection<TsCounter> Counters
     {
         get => _counters;
         set => SetField(ref _counters, value);
     }
 
-    private ObservableCollection<TsCheckBox> _checkBoxes = new ObservableCollection<TsCheckBox>(new List<TsCheckBox>());
+    private ObservableCollection<TsCheckBox> _checkBoxes = new(new List<TsCheckBox>());
     public ObservableCollection<TsCheckBox> CheckBoxes
     {
         get => _checkBoxes;
@@ -98,27 +111,28 @@ public class MainViewModel
         set => SetField(ref _settings, value);
     }
 
-    public async Task LoadImage()
+    private ModeChoiceViewModel? _modeChoice;
+    public ModeChoiceViewModel ModeChoice
+    {
+        get => _modeChoice;
+        set => SetField(ref _modeChoice, value);
+    }
+
+    public async void LoadImage()
     {
         try
         {
-            Bitmap? bitmap = await _topLevelService.GetImage();
-            if (bitmap != null)
-            {
-                TsImage = new TsImage(bitmap);
-                _imageDataService.LoadImage(TsImage);
-            }
+            TsImage = await _saveLoadService.LoadImage();
+            _imageDataService.LoadImage(TsImage);
         }
         catch (Exception e)
         {
-            //TODO Log
-            throw new Exception(e.Message);
+            throw; // TODO handle exception
         }
     }
 
     public void UpdateControls()
     {
-        //TODO костыль
         Dispatcher.UIThread.Post(() =>
         {
             foreach (var control in SharedCollection)
@@ -126,23 +140,22 @@ public class MainViewModel
                 control.Redraw();
             }
         });
-
     }
     public void AddNewTextBox()
     {
-        TextBoxes.Add(new TsTextBox() { Name = $"TextBox{TextBoxes.Count}" });
+        TextBoxes.Add(new TsTextBox(_settingsService, _imageDataService, _editorStateService) { Name = $"TextBox{TextBoxes.Count}" });
         SharedCollection.Add(TextBoxes.Last());
         TextBoxes.Last().SetRemove(RemoveMe);
     }
     public void AddNewCheckBox()
     {
-        CheckBoxes.Add(new TsCheckBox() { Name = $"TsCheckbox{CheckBoxes.Count}" });
+        CheckBoxes.Add(new TsCheckBox(_settingsService, _imageDataService, _editorStateService) { Name = $"TsCheckbox{CheckBoxes.Count}" });
         SharedCollection.Add(CheckBoxes.Last());
         CheckBoxes.Last().SetRemove(RemoveMe);
     }
     public void AddNewCounter()
     {
-        Counters.Add(new TsCounter() { Name = $"Counter{Counters.Count}" });
+        Counters.Add(new TsCounter(_settingsService, _imageDataService, _editorStateService) { Name = $"Counter{Counters.Count}" });
         SharedCollection.Add(Counters.Last());
         Counters.Last().SetRemove(RemoveMe);
     }
@@ -156,7 +169,7 @@ public class MainViewModel
         DataHolder holder;
         try
         {
-            holder = await _saveLoadService.Load(_settingsService);
+            holder = await _saveLoadService.Load(_settingsService, _imageDataService, _editorStateService);
         }
         catch (Exception ex)
         {
@@ -197,7 +210,6 @@ public class MainViewModel
     private void RemoveMe(object child)
     {
         SharedCollection.Remove((TsControl)child);
-        //TODO
         if (child is TsTextBox tb) TextBoxes.Remove(tb);
         else if (child is TsCounter c) Counters.Remove(c);
         else if (child is TsCheckBox cb) CheckBoxes.Remove(cb);

@@ -3,15 +3,17 @@ using System.Globalization;
 using System.Text;
 using System.Text.Json.Nodes;
 using TSListCreator.Controls;
+using TSListCreator.Converters;
 using TSListCreator.Interfaces;
 using TSListCreator.Utils;
 
 namespace TSListCreator.Controls;
-public class TsCounter : TsControl
+public class TsCounter(ISettingsService settingsService, IImageDataService imageDataService, IEditorStateService editorStateService)
+    : TsControl(settingsService, imageDataService, editorStateService)
 {
     public double Size
     {
-        get => _width;
+        get => Width;
         set
         {
             Height = value;
