@@ -7,8 +7,10 @@ using TSListCreator.Enums;
 
 namespace TSListCreator.Interfaces
 {
-    public interface ICanvasDrawable : IEditorStateService
+    public interface ICanvasDrawable
     {
+        Mode Mode { get; set; }
+        bool Magnet { get; set; }
         double CanvasPosX { get; set; }
         double CanvasPosY { get; set; }
         double CanvasHeight { get; set; }

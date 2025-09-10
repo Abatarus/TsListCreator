@@ -23,15 +23,13 @@ namespace TSListCreator
             {
                 desktop.MainWindow = new MainWindow();
 
-                IImageDataService imageDataService = new ImageDataService();
                 ISettingsService settingsService = new SettingsService();
-                IEditorStateService editorStateService = new EditorStateServiceService();
+                IEditorDataService editorDataService = new EditorDataService();
                 TopLevelService topLevelService = new TopLevelService(desktop.MainWindow);
                 SaveLoadService saveLoadService = new SaveLoadService(topLevelService);
                 desktop.MainWindow.DataContext = new MainViewModel(
-                    editorStateService, 
+                    editorDataService, 
                     saveLoadService,
-                    imageDataService,
                     settingsService);
             }
 

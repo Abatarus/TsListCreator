@@ -8,8 +8,8 @@ using TSListCreator.Interfaces;
 using TSListCreator.Utils;
 
 namespace TSListCreator.Controls;
-public class TsCounter(ISettingsService settingsService, IImageDataService imageDataService, IEditorStateService editorStateService)
-    : TsControl(settingsService, imageDataService, editorStateService)
+public class TsCounter(ISettingsService settingsService, IEditorDataService editorDataService)
+    : TsControl(settingsService, editorDataService)
 {
     public double Size
     {

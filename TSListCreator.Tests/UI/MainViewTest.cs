@@ -27,7 +27,7 @@ namespace TSListCreator.Tests.UI
                 var window = new Window();
                 var view = new MainView();
                 window.Content = view;
-                var viewModel = new MainViewModel(A.Fake<IEditorStateService>(),
+                var viewModel = new MainViewModel(A.Fake<IEditorDataService>(),
                     new SaveLoadServiceMock().FakedObject,
                     new ImageDataServiceMock().FakedObject,
                     new SettingsServiceMock().FakedObject);
@@ -45,7 +45,7 @@ namespace TSListCreator.Tests.UI
             var window = new Window();
             var view = new MainView();
             window.Content = view;
-            var viewModel = new MainViewModel(A.Fake<IEditorStateService>(),
+            var viewModel = new MainViewModel(A.Fake<IEditorDataService>(),
                 new SaveLoadServiceMock().FakedObject,
                 new ImageDataServiceMock().FakedObject,
                 new SettingsServiceMock().FakedObject);
@@ -69,7 +69,7 @@ namespace TSListCreator.Tests.UI
             window.Content = view;
             ITopLevelService topLevelService = new FilePickerServiceMock().FakedObject;
 
-            var viewModel = new MainViewModel(A.Fake<IEditorStateService>(),
+            var viewModel = new MainViewModel(A.Fake<IEditorDataService>(),
                 new SaveLoadServiceMock().FakedObject,
                 new ImageDataServiceMock().FakedObject,
                 new SettingsServiceMock().FakedObject);

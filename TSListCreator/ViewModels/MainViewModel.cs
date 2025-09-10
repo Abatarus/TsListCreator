@@ -23,24 +23,21 @@ namespace TSListCreator.ViewModels;
 public class MainViewModel
     : DataModel
 {
-    private readonly IEditorStateService _editorStateService;
-    private readonly IImageDataService _imageDataService;
+    private readonly IEditorDataService _editorDataService;
     private readonly ISettingsService _settingsService;
     private readonly ISaveLoadService _saveLoadService;
 
     public MainViewModel(
-        IEditorStateService editorStateService,
+        IEditorDataService editorDataService,
         ISaveLoadService saveLoadService,
-        IImageDataService imageDataService,
         ISettingsService settingsService)
     {
         _saveLoadService = saveLoadService;
-        _imageDataService = imageDataService;
         _settingsService = settingsService;
-        _editorStateService = editorStateService;
+        _editorDataService = editorDataService;
 
         Settings = new SettingsViewModel(_settingsService);
-        ModeChoice = new ModeChoiceViewModel(_editorStateService);
+        ModeChoice = new ModeChoiceViewModel(_editorDataService);
 
         ModeChoice.PropertyChanged += (_, e) =>
         {
@@ -123,7 +120,7 @@ public class MainViewModel
         try
         {
             TsImage = await _saveLoadService.LoadImage();
-            _imageDataService.LoadImage(TsImage);
+            _editorDataService.Image = TsImage;
         }
         catch (Exception e)
         {
@@ -143,19 +140,19 @@ public class MainViewModel
     }
     public void AddNewTextBox()
     {
-        TextBoxes.Add(new TsTextBox(_settingsService, _imageDataService, _editorStateService) { Name = $"TextBox{TextBoxes.Count}" });
+        TextBoxes.Add(new TsTextBox(_settingsService, _editorDataService) { Name = $"TextBox{TextBoxes.Count}" });
         SharedCollection.Add(TextBoxes.Last());
         TextBoxes.Last().SetRemove(RemoveMe);
     }
     public void AddNewCheckBox()
     {
-        CheckBoxes.Add(new TsCheckBox(_settingsService, _imageDataService, _editorStateService) { Name = $"TsCheckbox{CheckBoxes.Count}" });
+        CheckBoxes.Add(new TsCheckBox(_settingsService, _editorDataService) { Name = $"TsCheckbox{CheckBoxes.Count}" });
         SharedCollection.Add(CheckBoxes.Last());
         CheckBoxes.Last().SetRemove(RemoveMe);
     }
     public void AddNewCounter()
     {
-        Counters.Add(new TsCounter(_settingsService, _imageDataService, _editorStateService) { Name = $"Counter{Counters.Count}" });
+        Counters.Add(new TsCounter(_settingsService, _editorDataService) { Name = $"Counter{Counters.Count}" });
         SharedCollection.Add(Counters.Last());
         Counters.Last().SetRemove(RemoveMe);
     }
@@ -169,7 +166,7 @@ public class MainViewModel
         DataHolder holder;
         try
         {
-            holder = await _saveLoadService.Load(_settingsService, _imageDataService, _editorStateService);
+            holder = await _saveLoadService.Load(_settingsService, _editorDataService);
         }
         catch (Exception ex)
         {

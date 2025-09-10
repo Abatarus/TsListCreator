@@ -4,11 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:converters="clr-namespace:TSListCreator.Converters"
              xmlns:interfaces="clr-namespace:TSListCreator.Interfaces"
+             xmlns:viewModels="clr-namespace:TSListCreator.ViewModels"
              mc:Ignorable="d"
              d:DesignWidth="800"
              d:DesignHeight="450"
              Height="500"
-             x:DataType="interfaces:IEditorStateService"
+             x:DataType="viewModels:ModeChoiceViewModel"
              x:Class="TSListCreator.Views.ModeChoiceView">
     <UserControl.Resources>
         <converters:EditorModeToBoolConverter x:Key="EditorModeToBoolConverter"/>

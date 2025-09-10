@@ -9,24 +9,24 @@ using TSListCreator.Utils;
 
 namespace TSListCreator.ViewModels
 {
-    public class ModeChoiceViewModel(IEditorStateService editorStateService): DataModel, IEditorStateService
+    public class ModeChoiceViewModel(IEditorDataService editorDataService): DataModel
     {
         public Mode Mode
         {
-            get => editorStateService.Mode;
+            get => editorDataService.Mode;
             set
             {
-                editorStateService.Mode = value;
+                editorDataService.Mode = value;
                 OnPropertyChanged();
             }
         }
 
         public bool Magnet
         {
-            get => editorStateService.Magnet;
+            get => editorDataService.Magnet;
             set
             {
-                editorStateService.Magnet = value;
+                editorDataService.Magnet = value;
                 OnPropertyChanged();
             }
         }

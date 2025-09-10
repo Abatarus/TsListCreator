@@ -53,7 +53,7 @@ namespace TSListCreator.Services
             await _topLevelService.SaveJsonToFile(result);
         }
 
-        public async Task<DataHolder> Load(ISettingsService settingsService, IImageDataService imageDataService, IEditorStateService editorStateService)
+        public async Task<DataHolder> Load(ISettingsService settingsService, IEditorDataService editorDataService)
         {
             DataHolder holder = new DataHolder();
             var jsonString = await _topLevelService.LoadJsonFile();
@@ -75,7 +75,7 @@ namespace TSListCreator.Services
 
             foreach (var elem in textBoxesElem.EnumerateArray())
             {
-                holder.TextBoxes.Add(new TsTextBox(settingsService, imageDataService, editorStateService)
+                holder.TextBoxes.Add(new TsTextBox(settingsService, editorDataService)
                 {
                     Alignment = (AlignmentId)elem.GetProperty("alignment").GetInt32(),
                     FontSize = elem.GetProperty("font_size").GetDouble(),
@@ -93,7 +93,7 @@ namespace TSListCreator.Services
 
             foreach (var elem in checkBoxesElem.EnumerateArray())
             {
-                holder.CheckBoxes.Add(new TsCheckBox(settingsService, imageDataService, editorStateService)
+                holder.CheckBoxes.Add(new TsCheckBox(settingsService, editorDataService)
                 {
                     PosX = elem.GetProperty("pos")[0].GetDouble(),
                     PosY = elem.GetProperty("pos")[2].GetDouble(),
@@ -106,7 +106,7 @@ namespace TSListCreator.Services
 
             foreach (var elem in countersElem.EnumerateArray())
             {
-                holder.Counters.Add(new TsCounter(settingsService, imageDataService, editorStateService)
+                holder.Counters.Add(new TsCounter(settingsService, editorDataService)
                 {
                     PosX = elem.GetProperty("pos")[0].GetDouble(),
                     PosY = elem.GetProperty("pos")[2].GetDouble(),

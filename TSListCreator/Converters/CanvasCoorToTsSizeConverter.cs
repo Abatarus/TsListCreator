@@ -10,9 +10,9 @@ using TSListCreator.Services;
 
 namespace TSListCreator.Converters
 {
-    public class CanvasCoorToTsSizeConverter(ISettingsService settingsService, IImageDataService imageDataService) : IValueConverter
+    public class CanvasCoorToTsSizeConverter(ISettingsService settingsService, IEditorDataService imageDataService) : IValueConverter
     {
-        private readonly IImageDataService _imageDataService = imageDataService;
+        private readonly IEditorDataService _editorDataService = imageDataService;
         private readonly ISettingsService _settingsService = settingsService;
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
@@ -27,12 +27,12 @@ namespace TSListCreator.Converters
                 if (strParameter == "Height")
                 {
                     sizeBound = _settingsService.BoundHeight;
-                    sizeEm = _imageDataService.GetImageHeight();
+                    sizeEm = _editorDataService.Image.Height;
                 }
                 else if (strParameter == "Width")
                 {
                     sizeBound = _settingsService.BoundWidth;
-                    sizeEm = _imageDataService.GetImageWidth();
+                    sizeEm = _editorDataService.Image.Width;
                 }
             }
             double tsSizeToBound = 3.141 / 15100;
@@ -54,12 +54,12 @@ namespace TSListCreator.Converters
                 if (strParameter == "Height")
                 {
                     sizeBound = _settingsService.BoundHeight;
-                    sizeEm = _imageDataService.GetImageHeight();
+                    sizeEm = _editorDataService.Image.Height;
                 }
                 else if (strParameter == "Width")
                 {
                     sizeBound = _settingsService.BoundWidth;
-                    sizeEm = _imageDataService.GetImageWidth();
+                    sizeEm = _editorDataService.Image.Width;
                 }
             }
 

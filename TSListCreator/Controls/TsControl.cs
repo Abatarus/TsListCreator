@@ -8,12 +8,12 @@ using TSListCreator.Enums;
 using TSListCreator.Interfaces;
 using TSListCreator.Utils;
 namespace TSListCreator.Controls;
-public abstract class TsControl(ISettingsService settingsService, IImageDataService imageDataService, IEditorStateService editorStateService) 
-        : DataModel, ICanvasDrawable, IJsonInput, ILuaInput, IRedraw
+public abstract class TsControl(ISettingsService settingsService, IEditorDataService editorDataService)
+   : DataModel, ICanvasDrawable, IJsonInput, ILuaInput, IRedraw
 {
-    protected readonly IEditorStateService _editorStateService = editorStateService;
-    protected readonly CanvasCoorToTsPosConverter _posConverter = new (settingsService, imageDataService);
-    protected readonly CanvasCoorToTsSizeConverter _sizeConverter = new (settingsService, imageDataService);
+    protected readonly IEditorDataService _editorDataService = editorDataService;
+    protected readonly CanvasCoorToTsPosConverter _posConverter = new (settingsService, editorDataService);
+    protected readonly CanvasCoorToTsSizeConverter _sizeConverter = new (settingsService, editorDataService);
     private string _name = "";
     public string Name
     {
@@ -122,19 +122,19 @@ public abstract class TsControl(ISettingsService settingsService, IImageDataServ
 
     public Mode Mode
     {
-        get => _editorStateService.Mode;
+        get => _editorDataService.Mode;
         set
         {
-            _editorStateService.Mode = value;
+            _editorDataService.Mode = value;
             OnPropertyChanged();
         }
     }
     public bool Magnet
     {
-        get => _editorStateService.Magnet;
+        get => _editorDataService.Magnet;
         set
         {
-            _editorStateService.Magnet = value;
+            _editorDataService.Magnet = value;
             OnPropertyChanged();
         }
     }

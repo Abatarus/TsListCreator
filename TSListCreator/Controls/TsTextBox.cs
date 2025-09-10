@@ -20,8 +20,8 @@ public enum AlignmentId
 
 public class TsTextBox : TsControl
 {
-    public TsTextBox(ISettingsService settingsService, IImageDataService imageDataService, IEditorStateService editorStateService)
-        : base(settingsService, imageDataService, editorStateService)
+    public TsTextBox(ISettingsService settingsService, IEditorDataService editorDataService)
+        : base(settingsService, editorDataService)
     {
         Width = 1000;
         Height = FontSize + 100;

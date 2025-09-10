@@ -7,8 +7,8 @@ using TSListCreator.Interfaces;
 
 namespace TSListCreator.Controls;
 
-public class TsCheckBox(ISettingsService settingsService, IImageDataService imageDataService, IEditorStateService editorStateService) 
-    : TsControl(settingsService, imageDataService, editorStateService)
+public class TsCheckBox(ISettingsService settingsService, IEditorDataService editorDataService) 
+    : TsControl(settingsService, editorDataService)
 {
     public double Size
     {
