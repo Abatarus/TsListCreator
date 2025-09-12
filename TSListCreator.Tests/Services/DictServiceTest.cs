@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TSListCreator.Services;
+using TsListCreator.Model.Services;
+using TsListCreator.Presentation.Services;
 
-namespace TSListCreator.Tests.Services
+namespace TSListCreator.Tests.Services;
+
+public class DictServiceTest
 {
-    public class DictServiceTest
+    [Theory]
+    [InlineData("Лево")]
+    [InlineData("Право")]
+    public void AlignmentList_MustContainsDescriptions(string input)
     {
-        [Theory]
-        [InlineData("Лево")]
-        [InlineData("Право")]
-        public void AlignmentList_MustContainsDescriptions(string input)
-        {
 
-            Assert.Contains(input, DictService.AlignmentList);
-        }
+        Assert.Contains(input, DictService.AlignmentList);
     }
 }

@@ -5,9 +5,15 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TSListCreator", "TSListCreator\TSListCreator.csproj", "{48740FC9-6E64-4207-8D85-211365CB669E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TSListCreator.Tests", "TSListCreator.Tests\TSListCreator.Tests.csproj", "{A3C4FE8B-5908-465C-B0E5-C35E0F79425C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TSListCreator.Tests", "TSListCreator.Tests\TSListCreator.Tests.csproj", "{A3C4FE8B-5908-465C-B0E5-C35E0F79425C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TSListCreator.Assets", "TSListCreator.Assets\TSListCreator.Assets.csproj", "{DD2EA9D2-211D-4091-923A-D43C414E2DD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TSListCreator.Assets", "TSListCreator.Assets\TSListCreator.Assets.csproj", "{DD2EA9D2-211D-4091-923A-D43C414E2DD4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TsListCreator.Shared", "TsListCreator.Abstraction\TsListCreator.Shared.csproj", "{1503622A-F97D-4963-A8FF-D9403D1BC4E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TsListCreator.Presentation", "TsListCreator.Presentation\TsListCreator.Presentation.csproj", "{136B2D72-3149-4C2E-8EFB-0D8293BDD5D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TsListCreator.Model", "TsListCreator.Model\TsListCreator.Model.csproj", "{E515C3D9-F5A7-4D56-B2C2-11F0E1B4447E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +33,18 @@ Global
 		{DD2EA9D2-211D-4091-923A-D43C414E2DD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD2EA9D2-211D-4091-923A-D43C414E2DD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD2EA9D2-211D-4091-923A-D43C414E2DD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1503622A-F97D-4963-A8FF-D9403D1BC4E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1503622A-F97D-4963-A8FF-D9403D1BC4E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1503622A-F97D-4963-A8FF-D9403D1BC4E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1503622A-F97D-4963-A8FF-D9403D1BC4E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{136B2D72-3149-4C2E-8EFB-0D8293BDD5D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{136B2D72-3149-4C2E-8EFB-0D8293BDD5D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{136B2D72-3149-4C2E-8EFB-0D8293BDD5D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{136B2D72-3149-4C2E-8EFB-0D8293BDD5D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E515C3D9-F5A7-4D56-B2C2-11F0E1B4447E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E515C3D9-F5A7-4D56-B2C2-11F0E1B4447E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E515C3D9-F5A7-4D56-B2C2-11F0E1B4447E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E515C3D9-F5A7-4D56-B2C2-11F0E1B4447E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,17 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FakeItEasy;
-using TSListCreator.Interfaces;
 
-namespace TSListCreator.Tests.Mocks
+namespace TSListCreator.Tests.Mocks;
+
+class SettingsServiceMock: Fake<ISettingsService>
 {
-    class SettingsServiceMock: Fake<ISettingsService>
+    public SettingsServiceMock()
     {
-        public SettingsServiceMock()
-        {
-            CallsTo(x =>
-                    x.BoundHeight)
-                .Returns(3.742);
-        }
+        CallsTo(x =>
+                x.BoundHeight)
+            .Returns(3.742);
     }
 }

@@ -1,0 +1,104 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+      <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.3.4" />
+    <PackageReference Include="Xaml.Behaviors.Avalonia" Version="11.3.2" />
+    <PackageReference Include="Avalonia.Controls.ColorPicker"
+                      Version="11.3.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TsListCreator.Abstraction\TsListCreator.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\Controls\CheckBoxCanvasView.axaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Controls\CheckBoxListView.axaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Controls\CounterCanvasView.axaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Controls\CounterListView.axaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Controls\TextBoxCanvasView.axaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Controls\TextBoxListView.axaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Views\DemoImageView.axaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Views\MainView.axaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ModeChoiceView.axaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SettingsView.axaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Views\StartScreen.axaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Views\Controls\CheckBoxCanvasView.axaml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="Views\Controls\CheckBoxListView.axaml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="Views\Controls\CounterCanvasView.axaml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="Views\Controls\CounterListView.axaml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="Views\Controls\TextBoxCanvasView.axaml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="Views\Controls\TextBoxListView.axaml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="Views\DemoImageView.axaml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="Views\MainView.axaml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="Views\ModeChoiceView.axaml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="Views\SettingsView.axaml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="Views\StartScreen.axaml">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+
+</Project>

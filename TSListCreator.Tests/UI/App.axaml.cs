@@ -1,8 +1,7 @@
 using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace TSListCreator.Tests;
+namespace TSListCreator.Tests.UI;
 
 public class App : Application
 {

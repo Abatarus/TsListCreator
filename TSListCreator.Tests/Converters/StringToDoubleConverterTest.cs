@@ -5,60 +5,58 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TSListCreator.Controls;
-using TSListCreator.Converters;
+using TsListCreator.Presentation.Converters;
 
-namespace TSListCreator.Tests.Converters
+namespace TSListCreator.Tests.Converters;
+
+public class StringToDoubleConverterTest
 {
-    public class StringToDoubleConverterTest
+    [Fact]
+    public void ConvertBack_InputCorrectString_ShouldReturnDouble()
     {
-        [Fact]
-        public void ConvertBack_InputCorrectString_ShouldReturnDouble()
-        {
-            var converter = new StringToDoubleConverter();
-            var value = "1.1";
-            var expected = 1.1;
+        var converter = new StringToDoubleConverter();
+        var value = "1.1";
+        var expected = 1.1;
 
-            double result = (double)converter.ConvertBack(value, null, null, CultureInfo.CurrentCulture);
+        double result = (double)converter.ConvertBack(value, null, null, CultureInfo.CurrentCulture);
 
-            Assert.Equal(expected, result, 5);
-        }
+        Assert.Equal(expected, result, 5);
+    }
 
-        [Fact]
-        public void ConvertBack_InputIncorrectString_ShouldReturnError()
-        {
-            var converter = new StringToDoubleConverter();
-            var value = "1.1dsa";
-            var expected = 0.0;
+    [Fact]
+    public void ConvertBack_InputIncorrectString_ShouldReturnError()
+    {
+        var converter = new StringToDoubleConverter();
+        var value = "1.1dsa";
+        var expected = 0.0;
 
-            var result = (double)converter.ConvertBack(value, null, null, CultureInfo.CurrentCulture);
-            Assert.Equal(expected, result, 5);
-        }
+        var result = (double)converter.ConvertBack(value, null, null, CultureInfo.CurrentCulture);
+        Assert.Equal(expected, result, 5);
+    }
 
 
-        [Fact]
-        public void Convert_InputDouble_ShouldReturnString()
-        {
-            var converter = new StringToDoubleConverter();
-            var value = 1.1;
-            var expected = "1.1";
+    [Fact]
+    public void Convert_InputDouble_ShouldReturnString()
+    {
+        var converter = new StringToDoubleConverter();
+        var value = 1.1;
+        var expected = "1.1";
 
 
-            string result = (string)converter.Convert(value, null, null, CultureInfo.CurrentCulture);
+        string result = (string)converter.Convert(value, null, null, CultureInfo.CurrentCulture);
 
-            Assert.Equal(expected, result);
-        }
+        Assert.Equal(expected, result);
+    }
 
-        [Fact]
-        public void Convert_InputNotDouble_ShouldReturnError()
-        {
-            var converter = new StringToDoubleConverter();
-            var value = "ds";
-            var expected = "0";
+    [Fact]
+    public void Convert_InputNotDouble_ShouldReturnError()
+    {
+        var converter = new StringToDoubleConverter();
+        var value = "ds";
+        var expected = "0";
 
-            var result = (string)converter.Convert(value, null, null, CultureInfo.CurrentCulture);
+        var result = (string)converter.Convert(value, null, null, CultureInfo.CurrentCulture);
             
-            Assert.Equal(expected, result);
-        }
+        Assert.Equal(expected, result);
     }
 }

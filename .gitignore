@@ -13,3 +13,7 @@
 /TSListCreator.Tests/bin/Release/net8.0
 /TSListCreator.Assets/obj
 /TSListCreator.Assets/bin
+/TsListCreator.Abstraction/obj
+/TsListCreator.Model/obj
+/TsListCreator.Presentation/obj
+/TsListCreator.Model/bin/Debug/net8.0

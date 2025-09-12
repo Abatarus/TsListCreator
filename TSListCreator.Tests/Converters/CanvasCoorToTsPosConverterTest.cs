@@ -7,115 +7,112 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TSListCreator.Controls;
-using TSListCreator.Converters;
-using TSListCreator.Services;
+using TsListCreator.Model.Converters;
 using TSListCreator.Tests.Mocks;
 
-namespace TSListCreator.Tests.Converters
+namespace TSListCreator.Tests.Converters;
+
+public class CanvasCoorToTsPosConverterTest
 {
-    public class CanvasCoorToTsPosConverterTest
+    [Fact]
+    public void ConvertBack_ValueIsZero_ShouldReturnAsInTableTop()
     {
-        [Fact]
-        public void ConvertBack_ValueIsZero_ShouldReturnAsInTableTop()
-        {
-            ConverterServiceContainer serviceContainer =
-                new ConverterServiceContainer(
-                    new SettingsServiceMock().FakedObject,
-                    new ImageDataServiceMock().FakedObject);
-            var converter = new CanvasCoorToTsPosConverter();
+        ConverterServiceContainer serviceContainer =
+            new ConverterServiceContainer(
+                new SettingsServiceMock().FakedObject,
+                new ImageDataServiceMock().FakedObject);
+        var converter = new CanvasCoorToTsPosConverter();
 
-            var value = 0.0;
-            double expected = -serviceContainer.SettingsService.BoundHeight/2;
+        var value = 0.0;
+        double expected = -serviceContainer.SettingsService.BoundHeight/2;
 
-            double result = (double)converter.ConvertBack(value, null, "Height", CultureInfo.CurrentCulture);
+        double result = (double)converter.ConvertBack(value, null, "Height", CultureInfo.CurrentCulture);
 
-            Assert.Equal(expected, result, 5);
-        }
+        Assert.Equal(expected, result, 5);
+    }
 
-        [Fact]
-        public void ConvertBack_ValueIsMax_ShouldReturnAsInTableTop()
-        {
-            ConverterServiceContainer serviceContainer =
-                new ConverterServiceContainer(
-                    new SettingsServiceMock().FakedObject,
-                    new ImageDataServiceMock().FakedObject);
-            var converter = new CanvasCoorToTsPosConverter();
+    [Fact]
+    public void ConvertBack_ValueIsMax_ShouldReturnAsInTableTop()
+    {
+        ConverterServiceContainer serviceContainer =
+            new ConverterServiceContainer(
+                new SettingsServiceMock().FakedObject,
+                new ImageDataServiceMock().FakedObject);
+        var converter = new CanvasCoorToTsPosConverter();
 
-            var value = serviceContainer.ImageDataService.GetImageHeight();
-            double expected = serviceContainer.SettingsService.BoundHeight / 2;
+        var value = serviceContainer.ImageDataService.GetImageHeight();
+        double expected = serviceContainer.SettingsService.BoundHeight / 2;
 
-            double result = (double)converter.ConvertBack(value, null, "Height", CultureInfo.CurrentCulture);
+        double result = (double)converter.ConvertBack(value, null, "Height", CultureInfo.CurrentCulture);
 
-            Assert.Equal(expected, result, 1);
-        }
+        Assert.Equal(expected, result, 1);
+    }
 
-        [Fact]
-        public void ConvertBack_ValueIsHalf_ShouldReturnAsInTableTop()
-        {
-            ConverterServiceContainer serviceContainer =
-                new ConverterServiceContainer(
-                    new SettingsServiceMock().FakedObject,
-                    new ImageDataServiceMock().FakedObject);
-            var converter = new CanvasCoorToTsPosConverter();
+    [Fact]
+    public void ConvertBack_ValueIsHalf_ShouldReturnAsInTableTop()
+    {
+        ConverterServiceContainer serviceContainer =
+            new ConverterServiceContainer(
+                new SettingsServiceMock().FakedObject,
+                new ImageDataServiceMock().FakedObject);
+        var converter = new CanvasCoorToTsPosConverter();
 
-            var value = serviceContainer.ImageDataService.GetImageHeight() / 2;
-            double expected = 0;
+        var value = serviceContainer.ImageDataService.GetImageHeight() / 2;
+        double expected = 0;
 
-            double result = (double)converter.ConvertBack(value, null, "Height", CultureInfo.CurrentCulture);
+        double result = (double)converter.ConvertBack(value, null, "Height", CultureInfo.CurrentCulture);
 
-            Assert.Equal(expected, result, 1);
-        }
+        Assert.Equal(expected, result, 1);
+    }
 
-        [Fact]
-        public void Convert_ValueIsZero_ShouldReturnAsInTableTop()
-        {
-            ConverterServiceContainer serviceContainer =
-                new ConverterServiceContainer(
-                    new SettingsServiceMock().FakedObject,
-                    new ImageDataServiceMock().FakedObject);
-            var converter = new CanvasCoorToTsPosConverter();
+    [Fact]
+    public void Convert_ValueIsZero_ShouldReturnAsInTableTop()
+    {
+        ConverterServiceContainer serviceContainer =
+            new ConverterServiceContainer(
+                new SettingsServiceMock().FakedObject,
+                new ImageDataServiceMock().FakedObject);
+        var converter = new CanvasCoorToTsPosConverter();
 
-            double value = 0;
-            double expected = serviceContainer.ImageDataService.GetImageHeight() / 2;
+        double value = 0;
+        double expected = serviceContainer.ImageDataService.GetImageHeight() / 2;
 
-            double result = (double)converter.Convert(value, null, "Height", CultureInfo.CurrentCulture);
+        double result = (double)converter.Convert(value, null, "Height", CultureInfo.CurrentCulture);
 
-            Assert.Equal(expected, result, 5);
-        }
+        Assert.Equal(expected, result, 5);
+    }
 
-        [Fact]
-        public void Convert_ValueIsMax_ShouldReturnAsInTableTop()
-        {
-            ConverterServiceContainer serviceContainer =
-                new ConverterServiceContainer(
-                    new SettingsServiceMock().FakedObject,
-                    new ImageDataServiceMock().FakedObject);
-            var converter = new CanvasCoorToTsPosConverter();
+    [Fact]
+    public void Convert_ValueIsMax_ShouldReturnAsInTableTop()
+    {
+        ConverterServiceContainer serviceContainer =
+            new ConverterServiceContainer(
+                new SettingsServiceMock().FakedObject,
+                new ImageDataServiceMock().FakedObject);
+        var converter = new CanvasCoorToTsPosConverter();
 
-            double value = serviceContainer.SettingsService.BoundHeight / 2;
-            double expected = serviceContainer.ImageDataService.GetImageHeight();
+        double value = serviceContainer.SettingsService.BoundHeight / 2;
+        double expected = serviceContainer.ImageDataService.GetImageHeight();
 
-            var result = (double)converter.Convert(value, null, "Height", CultureInfo.CurrentCulture);
+        var result = (double)converter.Convert(value, null, "Height", CultureInfo.CurrentCulture);
 
-            Assert.Equal(expected, result, 5);
-        }
+        Assert.Equal(expected, result, 5);
+    }
 
-        [Fact]
-        public void Convert_ValueIsMin_ShouldReturnAsInTableTop()
-        {
-            ConverterServiceContainer serviceContainer =
-                new ConverterServiceContainer(
-                    new SettingsServiceMock().FakedObject,
-                    new ImageDataServiceMock().FakedObject);
-            var converter = new CanvasCoorToTsPosConverter();
+    [Fact]
+    public void Convert_ValueIsMin_ShouldReturnAsInTableTop()
+    {
+        ConverterServiceContainer serviceContainer =
+            new ConverterServiceContainer(
+                new SettingsServiceMock().FakedObject,
+                new ImageDataServiceMock().FakedObject);
+        var converter = new CanvasCoorToTsPosConverter();
 
-            double value = -serviceContainer.SettingsService.BoundHeight / 2;
-            double expected = 0;
+        double value = -serviceContainer.SettingsService.BoundHeight / 2;
+        double expected = 0;
 
-            double result = (double)converter.Convert(value, null, "Height", CultureInfo.CurrentCulture);
+        double result = (double)converter.Convert(value, null, "Height", CultureInfo.CurrentCulture);
 
-            Assert.Equal(expected, result, 5);
-        }
+        Assert.Equal(expected, result, 5);
     }
 }

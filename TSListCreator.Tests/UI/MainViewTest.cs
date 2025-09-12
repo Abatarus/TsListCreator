@@ -9,38 +9,18 @@ using Avalonia.Headless.XUnit;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using FakeItEasy;
-using TSListCreator.Interfaces;
-using TSListCreator.Services;
+using TsListCreator.Model.ViewModels;
 using TSListCreator.Tests.Mocks;
-using TSListCreator.ViewModels;
 using TSListCreator.Views;
 
-namespace TSListCreator.Tests.UI
+namespace TSListCreator.Tests.UI;
+
+public class MainViewTest
 {
-    public class MainViewTest
+    [AvaloniaFact]
+    public void MainWindow_Open()
     {
-        [AvaloniaFact]
-        public void MainWindow_Open()
-        {
-            var record = Record.Exception(() =>
-            {
-                var window = new Window();
-                var view = new MainView();
-                window.Content = view;
-                var viewModel = new MainViewModel(A.Fake<IEditorDataService>(),
-                    new SaveLoadServiceMock().FakedObject,
-                    new ImageDataServiceMock().FakedObject,
-                    new SettingsServiceMock().FakedObject);
-                view.DataContext = viewModel;
-
-                window.Show();
-                Dispatcher.UIThread.RunJobs();
-            });
-            Assert.Null(record);
-        }
-
-        [AvaloniaFact]
-        public void MainWindow_ImageNotLoaded_ShouldAllButtonsDisabled()
+        var record = Record.Exception(() =>
         {
             var window = new Window();
             var view = new MainView();
@@ -49,42 +29,59 @@ namespace TSListCreator.Tests.UI
                 new SaveLoadServiceMock().FakedObject,
                 new ImageDataServiceMock().FakedObject,
                 new SettingsServiceMock().FakedObject);
-            window.DataContext = viewModel;
+            view.DataContext = viewModel;
 
             window.Show();
             Dispatcher.UIThread.RunJobs();
+        });
+        Assert.Null(record);
+    }
 
-            var loadDataButton = view.Get<Button>("LoadDataButton");
-            var saveButton = view.Get<Button>("SaveButton");
-            var copyClipboard = view.Get<Button>("CopyClipboard");
+    [AvaloniaFact]
+    public void MainWindow_ImageNotLoaded_ShouldAllButtonsDisabled()
+    {
+        var window = new Window();
+        var view = new MainView();
+        window.Content = view;
+        var viewModel = new MainViewModel(A.Fake<IEditorDataService>(),
+            new SaveLoadServiceMock().FakedObject,
+            new ImageDataServiceMock().FakedObject,
+            new SettingsServiceMock().FakedObject);
+        window.DataContext = viewModel;
 
-            Assert.False(loadDataButton.IsEnabled || saveButton.IsEnabled || copyClipboard.IsEnabled);
-        }
+        window.Show();
+        Dispatcher.UIThread.RunJobs();
 
-        [AvaloniaFact]
-        public void MainWindow_ImageLoaded_ShouldAllButtonsDisabled()
-        {
-            var window = new Window();
-            var view = new MainView();
-            window.Content = view;
-            ITopLevelService topLevelService = new FilePickerServiceMock().FakedObject;
+        var loadDataButton = view.Get<Button>("LoadDataButton");
+        var saveButton = view.Get<Button>("SaveButton");
+        var copyClipboard = view.Get<Button>("CopyClipboard");
 
-            var viewModel = new MainViewModel(A.Fake<IEditorDataService>(),
-                new SaveLoadServiceMock().FakedObject,
-                new ImageDataServiceMock().FakedObject,
-                new SettingsServiceMock().FakedObject);
-            window.DataContext = viewModel;
+        Assert.False(loadDataButton.IsEnabled || saveButton.IsEnabled || copyClipboard.IsEnabled);
+    }
 
-            window.Show();
-            Dispatcher.UIThread.RunJobs();
-            var loadImageButton = view.Get<Button>("LoadImageButton");
-            loadImageButton!.Command!.Execute(null);
+    [AvaloniaFact]
+    public void MainWindow_ImageLoaded_ShouldAllButtonsDisabled()
+    {
+        var window = new Window();
+        var view = new MainView();
+        window.Content = view;
+        ITopLevelService topLevelService = new FilePickerServiceMock().FakedObject;
 
-            var loadDataButton = view.Get<Button>("LoadDataButton");
-            var saveButton = view.Get<Button>("SaveButton");
-            var copyClipboard = view.Get<Button>("CopyClipboard");
+        var viewModel = new MainViewModel(A.Fake<IEditorDataService>(),
+            new SaveLoadServiceMock().FakedObject,
+            new ImageDataServiceMock().FakedObject,
+            new SettingsServiceMock().FakedObject);
+        window.DataContext = viewModel;
 
-            Assert.True(loadDataButton.IsEnabled && saveButton.IsEnabled && copyClipboard.IsEnabled);
-        }
+        window.Show();
+        Dispatcher.UIThread.RunJobs();
+        var loadImageButton = view.Get<Button>("LoadImageButton");
+        loadImageButton!.Command!.Execute(null);
+
+        var loadDataButton = view.Get<Button>("LoadDataButton");
+        var saveButton = view.Get<Button>("SaveButton");
+        var copyClipboard = view.Get<Button>("CopyClipboard");
+
+        Assert.True(loadDataButton.IsEnabled && saveButton.IsEnabled && copyClipboard.IsEnabled);
     }
 }

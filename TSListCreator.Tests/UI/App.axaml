@@ -1,6 +1,6 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="TSListCreator.Tests.App">
+             x:Class="TSListCreator.Tests.UI.App">
     <Application.Styles>
         <FluentTheme />
     </Application.Styles>

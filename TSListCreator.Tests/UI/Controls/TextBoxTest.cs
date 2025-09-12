@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TSListCreator.Tests.UI.Controls
-{
-    public class TextBoxTest
-    {
+namespace TSListCreator.Tests.UI.Controls;
 
-    }
+public class TextBoxTest
+{
+
 }

@@ -1,0 +1,40 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:DesignHeight="450"
+             x:Class="TsListCreator.Presentation.Views.DemoImageView">
+    <Grid>
+        <Image x:Name="ShowedImage"
+               HorizontalAlignment="Center"
+               Stretch="Uniform"/>
+        <Rectangle
+            IsHitTestVisible="False"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Margin="8"
+            Stroke="Blue"
+            StrokeThickness="2"
+            StrokeDashArray="6,3"/>
+        <!--<Grid.Styles>
+            <Style Selector="#DashRect">
+                <Style.Animations>
+                    <Animation Duration="0:0:1.2"
+                               IterationCount="Forever">
+                        <KeyFrame Cue="0%">
+                            <Setter Property="StrokeDashOffset"
+                                    Value="0"/>
+                        </KeyFrame>
+                        <KeyFrame Cue="100%">
+                            <Setter Property="StrokeDashOffset"
+                                    Value="9"/>
+                        </KeyFrame>
+                    </Animation>
+                </Style.Animations>
+            </Style>
+        </Grid.Styles>-->
+    </Grid>
+
+</UserControl>

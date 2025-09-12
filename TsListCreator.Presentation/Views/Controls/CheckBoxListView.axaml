@@ -1,0 +1,60 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:TsListCreator.Shared.ViewModels.Controls;assembly=TsListCreator.Shared"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:DesignHeight="450"
+             x:DataType="controls:ICheckBoxViewModel"
+             IsPointerOver="{Binding IsHighlighted, Mode=OneWayToSource}"
+             x:Class="TsListCreator.Presentation.Views.Controls.CheckBoxListView">
+    <Border BorderThickness="1"
+            Background="Transparent"
+            Padding="5"
+            BorderBrush="Blue"
+            CornerRadius="5">
+        <Interaction.Behaviors>
+            <DataTriggerBehavior Binding="{Binding IsHighlighted}"
+                                 ComparisonCondition="Equal"
+                                 Value="True">
+                <ChangePropertyAction PropertyName="BorderBrush"
+                                      Value="Green"/>
+            </DataTriggerBehavior>
+            <DataTriggerBehavior Binding="{Binding IsHighlighted}"
+                                 ComparisonCondition="Equal"
+                                 Value="False">
+                <ChangePropertyAction PropertyName="BorderBrush"
+                                      Value="Blue"/>
+            </DataTriggerBehavior>
+        </Interaction.Behaviors>
+        <Grid ColumnDefinitions="*,*,*,*"
+              RowDefinitions="Auto,*,*">
+            <Label Grid.Column="0"
+                   Grid.Row="0"
+                   Content="Название:"/>
+            <TextBox Grid.Column="1"
+                     Grid.Row="0"
+                     Grid.ColumnSpan="2"
+                     VerticalAlignment="Top"
+                     Text="{Binding Name}"/>
+            <Button Grid.Column="3"
+                    Grid.Row="0"
+                    HorizontalAlignment="Right"
+                    Command="{Binding Delete}">
+                <PathIcon Foreground="Black"
+                          Data="{DynamicResource Cross}"/>
+            </Button>
+
+            <Label Grid.Column="0"
+                   Grid.Row="1"
+                   Grid.ColumnSpan="2"
+                   Content="Значение:"/>
+            <CheckBox Grid.Column="2"
+                      Grid.Row="1"
+                      Grid.ColumnSpan="2"
+                      VerticalAlignment="Top"
+                      IsChecked="{Binding State}"/>
+        </Grid>
+    </Border>
+</UserControl>

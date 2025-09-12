@@ -23,5 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TSListCreator.Assets\TSListCreator.Assets.csproj" />
+    <ProjectReference Include="..\TsListCreator.Model\TsListCreator.Model.csproj" />
+    <ProjectReference Include="..\TsListCreator.Presentation\TsListCreator.Presentation.csproj" />
   </ItemGroup>
 </Project>
