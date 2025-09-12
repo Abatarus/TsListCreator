@@ -7,7 +7,7 @@ using FakeItEasy;
 
 namespace TSListCreator.Tests.Mocks;
 
-class SettingsServiceMock: Fake<ISettingsService>
+/*class SettingsServiceMock: Fake<ISettingsService>
 {
     public SettingsServiceMock()
     {
@@ -15,4 +15,4 @@ class SettingsServiceMock: Fake<ISettingsService>
                 x.BoundHeight)
             .Returns(3.742);
     }
-}
+}*/

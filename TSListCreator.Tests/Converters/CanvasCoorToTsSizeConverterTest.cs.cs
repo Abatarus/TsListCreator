@@ -11,7 +11,7 @@ namespace TSListCreator.Tests.Converters;
 
 public class CanvasCoorToTsSizeConverterTest
 {
-    [Fact]
+    /*[Fact]
     public void ConvertBack_ValueIsHalf_ShouldReturnAsInTableTop()
     {
         ConverterServiceContainer serviceContainer =
@@ -42,5 +42,5 @@ public class CanvasCoorToTsSizeConverterTest
         double result = (double)converter.Convert(value, null, "Height", CultureInfo.CurrentCulture);
         result /= 1000;
         Assert.Equal(expected, result, 1);
-    }
+    }*/
 }

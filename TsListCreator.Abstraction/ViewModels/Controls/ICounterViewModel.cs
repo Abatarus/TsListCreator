@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace TsListCreator.Shared.ViewModels.Controls
 {
-    public interface ICounterViewModel
+    public interface ICounterViewModel : IControlViewModel
     {
+        public int Value { get; set; }
+        public bool HideBg { get; set; }
     }
 }

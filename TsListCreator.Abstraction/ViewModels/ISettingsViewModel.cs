@@ -8,4 +8,9 @@ namespace TsListCreator.Shared.ViewModels;
 
 public interface ISettingsViewModel
 {
+    public double BoundWidth { get; set; }
+    public double BoundHeight { get; set; }
+    public uint Background { get; set; }
+
+    public uint FontColor { get; set; }
 }

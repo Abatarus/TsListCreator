@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TsListCreator.Model.Controls;
 using TsListCreator.Presentation.Converters;
+using TsListCreator.Shared.Enums;
 using Xunit.Sdk;
 
 namespace TSListCreator.Tests.Converters;

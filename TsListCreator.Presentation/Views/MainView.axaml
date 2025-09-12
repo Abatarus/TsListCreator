@@ -2,15 +2,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:v="using:TSListCreator.Views"
-             xmlns:vm="using:TSListCreator.ViewModels"
-             xmlns:controls="clr-namespace:TSListCreator.Controls"
              xmlns:views="clr-namespace:TsListCreator.Presentation.Views"
-             xmlns:controls1="clr-namespace:TsListCreator.Presentation.Views.Controls"
+             xmlns:controls="clr-namespace:TsListCreator.Presentation.Views.Controls"
              xmlns:templateSelector="clr-namespace:TsListCreator.Presentation.TemplateSelector"
+             xmlns:viewModels="clr-namespace:TsListCreator.Shared.ViewModels;assembly=TsListCreator.Shared"
              d:DesignHeight="450"
              d:DesignWidth="800"
-             x:DataType="vm:MainViewModel"
+             x:DataType="viewModels:IMainViewModel"
              x:Name="Main"
              mc:Ignorable="d"
              x:Class="TsListCreator.Presentation.Views.MainView">
@@ -90,7 +88,7 @@
                             <ItemsControl ItemsSource="{Binding TextBoxes, Mode=TwoWay}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <controls1:TextBoxListView/>
+                                        <controls:TextBoxListView/>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
@@ -108,7 +106,7 @@
                             <ItemsControl ItemsSource="{Binding Counters, Mode=TwoWay}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <controls1:CounterListView/>
+                                        <controls:CounterListView/>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
@@ -126,7 +124,7 @@
                             <ItemsControl ItemsSource="{Binding CheckBoxes, Mode=TwoWay}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <controls1:CheckBoxListView/>
+                                        <controls:CheckBoxListView/>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>

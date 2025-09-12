@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace TSListCreator.Tests.Mocks;
 
-class ImageDataServiceMock : Fake<IImageDataService>
+/*class ImageDataServiceMock : Fake<IImageDataService>
 {
     public ImageDataServiceMock()
     {
@@ -15,4 +15,4 @@ class ImageDataServiceMock : Fake<IImageDataService>
                 x.GetImageHeight())
             .Returns(1000);
     }
-}
+}*/

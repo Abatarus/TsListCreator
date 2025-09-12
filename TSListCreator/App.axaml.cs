@@ -2,8 +2,10 @@ using System.Globalization;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using TsListCreator.Model.Interfaces;
 using TsListCreator.Model.Services;
 using TsListCreator.Model.ViewModels;
+using TsListCreator.Presentation.Services;
 
 namespace TSListCreator;
 

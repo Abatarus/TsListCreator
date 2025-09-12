@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using FakeItEasy;
+using TsListCreator.Shared.Services;
 
 namespace TSListCreator.Tests.Mocks;
 
