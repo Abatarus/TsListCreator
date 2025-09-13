@@ -1,33 +1,39 @@
 using System.Text;
 using System.Text.Json.Nodes;
 using TsListCreator.Model.Interfaces;
+using TsListCreator.Model.Models;
 
-namespace TsListCreator.Model.Controls;
-public class TsCounter(ISettingsService settingsService, IEditorDataService editorDataService)
-    : TsControl(settingsService, editorDataService)
+namespace TsListCreator.Model.ViewModels.Controls;
+public class CounterViewModel(TsCounter control, ISettingsService settingsService, IEditorDataService editorDataService)
+    : ControlViewModel(control, settingsService, editorDataService)
 {
     public double Size
     {
-        get => Width;
+        get => control.Width;
         set
         {
-            Height = value;
-            Width = value;
+            control.Height = value;
+            control.Width = value;
         }
     }
 
-    private int _value = 0;
     public int Value
     {
-        get => _value;
-        set => SetField(ref _value, value);
+        get => control.Value;
+        set
+        {
+            control.Value = value;
+            OnPropertyChanged();
+        }
     }
-
-    private bool _hideBg = false;
     public bool HideBg
     {
-        get => _hideBg;
-        set => SetField(ref _hideBg, value);
+        get => control.HideBg;
+        set
+        {
+            control.HideBg = value;
+            OnPropertyChanged();
+        }
     }
     public override JsonObject GetJsonObject()
     {
@@ -36,7 +42,7 @@ public class TsCounter(ISettingsService settingsService, IEditorDataService edit
             ["name"] = Name,
             ["pos"] = new JsonArray(PosX, 0.1, PosY),
             ["size"] = (int)Size,
-            ["value"] = (int)Value,
+            ["value"] = Value,
             ["hideBG"] = HideBg,
         };
         return result;

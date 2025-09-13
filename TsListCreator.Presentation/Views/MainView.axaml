@@ -6,6 +6,7 @@
              xmlns:controls="clr-namespace:TsListCreator.Presentation.Views.Controls"
              xmlns:templateSelector="clr-namespace:TsListCreator.Presentation.TemplateSelector"
              xmlns:viewModels="clr-namespace:TsListCreator.Shared.ViewModels;assembly=TsListCreator.Shared"
+             xmlns:services="clr-namespace:TsListCreator.Shared.Services;assembly=TsListCreator.Shared"
              d:DesignHeight="450"
              d:DesignWidth="800"
              x:DataType="viewModels:IMainViewModel"
@@ -42,7 +43,7 @@
                       ItemsSource="{Binding SharedCollection, Mode=TwoWay}">
             <ItemsControl.Styles>
                 <Style Selector="ContentPresenter"
-                       x:DataType="controls:TsControl">
+                       x:DataType="services:ICanvasDrawable">
                     <Setter Property="Canvas.Left"
                             Value="{Binding CanvasPosX}"/>
                     <Setter Property="Canvas.Top"
@@ -62,13 +63,13 @@
             <ItemsControl.ItemTemplate>
                 <templateSelector:CanvasTemplateSelector>
                     <DataTemplate x:Key="TsTextBox">
-                        <controls1:TextBoxCanvasView/>
+                        <controls:TextBoxCanvasView/>
                     </DataTemplate>
                     <DataTemplate x:Key="TsCounter">
-                        <controls1:CounterCanvasView/>
+                        <controls:CounterCanvasView/>
                     </DataTemplate>
                     <DataTemplate x:Key="TsCheckBox">
-                        <controls1:CheckBoxCanvasView/>
+                        <controls:CheckBoxCanvasView/>
                     </DataTemplate>
                 </templateSelector:CanvasTemplateSelector>
             </ItemsControl.ItemTemplate>
@@ -146,20 +147,17 @@
                     Grid.Row="2"
                     HorizontalAlignment="Stretch"
                     Content="Загрузить"
-                    Command="{Binding Load}"
-                    IsEnabled="{Binding CanInteract}" />
+                    Command="{Binding Load}" />
             <Button x:Name="SaveButton"
                     Grid.Row="3"
                     HorizontalAlignment="Stretch"
                     Content="Сохранить"
-                    Command="{Binding Save}"
-                    IsEnabled="{Binding CanInteract}" />
+                    Command="{Binding Save}" />
             <Button x:Name="CopyClipboard"
                     Grid.Row="4"
                     HorizontalAlignment="Stretch"
                     Content="Копировать в буфер обмена"
-                    Command="{Binding CopyToClipBoard}"
-                    IsEnabled="{Binding CanInteract}" />
+                    Command="{Binding CopyToClipBoard}" />
         </Grid>
     </Grid>
 </UserControl>

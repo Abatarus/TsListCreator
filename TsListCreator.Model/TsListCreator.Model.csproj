@@ -10,8 +10,4 @@
     <ProjectReference Include="..\TsListCreator.Abstraction\TsListCreator.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ViewModels\Controls\" />
-  </ItemGroup>
-
 </Project>

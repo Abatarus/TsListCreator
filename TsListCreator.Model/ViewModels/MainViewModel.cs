@@ -1,7 +1,7 @@
 using System.Collections.ObjectModel;
-using TsListCreator.Model.Controls;
 using TsListCreator.Model.Interfaces;
 using TsListCreator.Model.Utils;
+using TsListCreator.Model.ViewModels.Controls;
 using TsListCreator.Shared.Services;
 
 namespace TsListCreator.Model.ViewModels;
@@ -23,6 +23,7 @@ public class MainViewModel
         _saveLoadService = saveLoadService;
         _settingsService = settingsService;
         _editorDataService = editorDataService;
+        _dispatcher = dispatcher;
 
         Settings = new SettingsViewModel(_settingsService);
         ModeChoice = new ModeChoiceViewModel(_editorDataService);
@@ -62,28 +63,28 @@ public class MainViewModel
     public bool CanAdd => CanInteract && Settings.BoundHeight > 0 && Settings.BoundWidth > 0;
 
 
-    private ObservableCollection<TsControl> _sharedCollection = new(new List<TsControl>());
-    public ObservableCollection<TsControl> SharedCollection
+    private ObservableCollection<ControlViewModel> _sharedCollection = new(new List<ControlViewModel>());
+    public ObservableCollection<ControlViewModel> SharedCollection
     {
         get => _sharedCollection;
         set => SetField(ref _sharedCollection, value);
     }
 
-    private ObservableCollection<TsTextBox> _textBoxes = new(new List<TsTextBox>());
-    public ObservableCollection<TsTextBox> TextBoxes
+    private ObservableCollection<TextBoxViewModel> _textBoxes = new(new List<TextBoxViewModel>());
+    public ObservableCollection<TextBoxViewModel> TextBoxes
     {
         get => _textBoxes;
         set => SetField(ref _textBoxes, value);
     }
-    private ObservableCollection<TsCounter> _counters = new(new List<TsCounter>());
-    public ObservableCollection<TsCounter> Counters
+    private ObservableCollection<CounterViewModel> _counters = new(new List<CounterViewModel>());
+    public ObservableCollection<CounterViewModel> Counters
     {
         get => _counters;
         set => SetField(ref _counters, value);
     }
 
-    private ObservableCollection<TsCheckBox> _checkBoxes = new(new List<TsCheckBox>());
-    public ObservableCollection<TsCheckBox> CheckBoxes
+    private ObservableCollection<CheckboxViewModel> _checkBoxes = new(new List<CheckboxViewModel>());
+    public ObservableCollection<CheckboxViewModel> CheckBoxes
     {
         get => _checkBoxes;
         set => SetField(ref _checkBoxes, value);
@@ -128,19 +129,20 @@ public class MainViewModel
     }
     public void AddNewTextBox()
     {
-        TextBoxes.Add(new TsTextBox(_settingsService, _editorDataService) { Name = $"TextBox{TextBoxes.Count}" });
+        
+        TextBoxes.Add(new TextBoxViewModel(_settingsService, _editorDataService) { Name = $"TextBox{TextBoxes.Count}" });
         SharedCollection.Add(TextBoxes.Last());
         TextBoxes.Last().SetRemove(RemoveMe);
     }
     public void AddNewCheckBox()
     {
-        CheckBoxes.Add(new TsCheckBox(_settingsService, _editorDataService) { Name = $"TsCheckbox{CheckBoxes.Count}" });
+        CheckBoxes.Add(new CheckboxViewModel(_settingsService, _editorDataService) { Name = $"TsCheckbox{CheckBoxes.Count}" });
         SharedCollection.Add(CheckBoxes.Last());
         CheckBoxes.Last().SetRemove(RemoveMe);
     }
     public void AddNewCounter()
     {
-        Counters.Add(new TsCounter(_settingsService, _editorDataService) { Name = $"Counter{Counters.Count}" });
+        Counters.Add(new CounterViewModel(_settingsService, _editorDataService) { Name = $"Counter{Counters.Count}" });
         SharedCollection.Add(Counters.Last());
         Counters.Last().SetRemove(RemoveMe);
     }
@@ -194,9 +196,9 @@ public class MainViewModel
     }
     private void RemoveMe(object child)
     {
-        SharedCollection.Remove((TsControl)child);
-        if (child is TsTextBox tb) TextBoxes.Remove(tb);
-        else if (child is TsCounter c) Counters.Remove(c);
-        else if (child is TsCheckBox cb) CheckBoxes.Remove(cb);
+        SharedCollection.Remove((ControlViewModel)child);
+        if (child is TextBoxViewModel tb) TextBoxes.Remove(tb);
+        else if (child is CounterViewModel c) Counters.Remove(c);
+        else if (child is CheckboxViewModel cb) CheckBoxes.Remove(cb);
     }
 }

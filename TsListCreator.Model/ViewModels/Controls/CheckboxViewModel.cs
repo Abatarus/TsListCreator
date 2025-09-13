@@ -1,11 +1,13 @@
-﻿using System.Text;
+﻿using System.Drawing;
+using System.Text;
 using System.Text.Json.Nodes;
 using TsListCreator.Model.Interfaces;
+using TsListCreator.Model.Models;
 
-namespace TsListCreator.Model.Controls;
+namespace TsListCreator.Model.ViewModels.Controls;
 
-public class TsCheckBox(ISettingsService settingsService, IEditorDataService editorDataService) 
-    : TsControl(settingsService, editorDataService)
+public class CheckboxViewModel(TsCheckBox control, ISettingsService settingsService, IEditorDataService editorDataService) 
+    : ControlViewModel(control, settingsService, editorDataService)
 {
     public double Size
     {

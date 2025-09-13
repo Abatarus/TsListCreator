@@ -6,7 +6,7 @@ public class CanvasCoorToTsPosConverter(ISettingsService settingsService, IEdito
 {
     private readonly IEditorDataService _editorDataService = imageDataService;
     private readonly ISettingsService _settingsService = settingsService;
-    public object? Convert(object? value, object? parameter)
+    public double Convert(object? value, object? parameter)
     {
         if (value is not double doubleValue)
         {
@@ -35,7 +35,7 @@ public class CanvasCoorToTsPosConverter(ISettingsService settingsService, IEdito
         return result;
     }
     //to TsCoor
-    public object? ConvertBack(object? value, object? parameter)
+    public double ConvertBack(object? value, object? parameter)
     {
         if (value is not double doubleValue)
         {

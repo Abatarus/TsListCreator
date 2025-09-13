@@ -1,14 +1,18 @@
+using System.ComponentModel.Design;
 using System.Globalization;
 using System.Text.Json.Nodes;
+using System.Windows.Input;
 using TsListCreator.Model.Converters;
 using TsListCreator.Model.Interfaces;
+using TsListCreator.Model.Models;
 using TsListCreator.Model.Utils;
 using TsListCreator.Shared.Enums;
 using TsListCreator.Shared.Services;
+using TsListCreator.Shared.ViewModels.Controls;
 
-namespace TsListCreator.Model.Controls;
-public abstract class TsControl(ISettingsService settingsService, IEditorDataService editorDataService)
-   : DataModel, ICanvasDrawable, IJsonInput, ILuaInput, IRedraw
+namespace TsListCreator.Model.ViewModels.Controls;
+public abstract class ControlViewModel(TsControl control, ISettingsService settingsService, IEditorDataService editorDataService)
+   : DataModel, IControlViewModel, ICanvasDrawable, IRedraw
 {
     protected readonly IEditorDataService _editorDataService = editorDataService;
     protected readonly CanvasCoorToTsPosConverter _posConverter = new (settingsService, editorDataService);
@@ -16,8 +20,12 @@ public abstract class TsControl(ISettingsService settingsService, IEditorDataSer
     private string _name = "";
     public string Name
     {
-        get => _name;
-        set => SetField(ref _name, value);
+        get => control.Name;
+        set
+        {
+            control.Name = value;
+            OnPropertyChanged();
+        }
     }
 
     protected double _posX = 0.0;
@@ -28,20 +36,21 @@ public abstract class TsControl(ISettingsService settingsService, IEditorDataSer
     }
     public double CanvasPosX
     {
-        get => (double)_posConverter.Convert(_posX, "Width");
-        set => SetField(ref _posX, (double)_posConverter.ConvertBack(value, "Width"));
-    }
-
-    protected double _posY = 0.0;
-    public double PosY
-    {
-        get => _posY;
-        set => SetField(ref _posY, value);
+        get => _posConverter.Convert(control.PosX, "Width");
+        set
+        {
+            control.PosX = _posConverter.ConvertBack(value, "Width");
+            OnPropertyChanged();
+        }
     }
     public double CanvasPosY
     {
-        get => (double)_posConverter.Convert(_posY, "Height");
-        set => SetField(ref _posY, (double)_posConverter.ConvertBack(value, "Height"));
+        get => _posConverter.Convert(control.PosY, "Height");
+        set
+        {
+            control.PosY = _posConverter.ConvertBack(value, "Height");
+            OnPropertyChanged();
+        }
     }
 
     private double _width = 300;
@@ -97,18 +106,21 @@ public abstract class TsControl(ISettingsService settingsService, IEditorDataSer
         set => SetField(ref _isHighlighted, value);
     }
 
-    public void Delete()
+    public ICommand Delete
     {
-        _removeMe(this);
+        get => _delete;
+        set => _delete = value;
     }
+
     public abstract JsonObject GetJsonObject();
     public abstract string GetLuaString();
 
-    private Action<TsControl> _removeMe;
+    private Action<ControlViewModel> _removeMe;
+    private ICommand _delete;
 
-    public void SetRemove(Action<TsControl> removeMe)
+    public void SetRemove(Action<ControlViewModel> removeMe)
     {
-        _removeMe = removeMe; ;
+        Delete = new Command<ControlViewModel>(removeMe);
     }
 
     public void Redraw()

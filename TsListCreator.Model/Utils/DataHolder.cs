@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
-using TsListCreator.Model.Controls;
+using TsListCreator.Model.Models;
 using TsListCreator.Model.Services;
+using TsListCreator.Model.ViewModels.Controls;
 
 namespace TsListCreator.Model.Utils;
 
@@ -13,20 +14,20 @@ public class DataHolder: DataModel
         get => _settings;
         set => SetField(ref _settings, value);
     }
-    private ObservableCollection<TsTextBox> _textBoxes = new ObservableCollection<TsTextBox>(new List<TsTextBox>());
-    public ObservableCollection<TsTextBox> TextBoxes
+    private List<TextBoxViewModel> _textBoxes = new List<TextBoxViewModel>();
+    public List<TextBoxViewModel> TextBoxes
     {
         get => _textBoxes;
         set => SetField(ref _textBoxes, value);
     }
-    private ObservableCollection<TsCounter> _counters = new ObservableCollection<TsCounter>(new List<TsCounter>());
-    public ObservableCollection<TsCounter> Counters
+    private List<CounterViewModel> _counters = new List<CounterViewModel>();
+    public List<CounterViewModel> Counters
     {
         get => _counters;
         set => SetField(ref _counters, value);
     }
-    private ObservableCollection<TsCheckBox> _checkBoxes = new ObservableCollection<TsCheckBox>(new List<TsCheckBox>());
-    public ObservableCollection<TsCheckBox> CheckBoxes
+    private List<CheckboxViewModel> _checkBoxes = new List<CheckboxViewModel>();
+    public List<CheckboxViewModel> CheckBoxes
     {
         get => _checkBoxes;
         set => SetField(ref _checkBoxes, value);
