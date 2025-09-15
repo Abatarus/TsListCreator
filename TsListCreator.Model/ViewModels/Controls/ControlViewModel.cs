@@ -112,9 +112,6 @@ public abstract class ControlViewModel(TsControl control, ISettingsService setti
         set => _delete = value;
     }
 
-    public abstract JsonObject GetJsonObject();
-    public abstract string GetLuaString();
-
     private Action<ControlViewModel> _removeMe;
     private ICommand _delete;
 

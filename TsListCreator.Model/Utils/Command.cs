@@ -9,7 +9,7 @@ namespace TsListCreator.Model.Utils
 {
     internal class Command<T> : ICommand
     {
-        private readonly Action<T> _execute;
+        private readonly Action<T?> _execute;
         private readonly Func<bool>? _canExecute;
 
         public Command(Action<T> execute, Func<bool>? canExecute = null)
@@ -25,7 +25,7 @@ namespace TsListCreator.Model.Utils
 
         public void Execute(object? parameter)
         {
-            _execute.Invoke();
+            _execute.Invoke((T)parameter!);
         }
 
         public event EventHandler? CanExecuteChanged;

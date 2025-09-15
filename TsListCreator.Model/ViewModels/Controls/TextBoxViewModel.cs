@@ -5,11 +5,12 @@ using System.Text.Json.Nodes;
 using TsListCreator.Model.Interfaces;
 using TsListCreator.Model.Models;
 using TsListCreator.Shared.Enums;
+using TsListCreator.Shared.ViewModels.Controls;
 
 namespace TsListCreator.Model.ViewModels.Controls;
 
 public class TextBoxViewModel(TsTextBox control, ISettingsService settingsService, IEditorDataService editorDataService)
-    : ControlViewModel(control, settingsService, editorDataService)
+    : ControlViewModel(control, settingsService, editorDataService), ITextBoxViewModel
 {
     private AlignmentId _alignment = AlignmentId.Left;
     public AlignmentId Alignment
