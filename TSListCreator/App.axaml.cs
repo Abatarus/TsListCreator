@@ -2,6 +2,7 @@ using System.Globalization;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using CommunityToolkit.Mvvm.Messaging;
 using TSListCreator.Interfaces;
 using TSListCreator.Services;
 using TSListCreator.ViewModels;
@@ -26,6 +27,7 @@ namespace TSListCreator
                 IImageDataService imageDataService = new ImageDataService();
                 ISettingsService settingsService = new SettingsService();
                 IEditorStateService editorStateService = new EditorStateServiceService();
+                WeakReferenceMessenger.Default.
                 TopLevelService topLevelService = new TopLevelService(desktop.MainWindow);
                 SaveLoadService saveLoadService = new SaveLoadService(topLevelService);
                 desktop.MainWindow.DataContext = new MainViewModel(

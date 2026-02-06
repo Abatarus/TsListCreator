@@ -17,11 +17,24 @@
     <PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.4" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.3.0" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="Xaml.Behaviors.Interactions" Version="11.3.2" />
   </ItemGroup>
 
 
   <ItemGroup>
     <ProjectReference Include="..\TSListCreator.Assets\TSListCreator.Assets.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Messages\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Compile Update="Views\ExplorerView.axaml.cs">
+      <DependentUpon>ExplorerView.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>
